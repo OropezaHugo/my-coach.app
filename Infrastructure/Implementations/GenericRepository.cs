@@ -12,7 +12,7 @@ public class GenericRepository<T>(CoachAppContext context): IGenericRepository<T
         return await context.Set<T>().FindAsync(id);
     }
 
-    public async Task<IReadOnlyList<T>> ListAllAsync()
+    public async Task<IEnumerable<T>> ListAllAsync()
     {
         return await context.Set<T>().ToListAsync();
     }
@@ -22,7 +22,7 @@ public class GenericRepository<T>(CoachAppContext context): IGenericRepository<T
         return await ApplySpecification(spec).FirstOrDefaultAsync();
     }
 
-    public async Task<IReadOnlyList<T>> ListAllAsync(ISpecification<T> spec)
+    public async Task<IEnumerable<T>> ListAllAsync(ISpecification<T> spec)
     {
         return await ApplySpecification(spec).ToListAsync();
     }
@@ -32,7 +32,7 @@ public class GenericRepository<T>(CoachAppContext context): IGenericRepository<T
         return await ApplySpecification(spec).FirstOrDefaultAsync();
     }
 
-    public async Task<IReadOnlyList<TResult>> ListAllAsync<TResult>(ISpecification<T, TResult> spec)
+    public async Task<IEnumerable<TResult>> ListAllAsync<TResult>(ISpecification<T, TResult> spec)
     {
         return await ApplySpecification(spec).ToListAsync();
     }
