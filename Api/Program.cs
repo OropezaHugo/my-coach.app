@@ -1,3 +1,4 @@
+using Api.Profiles;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Implementations;
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<CoachAppContext>(
         optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddAutoMapper(typeof(UserProfile));
+
 var app = builder.Build();
 
 app.MapControllers();
