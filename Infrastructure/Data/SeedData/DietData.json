@@ -1,0 +1,32 @@
+[
+  {
+    "DietName": "Dieta Balanceada",
+    "WaterAmount": 2.5,
+    "DietFoodGroups": [],
+    "UserDiets": []
+  },
+  {
+    "DietName": "Dieta Keto",
+    "WaterAmount": 3.0,
+    "DietFoodGroups": [],
+    "UserDiets": []
+  },
+  {
+    "DietName": "Dieta Vegetariana",
+    "WaterAmount": 2.0,
+    "DietFoodGroups": [],
+    "UserDiets": []
+  },
+  {
+    "DietName": "Dieta Alta en Proteínas",
+    "WaterAmount": 2.8,
+    "DietFoodGroups": [],
+    "UserDiets": []
+  },
+  {
+    "DietName": "Dieta Baja en Carbohidratos",
+    "WaterAmount": 2.2,
+    "DietFoodGroups": [],
+    "UserDiets": []
+  }
+]

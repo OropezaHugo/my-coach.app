@@ -24,6 +24,7 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<ExerciseSet> ExerciseSets { get; set; }
     public DbSet<Routine> Routines { get; set; }
+    public DbSet<RoutineExercise> RoutineExercises { get; set; }
     public DbSet<UserRoutine> UserRoutines { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,0 +1,27 @@
+[
+  {
+    "DietId": 1,
+    "FoodGroupId": 1,
+    "FoodGroupTime": "08:00"
+  },
+  {
+    "DietId": 1,
+    "FoodGroupId": 2,
+    "FoodGroupTime": "13:00"
+  },
+  {
+    "DietId": 2,
+    "FoodGroupId": 3,
+    "FoodGroupTime": "09:00"
+  },
+  {
+    "DietId": 3,
+    "FoodGroupId": 4,
+    "FoodGroupTime": "07:30"
+  },
+  {
+    "DietId": 4,
+    "FoodGroupId": 5,
+    "FoodGroupTime": "12:00"
+  }
+]

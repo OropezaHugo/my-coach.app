@@ -30,6 +30,14 @@ public class UserController
         var users = await repository.ListAllAsync(spec);
         return Ok(users.Select(user => mapper.Map<UserResponseDTO>(user)));
     }
+    
+    [HttpGet("email/{email}")]
+    public async Task<ActionResult<UserResponseDTO>> GetUserByEmail(string email)
+    {
+        var spec = new BaseSpecification<User>(user => user.Email == email);
+        var user = await repository.GetEntityWithSpec(spec);
+        return Ok(mapper.Map<UserResponseDTO>(user));
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<UserResponseDTO>> GetUserById(int id)

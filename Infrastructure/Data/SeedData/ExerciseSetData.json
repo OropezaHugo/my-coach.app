@@ -1,0 +1,27 @@
+[
+  {
+    "ExerciseId": 1,
+    "SetId": 1,
+    "Fatigue": 5
+  },
+  {
+    "ExerciseId": 1,
+    "SetId": 2,
+    "Fatigue": 7
+  },
+  {
+    "ExerciseId": 2,
+    "SetId": 3,
+    "Fatigue": 6
+  },
+  {
+    "ExerciseId": 3,
+    "SetId": 4,
+    "Fatigue": 8
+  },
+  {
+    "ExerciseId": 4,
+    "SetId": 5,
+    "Fatigue": 4
+  }
+]

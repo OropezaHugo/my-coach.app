@@ -1,0 +1,27 @@
+[
+  {
+    "FoodGroupName": "Desayuno",
+    "FoodGroupFoods": [],
+    "DietFoodGroups": []
+  },
+  {
+    "FoodGroupName": "Almuerzo",
+    "FoodGroupFoods": [],
+    "DietFoodGroups": []
+  },
+  {
+    "FoodGroupName": "Merienda",
+    "FoodGroupFoods": [],
+    "DietFoodGroups": []
+  },
+  {
+    "FoodGroupName": "Cena",
+    "FoodGroupFoods": [],
+    "DietFoodGroups": []
+  },
+  {
+    "FoodGroupName": "Snack Saludable",
+    "FoodGroupFoods": [],
+    "DietFoodGroups": []
+  }
+]

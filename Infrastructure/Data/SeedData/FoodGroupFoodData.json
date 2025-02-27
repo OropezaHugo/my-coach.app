@@ -1,0 +1,27 @@
+[
+  {
+    "FoodGroupId": 1,
+    "FoodId": 1,
+    "FoodAmount": 150.0
+  },
+  {
+    "FoodGroupId": 1,
+    "FoodId": 5,
+    "FoodAmount": 200.0
+  },
+  {
+    "FoodGroupId": 2,
+    "FoodId": 2,
+    "FoodAmount": 250.0
+  },
+  {
+    "FoodGroupId": 2,
+    "FoodId": 3,
+    "FoodAmount": 200.0
+  },
+  {
+    "FoodGroupId": 3,
+    "FoodId": 4,
+    "FoodAmount": 100.0
+  }
+]
