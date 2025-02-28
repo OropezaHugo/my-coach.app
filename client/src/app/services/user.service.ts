@@ -16,12 +16,16 @@ export class UserService {
   cookieService = inject(CookieService)
   userData = signal<UserModel | undefined>(undefined)
   tokenData = signal<GoogleUserInfo | undefined>(undefined)
-  getUserInfo(email: string) {
+  getActualUserInfo(email: string) {
     return this.http.get<UserModel>(`${this.baseUrl}/User/email/${email}`).pipe(
       map(res => {
         this.userData.set(res)
       }),
     )
+  }
+
+  getUserById(id: number) {
+    return this.http.get<UserModel>(`${this.baseUrl}/User/${id}`)
   }
   getTokenData() {
     let value = this.cookieService.get('auth_token')

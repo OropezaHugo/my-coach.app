@@ -1,8 +1,8 @@
 using Api.RequestDTOs;
-using Api.ResponseDTOs;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Core.ResponseDTOs;
 using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 

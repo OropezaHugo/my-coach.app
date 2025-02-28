@@ -1,4 +1,4 @@
-namespace Api.ResponseDTOs;
+namespace Core.ResponseDTOs;
 
 public class FoodGroupFoodResponseDTO
 {

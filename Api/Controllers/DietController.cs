@@ -1,8 +1,8 @@
 using Api.RequestDTOs;
-using Api.ResponseDTOs;
 using AutoMapper;
 using Core.Entities.DietEntities;
 using Core.Interfaces;
+using Core.ResponseDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -12,6 +12,7 @@ namespace Api.Controllers;
 public class DietController
 (
     IGenericRepository<Diet> repository,
+    IDietRepository dietRepository,
     IMapper mapper
 ): ControllerBase
 {
@@ -28,6 +29,13 @@ public class DietController
         var diet = await repository.GetByIdAsync(id);
         if (diet == null) return NotFound();
         return Ok(mapper.Map<DietResponseDTO>(diet));
+    }
+    
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<DietResponseDTO>> GetDietsByUserId(int userId)
+    {
+        var diets = await dietRepository.GetDietsByUserId(userId);
+        return Ok(diets.Select(diet => mapper.Map<UserDietInfoDTO>(diet)));
     }
 
     [HttpPost]

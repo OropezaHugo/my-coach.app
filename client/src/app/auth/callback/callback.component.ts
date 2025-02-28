@@ -21,7 +21,7 @@ export class CallbackComponent implements OnInit {
   ngOnInit() {
     let jwt = this.userService.getTokenData()
     if (jwt) {
-      this.userService.getUserInfo(jwt.email).subscribe({
+      this.userService.getActualUserInfo(jwt.email).subscribe({
         next: user => {
           if (this.userService.userData()?.roleId === 1) {
             this.router.navigateByUrl('/coach/home')

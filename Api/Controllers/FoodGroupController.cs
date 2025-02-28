@@ -1,8 +1,8 @@
 using Api.RequestDTOs;
-using Api.ResponseDTOs;
 using AutoMapper;
 using Core.Entities.DietEntities;
 using Core.Interfaces;
+using Core.ResponseDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -11,6 +11,7 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class FoodGroupController (
     IGenericRepository<FoodGroup> repository,
+    IFoodGroupRepository foodGroupRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -19,6 +20,13 @@ public class FoodGroupController (
     {
         var foodGroups = await repository.ListAllAsync();
         return Ok(foodGroups.Select(foodGroup => mapper.Map<FoodGroupResponseDTO>(foodGroup)));
+    }
+
+    [HttpGet("diet/{dietId}")]
+    public async Task<ActionResult<IEnumerable<DietFoodGroupContentDTO>>> GetFoodGroupsByDietId(int dietId)
+    {
+        var foodGroups = await foodGroupRepository.GetDietContentByDietId(dietId);
+        return Ok(foodGroups);
     }
 
     [HttpGet("{id}")]

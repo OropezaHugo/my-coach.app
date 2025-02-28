@@ -1,7 +1,7 @@
 using Api.RequestDTOs;
-using Api.ResponseDTOs;
 using AutoMapper;
 using Core.Entities.ExerciseEntities;
+using Core.ResponseDTOs;
 
 namespace Api.Profiles;
 

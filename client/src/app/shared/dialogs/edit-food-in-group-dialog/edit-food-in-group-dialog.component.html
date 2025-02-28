@@ -1,0 +1,9 @@
+<mat-dialog-content>
+  @if (food){
+    <mat-form-field appearance="outline">
+      <mat-label>Quantity(gr)</mat-label>
+      <input matInput [formControl]="foodAmountControl" type="number">
+    </mat-form-field>
+    <button mat-stroked-button (click)="updateFoodGroupFoodData()">Done</button>
+  }
+</mat-dialog-content>

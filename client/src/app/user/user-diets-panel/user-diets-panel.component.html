@@ -1,0 +1,7 @@
+@if (diets.length > 0) {
+  @for (diet of diets; track $index) {
+    <app-user-diet-card [diet]="diet"/>
+  }
+} @else {
+  <p>There are not diets assigned yet</p>
+}

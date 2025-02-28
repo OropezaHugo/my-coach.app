@@ -4,6 +4,6 @@
     <mat-card-subtitle>{{student().email}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions align="end">
-    <button mat-button>Learn More</button>
+    <button mat-button [routerLink]="['/coach', 'student', student().id]">Check Profile</button>
   </mat-card-actions>
 </mat-card>

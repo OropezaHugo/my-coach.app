@@ -1,8 +1,8 @@
 using Api.RequestDTOs;
-using Api.ResponseDTOs;
 using AutoMapper;
 using Core.Entities.DietEntities;
 using Core.Interfaces;
+using Core.ResponseDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
