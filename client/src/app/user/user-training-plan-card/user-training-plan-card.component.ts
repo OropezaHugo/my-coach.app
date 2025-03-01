@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {UserTrainingPlanTrainingPlanCombined} from '../../models/routine.models';
+import {UserTrainingPlanTrainingPlanCombined} from '../../models/training-plan.models';
 import {DatePipe} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {RouterLink, RouterOutlet} from '@angular/router';

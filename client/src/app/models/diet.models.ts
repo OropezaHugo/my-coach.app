@@ -25,6 +25,12 @@ export interface DietModel {
   waterAmount: number
 }
 
+export interface DietContent {
+  dietId: number
+  dietName: string
+  waterAmount: number
+  dietFoodGroupInfos: FoodGroupAndContentModel[]
+}
 export interface FoodGroupAndContentModel {
   id: number
   foodGroupId: number

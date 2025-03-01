@@ -26,7 +26,7 @@ public class TrainingPlanController
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<IEnumerable<UserTrainingPlanInfoDTO>>> GetTrainingPlansByUserId(int userId)
     {
-        var trainingPlans = await trainingPlanRepository.GetRoutinesByUserId(userId);
+        var trainingPlans = await trainingPlanRepository.GetTrainingPlansByUserId(userId);
         return Ok(trainingPlans.Select(trainingPlan => mapper.Map<UserTrainingPlanInfoDTO>(trainingPlan)));
     }
 
@@ -36,6 +36,13 @@ public class TrainingPlanController
         var trainingPlan = await repository.GetByIdAsync(id);
         if (trainingPlan == null) return NotFound();
         return Ok(mapper.Map<TrainingPlanResponseDTO>(trainingPlan));
+    }
+    [HttpGet("{id}/content")]
+    public async Task<ActionResult<TrainingPlanResponseDTO>> GetTrainingPlanContentByTrainingPlanId(int id)
+    {
+        var trainingPlanContent = await trainingPlanRepository.GetTrainingPlanContentByTrainingPlanId(id);
+        if (trainingPlanContent == null) return NotFound();
+        return Ok(trainingPlanContent);
     }
 
     [HttpPost]

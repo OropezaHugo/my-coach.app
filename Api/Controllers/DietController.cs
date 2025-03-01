@@ -39,6 +39,14 @@ public class DietController
         return Ok(mapper.Map<DietResponseDTO>(diet));
     }
     
+    [HttpGet("{id}/content")]
+    public async Task<ActionResult<DietResponseDTO>> GetDietContentById(int id)
+    {
+        var dietContent = await dietRepository.GetDietContentByDietId(id);
+        if (dietContent == null) return NotFound();
+        return Ok(dietContent);
+    }
+    
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<UserDietInfoDTO>> GetDietsByUserId(int userId)
     {

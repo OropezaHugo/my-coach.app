@@ -12,7 +12,6 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class FoodGroupController (
     IGenericRepository<FoodGroup> repository,
-    IFoodGroupRepository foodGroupRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -29,13 +28,6 @@ public class FoodGroupController (
         var spec = new FoodGroupNameListSpecification();
         var foodGroupNames = await repository.ListAllAsync(spec);
         return Ok(foodGroupNames);
-    }
-    
-    [HttpGet("diet/{dietId}")]
-    public async Task<ActionResult<IEnumerable<DietFoodGroupContentDTO>>> GetFoodGroupsByDietId(int dietId)
-    {
-        var foodGroups = await foodGroupRepository.GetDietContentByDietId(dietId);
-        return Ok(foodGroups);
     }
 
     [HttpGet("{id}")]

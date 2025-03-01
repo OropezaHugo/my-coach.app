@@ -2,8 +2,11 @@
 @if (editable()) {
   <button mat-stroked-button (click)="hideEdition.set(!hideEdition())">{{ hideEdition() ? 'Show Edition' : 'Hide Edition' }}</button>
 }
-@for (foodGroup of foodGroups; track $index) {
-  <mat-divider/>
+@if (dietContent) {
+  <h2>{{dietContent.dietName}}</h2>
+  <h3>must drink {{dietContent.waterAmount}}L of water daily</h3>
+  @for (foodGroup of dietContent.dietFoodGroupInfos; track $index) {
+    <mat-divider/>
     <div class="diet-food-div">
       <div class="diet-food-div">
         @if (editable() && !hideEdition()) {
@@ -33,7 +36,9 @@
     </div>
     <mat-divider/>
 
+  }
 }
+
 @if (editable() && !hideEdition()) {
   <button mat-raised-button (click)="openAddFoodGroupToDietDialog({dietId: dietId()})">Add Food Group</button>
 }

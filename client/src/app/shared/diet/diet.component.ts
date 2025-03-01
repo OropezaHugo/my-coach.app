@@ -1,6 +1,12 @@
 import {Component, inject, input, OnInit, signal} from '@angular/core';
 import {DietService} from '../../services/diet.service';
-import {AddFoodToFoodGroupData, FoodGroupFoodCombinedModel, FoodGroupAndContentModel, AddFoodGroupToDietData} from '../../models/diet.models';
+import {
+  AddFoodToFoodGroupData,
+  FoodGroupFoodCombinedModel,
+  FoodGroupAndContentModel,
+  AddFoodGroupToDietData,
+  DietContent
+} from '../../models/diet.models';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 import {MatDivider} from '@angular/material/divider';
@@ -28,12 +34,12 @@ export class DietComponent implements OnInit {
   editable = input.required<boolean>();
   hideEdition = signal<boolean>(false);
   dietService = inject(DietService)
-  foodGroups: FoodGroupAndContentModel[] = []
+  dietContent?: DietContent = undefined
   readonly dialog = inject(MatDialog);
   ngOnInit() {
-    this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+    this.dietService.getDietContentById(this.dietId() as number).subscribe({
       next: (data) => {
-        this.foodGroups = data
+        this.dietContent = data
       }
     })
   }
@@ -43,9 +49,9 @@ export class DietComponent implements OnInit {
       data: addFoodData
     }).afterClosed().subscribe({
       next: (data) => {
-        this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+        this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
-            this.foodGroups = data
+            this.dietContent = data
           }
         })
       }
@@ -55,9 +61,9 @@ export class DietComponent implements OnInit {
   deleteFoodFromFoodGroup(id: number) {
     this.dietService.deleteFoodGroupFoodById(id).subscribe({
       next: (data) => {
-        this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+        this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
-            this.foodGroups = data
+            this.dietContent = data
           }
         })
       }
@@ -69,9 +75,9 @@ export class DietComponent implements OnInit {
       data: foodGroupFoodModel
     }).afterClosed().subscribe({
       next: (data) => {
-        this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+        this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
-            this.foodGroups = data
+            this.dietContent = data
           }
         })
       }
@@ -83,9 +89,9 @@ export class DietComponent implements OnInit {
       data: addFoodGroupData
     }).afterClosed().subscribe({
       next: (data) => {
-        this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+        this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
-            this.foodGroups = data
+            this.dietContent = data
           }
         })
       }
@@ -95,9 +101,9 @@ export class DietComponent implements OnInit {
   deleteFoodGroupFromDiet(id: number) {
     this.dietService.deleteFoodGroupFromDietById(id).subscribe({
       next: (data) => {
-        this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+        this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
-            this.foodGroups = data
+            this.dietContent = data
           }
         })
       }
@@ -109,9 +115,9 @@ export class DietComponent implements OnInit {
       data: foodGroup
     }).afterClosed().subscribe({
       next: (data) => {
-        this.dietService.getFoodGroupsByDietId(this.dietId() as number).subscribe({
+        this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
-            this.foodGroups = data
+            this.dietContent = data
           }
         })
       }

@@ -3,7 +3,7 @@ import {DietService} from '../../services/diet.service';
 import {UserDietDietCombined} from '../../models/diet.models';
 import {MatDialog} from '@angular/material/dialog';
 import {TrainingPlanService} from '../../services/training-plan.service';
-import {UserTrainingPlanTrainingPlanCombined} from '../../models/routine.models';
+import {UserTrainingPlanTrainingPlanCombined} from '../../models/training-plan.models';
 import {UserTrainingPlanCardComponent} from '../user-training-plan-card/user-training-plan-card.component';
 
 @Component({
