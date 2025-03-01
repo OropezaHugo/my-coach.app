@@ -1,12 +1,12 @@
-export interface RoutineModel {
+export interface TrainingPlanModel {
   id: number
-  routineName: string
+  objective: string
 }
 
-export interface UserRoutineRoutineCombined {
+export interface UserTrainingPlanTrainingPlanCombined {
   id: number
   userId: number
-  routineId: number
-  routineName: string
-  targetDate: string
+  trainingPlanId: number
+  objective: string
+  assignedDate: string
 }

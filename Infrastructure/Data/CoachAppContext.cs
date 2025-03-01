@@ -1,6 +1,6 @@
 using Core.Entities;
 using Core.Entities.DietEntities;
-using Core.Entities.ExerciseEntities;
+using Core.Entities.TrainingPlanEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
@@ -25,7 +25,9 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
     public DbSet<ExerciseSet> ExerciseSets { get; set; }
     public DbSet<Routine> Routines { get; set; }
     public DbSet<RoutineExercise> RoutineExercises { get; set; }
-    public DbSet<UserRoutine> UserRoutines { get; set; }
+    public DbSet<TrainingPlanRoutines> TrainingPlanRoutines { get; set; }
+    public DbSet<TrainingPlan> TrainingPlans { get; set; }
+    public DbSet<UserTrainingPlans> UserTrainingPlans { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,14 +40,14 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
             .WithMany(u => u.UserDiets)
             .HasForeignKey(ud => ud.DietId);
         
-        modelBuilder.Entity<UserRoutine>()
+        modelBuilder.Entity<UserTrainingPlans>()
             .HasOne(ur => ur.User)
-            .WithMany(u => u.UserRoutines)
+            .WithMany(u => u.UserTrainingPlans)
             .HasForeignKey(ur => ur.UserId);
-        modelBuilder.Entity<UserRoutine>()
-            .HasOne(ur => ur.Routine)
-            .WithMany(u => u.UserRoutines)
-            .HasForeignKey(ur => ur.RoutineId);
+        modelBuilder.Entity<UserTrainingPlans>()
+            .HasOne(ur => ur.TrainingPlan)
+            .WithMany(u => u.UserTrainingPlans)
+            .HasForeignKey(ur => ur.TrainingPlanId);
         
         modelBuilder.Entity<UserPrize>()
             .HasOne(pu => pu.User)
@@ -73,6 +75,15 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
             .HasOne(fk => fk.Food)
             .WithMany(f => f.FoodGroupFoods)
             .HasForeignKey(fk => fk.FoodId);
+        
+        modelBuilder.Entity<TrainingPlanRoutines>()
+            .HasOne(tp => tp.TrainingPlan)
+            .WithMany(pt => pt.TrainingPlanRoutines)
+            .HasForeignKey(tp => tp.TrainingPlanId);
+        modelBuilder.Entity<TrainingPlanRoutines>()
+            .HasOne(tp => tp.Routine)
+            .WithMany(pt => pt.TrainingPlanRoutines)
+            .HasForeignKey(tp => tp.RoutineId);
         
         modelBuilder.Entity<RoutineExercise>()
             .HasOne(rc => rc.Routine)

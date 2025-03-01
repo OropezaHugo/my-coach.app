@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Entities.ExerciseEntities;
+namespace Core.Entities.TrainingPlanEntities;
 
 public class ExerciseSet: BaseEntity
 {

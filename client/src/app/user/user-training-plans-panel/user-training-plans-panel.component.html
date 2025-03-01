@@ -1,0 +1,11 @@
+@if (routines.length > 0) {
+  @for (trainingPlan of routines; track $index) {
+    <app-user-training-plan-card [trainingPlan]="trainingPlan"/>
+  }
+} @else {
+  <p>There are not routines assigned yet</p>
+}
+@if (editable()){
+
+}
+

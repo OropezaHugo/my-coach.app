@@ -14,7 +14,7 @@ public class User: BaseEntity
     [ForeignKey(nameof(RoleId))]
     public Role? Role { get; set; }
     
-    public List<UserRoutine> UserRoutines { get; set; } = new List<UserRoutine>();
+    public List<UserTrainingPlans> UserTrainingPlans { get; set; } = new List<UserTrainingPlans>();
     public List<UserDiet> UserDiets { get; set; } = new List<UserDiet>();
     public List<UserPrize> UserPrizes { get; set; } = new List<UserPrize>();
 }

@@ -1,0 +1,27 @@
+[
+  {
+    "TrainingPlanId": 1,
+    "RoutineId": 1,
+    "RoutineWeekDay": "Lunes"
+  },
+  {
+    "TrainingPlanId": 1,
+    "RoutineId": 2,
+    "RoutineWeekDay": "Miércoles"
+  },
+  {
+    "TrainingPlanId": 2,
+    "RoutineId": 3,
+    "RoutineWeekDay": "Martes"
+  },
+  {
+    "TrainingPlanId": 3,
+    "RoutineId": 4,
+    "RoutineWeekDay": "Jueves"
+  },
+  {
+    "TrainingPlanId": 4,
+    "RoutineId": 5,
+    "RoutineWeekDay": "Viernes"
+  }
+]

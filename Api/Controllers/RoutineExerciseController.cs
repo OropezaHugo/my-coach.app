@@ -1,6 +1,6 @@
 using Api.RequestDTOs;
 using AutoMapper;
-using Core.Entities.ExerciseEntities;
+using Core.Entities.TrainingPlanEntities;
 using Core.Interfaces;
 using Core.ResponseDTOs;
 using Microsoft.AspNetCore.Mvc;

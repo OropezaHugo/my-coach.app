@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class RebirthDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -119,6 +119,19 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TrainingPlans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Objective = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingPlans", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DietFoodGroups",
                 columns: table => new
                 {
@@ -197,7 +210,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoutineExercise",
+                name: "RoutineExercises",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -208,15 +221,15 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoutineExercise", x => x.Id);
+                    table.PrimaryKey("PK_RoutineExercises", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RoutineExercise_Exercises_ExerciseId",
+                        name: "FK_RoutineExercises_Exercises_ExerciseId",
                         column: x => x.ExerciseId,
                         principalTable: "Exercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RoutineExercise_Routines_RoutineId",
+                        name: "FK_RoutineExercises_Routines_RoutineId",
                         column: x => x.RoutineId,
                         principalTable: "Routines",
                         principalColumn: "Id",
@@ -246,6 +259,33 @@ namespace Infrastructure.Migrations
                         name: "FK_ExerciseSets_Sets_SetId",
                         column: x => x.SetId,
                         principalTable: "Sets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TrainingPlanRoutines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TrainingPlanId = table.Column<int>(type: "int", nullable: false),
+                    RoutineId = table.Column<int>(type: "int", nullable: false),
+                    RoutineWeekDay = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingPlanRoutines", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TrainingPlanRoutines_Routines_RoutineId",
+                        column: x => x.RoutineId,
+                        principalTable: "Routines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrainingPlanRoutines_TrainingPlans_TrainingPlanId",
+                        column: x => x.TrainingPlanId,
+                        principalTable: "TrainingPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -304,26 +344,26 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRoutines",
+                name: "UserTrainingPlans",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    RoutineId = table.Column<int>(type: "int", nullable: false),
-                    TargetDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    TrainingPlanId = table.Column<int>(type: "int", nullable: false),
+                    AssignedDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoutines", x => x.Id);
+                    table.PrimaryKey("PK_UserTrainingPlans", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRoutines_Routines_RoutineId",
-                        column: x => x.RoutineId,
-                        principalTable: "Routines",
+                        name: "FK_UserTrainingPlans_TrainingPlans_TrainingPlanId",
+                        column: x => x.TrainingPlanId,
+                        principalTable: "TrainingPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRoutines_Users_UserId",
+                        name: "FK_UserTrainingPlans_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -361,14 +401,24 @@ namespace Infrastructure.Migrations
                 column: "FoodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoutineExercise_ExerciseId",
-                table: "RoutineExercise",
+                name: "IX_RoutineExercises_ExerciseId",
+                table: "RoutineExercises",
                 column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoutineExercise_RoutineId",
-                table: "RoutineExercise",
+                name: "IX_RoutineExercises_RoutineId",
+                table: "RoutineExercises",
                 column: "RoutineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlanRoutines_RoutineId",
+                table: "TrainingPlanRoutines",
+                column: "RoutineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlanRoutines_TrainingPlanId",
+                table: "TrainingPlanRoutines",
+                column: "TrainingPlanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserDiets_DietId",
@@ -391,19 +441,19 @@ namespace Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoutines_RoutineId",
-                table: "UserRoutines",
-                column: "RoutineId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRoutines_UserId",
-                table: "UserRoutines",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
                 table: "Users",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTrainingPlans_TrainingPlanId",
+                table: "UserTrainingPlans",
+                column: "TrainingPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTrainingPlans_UserId",
+                table: "UserTrainingPlans",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -419,7 +469,10 @@ namespace Infrastructure.Migrations
                 name: "FoodGroupFoods");
 
             migrationBuilder.DropTable(
-                name: "RoutineExercise");
+                name: "RoutineExercises");
+
+            migrationBuilder.DropTable(
+                name: "TrainingPlanRoutines");
 
             migrationBuilder.DropTable(
                 name: "UserDiets");
@@ -428,7 +481,7 @@ namespace Infrastructure.Migrations
                 name: "UserPrizes");
 
             migrationBuilder.DropTable(
-                name: "UserRoutines");
+                name: "UserTrainingPlans");
 
             migrationBuilder.DropTable(
                 name: "Sets");
@@ -443,13 +496,16 @@ namespace Infrastructure.Migrations
                 name: "Exercises");
 
             migrationBuilder.DropTable(
+                name: "Routines");
+
+            migrationBuilder.DropTable(
                 name: "Diets");
 
             migrationBuilder.DropTable(
                 name: "Prizes");
 
             migrationBuilder.DropTable(
-                name: "Routines");
+                name: "TrainingPlans");
 
             migrationBuilder.DropTable(
                 name: "Users");

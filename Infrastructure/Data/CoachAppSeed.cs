@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Core.Entities.DietEntities;
-using Core.Entities.ExerciseEntities;
+using Core.Entities.TrainingPlanEntities;
 
 namespace Infrastructure.Data;
 
@@ -125,6 +125,30 @@ public static class CoachAppSeed
             if (routineExercises != null)
             {
                 coachAppContext.RoutineExercises.AddRange(routineExercises);
+                await coachAppContext.SaveChangesAsync();
+            }
+        }
+        
+        //Seed TrainingPlans
+        if (!coachAppContext.TrainingPlans.Any())
+        {
+            var routineExerciseData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/TrainingPlansData.json");
+            var routineExercises = JsonSerializer.Deserialize<List<TrainingPlan>>(routineExerciseData);
+            if (routineExercises != null)
+            {
+                coachAppContext.TrainingPlans.AddRange(routineExercises);
+                await coachAppContext.SaveChangesAsync();
+            }
+        }
+        
+        //Seed TrainingPlanRoutines
+        if (!coachAppContext.TrainingPlanRoutines.Any())
+        {
+            var routineExerciseData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/TrainingPlanRoutineData.json");
+            var routineExercises = JsonSerializer.Deserialize<List<TrainingPlanRoutines>>(routineExerciseData);
+            if (routineExercises != null)
+            {
+                coachAppContext.TrainingPlanRoutines.AddRange(routineExercises);
                 await coachAppContext.SaveChangesAsync();
             }
         }

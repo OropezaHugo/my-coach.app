@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CoachAppContext))]
-    [Migration("20250227154745_RoutineExercises")]
-    partial class RoutineExercises
+    [Migration("20250301132338_RebirthDataBase")]
+    partial class RebirthDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,111 +131,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("FoodGroupFoods");
                 });
 
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.Exercise", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ExerciseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Exercises");
-                });
-
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.ExerciseSet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ExerciseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Fatigue")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SetId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("SetId");
-
-                    b.ToTable("ExerciseSets");
-                });
-
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.Routine", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("RoutineName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Routines");
-                });
-
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.RoutineExercise", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Effort")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExerciseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoutineId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("RoutineId");
-
-                    b.ToTable("RoutineExercises");
-                });
-
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.Set", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Repetitions")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sets");
-                });
-
             modelBuilder.Entity("Core.Entities.Prize", b =>
                 {
                     b.Property<int>("Id")
@@ -271,6 +166,155 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.Exercise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExerciseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Exercises");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.ExerciseSet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fatigue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("SetId");
+
+                    b.ToTable("ExerciseSets");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.Routine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("RoutineName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Routines");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.RoutineExercise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Effort")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoutineId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("RoutineId");
+
+                    b.ToTable("RoutineExercises");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.Set", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Repetitions")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sets");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.TrainingPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Objective")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrainingPlans");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.TrainingPlanRoutines", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RoutineId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoutineWeekDay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrainingPlanId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoutineId");
+
+                    b.HasIndex("TrainingPlanId");
+
+                    b.ToTable("TrainingPlanRoutines");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -359,7 +403,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("UserPrizes");
                 });
 
-            modelBuilder.Entity("Core.Entities.UserRoutine", b =>
+            modelBuilder.Entity("Core.Entities.UserTrainingPlans", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -367,22 +411,22 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("RoutineId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("TargetDate")
+                    b.Property<DateOnly>("AssignedDate")
                         .HasColumnType("date");
+
+                    b.Property<int>("TrainingPlanId")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoutineId");
+                    b.HasIndex("TrainingPlanId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRoutines");
+                    b.ToTable("UserTrainingPlans");
                 });
 
             modelBuilder.Entity("Core.Entities.DietEntities.DietFoodGroup", b =>
@@ -423,15 +467,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("FoodGroup");
                 });
 
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.ExerciseSet", b =>
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.ExerciseSet", b =>
                 {
-                    b.HasOne("Core.Entities.ExerciseEntities.Exercise", "Exercise")
+                    b.HasOne("Core.Entities.TrainingPlanEntities.Exercise", "Exercise")
                         .WithMany("ExerciseSets")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.ExerciseEntities.Set", "Set")
+                    b.HasOne("Core.Entities.TrainingPlanEntities.Set", "Set")
                         .WithMany("ExerciseSets")
                         .HasForeignKey("SetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -442,15 +486,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("Set");
                 });
 
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.RoutineExercise", b =>
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.RoutineExercise", b =>
                 {
-                    b.HasOne("Core.Entities.ExerciseEntities.Exercise", "Exercise")
+                    b.HasOne("Core.Entities.TrainingPlanEntities.Exercise", "Exercise")
                         .WithMany("RoutineExercises")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.ExerciseEntities.Routine", "Routine")
+                    b.HasOne("Core.Entities.TrainingPlanEntities.Routine", "Routine")
                         .WithMany("RoutineExercises")
                         .HasForeignKey("RoutineId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -459,6 +503,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Exercise");
 
                     b.Navigation("Routine");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.TrainingPlanRoutines", b =>
+                {
+                    b.HasOne("Core.Entities.TrainingPlanEntities.Routine", "Routine")
+                        .WithMany("TrainingPlanRoutines")
+                        .HasForeignKey("RoutineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.TrainingPlanEntities.TrainingPlan", "TrainingPlan")
+                        .WithMany("TrainingPlanRoutines")
+                        .HasForeignKey("TrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Routine");
+
+                    b.Navigation("TrainingPlan");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -510,21 +573,21 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Core.Entities.UserRoutine", b =>
+            modelBuilder.Entity("Core.Entities.UserTrainingPlans", b =>
                 {
-                    b.HasOne("Core.Entities.ExerciseEntities.Routine", "Routine")
-                        .WithMany("UserRoutines")
-                        .HasForeignKey("RoutineId")
+                    b.HasOne("Core.Entities.TrainingPlanEntities.TrainingPlan", "TrainingPlan")
+                        .WithMany("UserTrainingPlans")
+                        .HasForeignKey("TrainingPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.User", "User")
-                        .WithMany("UserRoutines")
+                        .WithMany("UserTrainingPlans")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Routine");
+                    b.Navigation("TrainingPlan");
 
                     b.Navigation("User");
                 });
@@ -548,28 +611,35 @@ namespace Infrastructure.Migrations
                     b.Navigation("FoodGroupFoods");
                 });
 
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.Exercise", b =>
-                {
-                    b.Navigation("ExerciseSets");
-
-                    b.Navigation("RoutineExercises");
-                });
-
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.Routine", b =>
-                {
-                    b.Navigation("RoutineExercises");
-
-                    b.Navigation("UserRoutines");
-                });
-
-            modelBuilder.Entity("Core.Entities.ExerciseEntities.Set", b =>
-                {
-                    b.Navigation("ExerciseSets");
-                });
-
             modelBuilder.Entity("Core.Entities.Prize", b =>
                 {
                     b.Navigation("UserPrizes");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.Exercise", b =>
+                {
+                    b.Navigation("ExerciseSets");
+
+                    b.Navigation("RoutineExercises");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.Routine", b =>
+                {
+                    b.Navigation("RoutineExercises");
+
+                    b.Navigation("TrainingPlanRoutines");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.Set", b =>
+                {
+                    b.Navigation("ExerciseSets");
+                });
+
+            modelBuilder.Entity("Core.Entities.TrainingPlanEntities.TrainingPlan", b =>
+                {
+                    b.Navigation("TrainingPlanRoutines");
+
+                    b.Navigation("UserTrainingPlans");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -578,7 +648,7 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("UserPrizes");
 
-                    b.Navigation("UserRoutines");
+                    b.Navigation("UserTrainingPlans");
                 });
 #pragma warning restore 612, 618
         }

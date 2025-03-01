@@ -1,4 +1,4 @@
-namespace Core.Entities.ExerciseEntities;
+namespace Core.Entities.TrainingPlanEntities;
 
 public class Set: BaseEntity
 {
