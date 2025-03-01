@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
-import {AddFoodData, FoodModel} from '../../../models/diet.models';
+import {AddFoodToFoodGroupData, FoodModel} from '../../../models/diet.models';
 import {DietService} from '../../../services/diet.service';
 import {MatButton} from '@angular/material/button';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -25,7 +25,7 @@ import {MatInput} from '@angular/material/input';
 })
 export class AddFoodDialogComponent implements OnInit {
   dialogRef = inject(MatDialogRef<AddFoodDialogComponent>);
-  data = inject<AddFoodData>(MAT_DIALOG_DATA);
+  data = inject<AddFoodToFoodGroupData>(MAT_DIALOG_DATA);
   dietService = inject(DietService)
   addFoodForm = new FormGroup({
     foodId: new FormControl<number | null>(null, [Validators.required]),

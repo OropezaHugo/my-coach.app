@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
-import {AddDietData, AddFoodData, DietData} from '../../../models/diet.models';
+import {AddDietDataToUserDiets, AddFoodToFoodGroupData, DietModel} from '../../../models/diet.models';
 import {DietService} from '../../../services/diet.service';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
 import {MatButton} from '@angular/material/button';
@@ -27,7 +27,7 @@ import {UserService} from '../../../services/user.service';
 })
 export class AddDietDialogComponent implements OnInit {
   dialogRef = inject(MatDialogRef<AddDietDialogComponent>);
-  data = inject<AddDietData>(MAT_DIALOG_DATA);
+  data = inject<AddDietDataToUserDiets>(MAT_DIALOG_DATA);
   dietService = inject(DietService)
   addDietForm = new FormGroup({
     dietName: new FormControl<string>('', [Validators.required]),

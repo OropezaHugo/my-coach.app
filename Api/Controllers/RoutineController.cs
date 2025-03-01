@@ -13,6 +13,7 @@ namespace Api.Controllers;
 public class RoutineController
 (
     IGenericRepository<Routine> repository,
+    IRoutineRepository routineRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -21,6 +22,13 @@ public class RoutineController
     {
         var routines = await repository.ListAllAsync();
         return Ok(routines.Select(routine => mapper.Map<RoutineResponseDTO>(routine)));
+    }
+    
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<UserRoutineInfoDTO>>> GetRoutinesByUserId(int userId)
+    {
+        var routines = await routineRepository.GetRoutinesByUserId(userId);
+        return Ok(routines.Select(routine => mapper.Map<UserRoutineInfoDTO>(routine)));
     }
     
     [HttpGet("{id}")]

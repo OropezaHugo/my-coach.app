@@ -1,0 +1,6 @@
+<div class="user-routine-card-div">
+  <h2>{{routine().routineName}}</h2>
+  <h4>{{routine().targetDate | date}}</h4>
+  <button mat-stroked-button [routerLink]="['routine',routine().routineId ]">more</button>
+</div>
+<router-outlet></router-outlet>

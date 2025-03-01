@@ -13,6 +13,5 @@ public class DietRepository(CoachAppContext context): IDietRepository
         var res = await context.UserDiets.Where(userdiet => userdiet.UserId == id)
             .Join(context.Diets, userdiet => userdiet.DietId, diet => diet.Id, (userdiet, diet) => new {diet, userdiet}).ToListAsync();
         return res.Select(x => (x.diet, x.userdiet)).ToList();
-
     }
 }

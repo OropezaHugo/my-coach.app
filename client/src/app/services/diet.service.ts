@@ -5,8 +5,8 @@ import {
   FoodGroupFoodData,
   FoodGroupAndContentModel,
   FoodModel,
-  UserDietCombined,
-  FoodGroupCreationData, FoodGroupData, DietFoodGroupData, CreateDietData, DietData, UserDietData
+  UserDietDietCombined,
+  CreateFoodGroupData, FoodGroupModel, DietFoodGroupData, CreateDietData, DietModel, UserDietData
 } from '../models/diet.models';
 
 @Injectable({
@@ -18,17 +18,17 @@ export class DietService {
 
   //diet
   getAllDiets(){
-    return this.http.get<DietData[]>(`${this.baseUrl}/diet/`)
+    return this.http.get<DietModel[]>(`${this.baseUrl}/diet/`)
   }
   getDietNames() {
     return this.http.get<string[]>(`${this.baseUrl}/diet/names`)
   }
   getDietsByUserId(id: number){
-    return this.http.get<UserDietCombined[]>(`${this.baseUrl}/diet/user/${id}`)
+    return this.http.get<UserDietDietCombined[]>(`${this.baseUrl}/diet/user/${id}`)
   }
 
   createDiet(diet: CreateDietData){
-    return this.http.post<DietData>(`${this.baseUrl}/diet`,diet)
+    return this.http.post<DietModel>(`${this.baseUrl}/diet`,diet)
   }
 
   addDietToUserDiets(diet: UserDietData){
@@ -50,13 +50,13 @@ export class DietService {
     return this.http.get<FoodGroupAndContentModel[]>(`${this.baseUrl}/foodgroup/diet/${id}`)
   }
   getAllFoodGroups(){
-    return this.http.get<FoodGroupData[]>(`${this.baseUrl}/foodgroup`)
+    return this.http.get<FoodGroupModel[]>(`${this.baseUrl}/foodgroup`)
   }
   getFoodGroupNames() {
     return this.http.get<string[]>(`${this.baseUrl}/foodgroup/names`)
   }
-  createFoodGroup(foodGroup: FoodGroupCreationData){
-    return this.http.post<FoodGroupData>(`${this.baseUrl}/foodgroup`, foodGroup)
+  createFoodGroup(foodGroup: CreateFoodGroupData){
+    return this.http.post<FoodGroupModel>(`${this.baseUrl}/foodgroup`, foodGroup)
   }
 
   addFoodGroupToDiet(dietFoodGroup: DietFoodGroupData){

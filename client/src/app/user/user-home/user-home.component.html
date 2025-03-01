@@ -1,4 +1,12 @@
 @if (user) {
   <app-user-profile [user]="user"/>
-  <app-user-diets-panel [userId]="user.id" [editable]="false"/>
+  <mat-tab-group>
+    <mat-tab label="Diets">
+      <app-user-diets-panel [userId]="user.id" [editable]="false"/>
+    </mat-tab>
+    <mat-tab label="Routines">
+      <app-user-routines-panel [userId]="user.id" [editable]="false"/>
+    </mat-tab>
+  </mat-tab-group>
+
 }

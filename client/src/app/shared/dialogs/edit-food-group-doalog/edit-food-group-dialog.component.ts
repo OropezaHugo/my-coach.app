@@ -1,10 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
 import {
-  AddFoodGroupData,
+  AddFoodGroupToDietData,
   DietFoodGroupData,
   FoodGroupAndContentModel,
-  FoodGroupData
+  FoodGroupModel
 } from '../../../models/diet.models';
 import {DietService} from '../../../services/diet.service';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';

@@ -3,12 +3,17 @@ import {UserService} from '../../services/user.service';
 import {UserModel} from '../../models/user.models';
 import {UserProfileComponent} from '../user-profile/user-profile.component';
 import {UserDietsPanelComponent} from '../user-diets-panel/user-diets-panel.component';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {UserRoutinesPanelComponent} from '../user-routines-panel/user-routines-panel.component';
 
 @Component({
   selector: 'app-user-home',
   imports: [
     UserProfileComponent,
-    UserDietsPanelComponent
+    UserDietsPanelComponent,
+    MatTabGroup,
+    MatTab,
+    UserRoutinesPanelComponent
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.scss'

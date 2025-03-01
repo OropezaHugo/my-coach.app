@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
-import {AddFoodData, AddFoodGroupData, FoodGroupData} from '../../../models/diet.models';
+import {AddFoodToFoodGroupData, AddFoodGroupToDietData, FoodGroupModel} from '../../../models/diet.models';
 import {DietService} from '../../../services/diet.service';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -29,7 +29,7 @@ import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/mater
 })
 export class AddFoodGroupDialogComponent implements OnInit{
   dialogRef = inject(MatDialogRef<AddFoodGroupDialogComponent>);
-  data = inject<AddFoodGroupData>(MAT_DIALOG_DATA);
+  data = inject<AddFoodGroupToDietData>(MAT_DIALOG_DATA);
   dietService = inject(DietService)
   addFoodGroupForm = new FormGroup({
     foodGroupName: new FormControl<string>('', Validators.required),
@@ -49,7 +49,7 @@ export class AddFoodGroupDialogComponent implements OnInit{
       this.dietService.createFoodGroup({
         foodGroupName: this.addFoodGroupForm.value.foodGroupName
       }).subscribe({
-        next: (foodGroup: FoodGroupData) => {
+        next: (foodGroup: FoodGroupModel) => {
           if (this.addFoodGroupForm.value.foodGroupTime) {
             this.dietService.addFoodGroupToDiet({
               dietId: this.data.dietId,

@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {UserDietCombined} from '../../models/diet.models';
+import {UserDietDietCombined} from '../../models/diet.models';
 import {DatePipe} from '@angular/common';
 import {
   MatExpansionPanel,
@@ -28,5 +28,5 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   styleUrl: './user-diet-card.component.scss'
 })
 export class UserDietCardComponent {
-  diet = input.required<UserDietCombined>()
+  diet = input.required<UserDietDietCombined>()
 }

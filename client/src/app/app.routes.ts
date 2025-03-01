@@ -10,6 +10,7 @@ import {coachGuard} from './guards/coach.guard';
 import {StudentProfileComponent} from './coach/students/student-profile/student-profile.component';
 import {DietComponent} from './shared/diet/diet.component';
 import {input} from '@angular/core';
+import {RoutineComponent} from './shared/routine/routine.component';
 
 export const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
@@ -22,6 +23,7 @@ export const routes: Routes = [
       { path: 'student/:userId', children: [
           {path: '', component: StudentProfileComponent},
           {path: 'diet/:dietId', component: DietComponent, data: {editable: true}},
+          {path: 'routine/:routineId', component: RoutineComponent, data: {editable: true}},
         ]
       },
     ]

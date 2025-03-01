@@ -6,6 +6,7 @@ import {UserProfileComponent} from '../../../user/user-profile/user-profile.comp
 import {MatButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {UserRoutinesPanelComponent} from '../../../user/user-routines-panel/user-routines-panel.component';
 
 @Component({
   selector: 'app-student-profile',
@@ -15,7 +16,8 @@ import {MatTab, MatTabGroup} from '@angular/material/tabs';
     MatButton,
     RouterLink,
     MatTabGroup,
-    MatTab
+    MatTab,
+    UserRoutinesPanelComponent
   ],
   templateUrl: './student-profile.component.html',
   styleUrl: './student-profile.component.scss'

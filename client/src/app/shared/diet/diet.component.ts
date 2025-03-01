@@ -1,6 +1,6 @@
 import {Component, inject, input, OnInit, signal} from '@angular/core';
 import {DietService} from '../../services/diet.service';
-import {AddFoodData, FoodGroupFoodModel, FoodGroupAndContentModel, AddFoodGroupData} from '../../models/diet.models';
+import {AddFoodToFoodGroupData, FoodGroupFoodCombinedModel, FoodGroupAndContentModel, AddFoodGroupToDietData} from '../../models/diet.models';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 import {MatDivider} from '@angular/material/divider';
@@ -38,7 +38,7 @@ export class DietComponent implements OnInit {
     })
   }
 
-  openAddFoodDialog(addFoodData: AddFoodData) {
+  openAddFoodDialog(addFoodData: AddFoodToFoodGroupData) {
     this.dialog.open(AddFoodDialogComponent, {
       data: addFoodData
     }).afterClosed().subscribe({
@@ -64,7 +64,7 @@ export class DietComponent implements OnInit {
     })
   }
 
-  editFoodGroupFood(foodGroupFoodModel: FoodGroupFoodModel) {
+  editFoodGroupFood(foodGroupFoodModel: FoodGroupFoodCombinedModel) {
     this.dialog.open(EditFoodInGroupDialogComponent, {
       data: foodGroupFoodModel
     }).afterClosed().subscribe({
@@ -78,7 +78,7 @@ export class DietComponent implements OnInit {
     })
   }
 
-  openAddFoodGroupToDietDialog(addFoodGroupData: AddFoodGroupData) {
+  openAddFoodGroupToDietDialog(addFoodGroupData: AddFoodGroupToDietData) {
     this.dialog.open(AddFoodGroupDialogComponent, {
       data: addFoodGroupData
     }).afterClosed().subscribe({

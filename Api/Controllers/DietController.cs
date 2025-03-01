@@ -40,7 +40,7 @@ public class DietController
     }
     
     [HttpGet("user/{userId}")]
-    public async Task<ActionResult<DietResponseDTO>> GetDietsByUserId(int userId)
+    public async Task<ActionResult<UserDietInfoDTO>> GetDietsByUserId(int userId)
     {
         var diets = await dietRepository.GetDietsByUserId(userId);
         return Ok(diets.Select(diet => mapper.Map<UserDietInfoDTO>(diet)));
