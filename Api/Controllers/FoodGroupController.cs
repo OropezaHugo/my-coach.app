@@ -3,6 +3,7 @@ using AutoMapper;
 using Core.Entities.DietEntities;
 using Core.Interfaces;
 using Core.ResponseDTOs;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -22,6 +23,14 @@ public class FoodGroupController (
         return Ok(foodGroups.Select(foodGroup => mapper.Map<FoodGroupResponseDTO>(foodGroup)));
     }
 
+    [HttpGet("names")]
+    public async Task<ActionResult<IEnumerable<string>>> GetFoodGroupNames()
+    {
+        var spec = new FoodGroupNameListSpecification();
+        var foodGroupNames = await repository.ListAllAsync(spec);
+        return Ok(foodGroupNames);
+    }
+    
     [HttpGet("diet/{dietId}")]
     public async Task<ActionResult<IEnumerable<DietFoodGroupContentDTO>>> GetFoodGroupsByDietId(int dietId)
     {
@@ -38,11 +47,12 @@ public class FoodGroupController (
     }
 
     [HttpPost]
-    public async Task<ActionResult<bool>> PostFoodGroup(CreateFoodGroupDTO foodGroupDto)
+    public async Task<ActionResult<FoodGroupResponseDTO>> PostFoodGroup(CreateFoodGroupDTO foodGroupDto)
     {
         var foodGroup = mapper.Map<FoodGroup>(foodGroupDto);
-        repository.AddAsync(foodGroup);
-        return Ok(await repository.SaveChangesAsync());
+        var newFoodGroup = repository.AddAsync(foodGroup);
+        await repository.SaveChangesAsync();
+        return Ok(mapper.Map<FoodGroupResponseDTO>(newFoodGroup));
     }
 
     [HttpPut("{id}")]

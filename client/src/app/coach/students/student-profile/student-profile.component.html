@@ -1,5 +1,14 @@
 <button mat-flat-button routerLink="/coach/home">Back</button>
 @if (user) {
   <app-user-profile [user]="user"/>
-  <app-user-diets-panel [userId]="user.id"/>
+  <mat-tab-group [dynamicHeight]="true">
+    <mat-tab label="Diets">
+      <app-user-diets-panel [userId]="user.id" [editable]="true"/>
+    </mat-tab>
+    <mat-tab label="Routines">
+      Routines
+    </mat-tab>
+  </mat-tab-group>
+
+
 }

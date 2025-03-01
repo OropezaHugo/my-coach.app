@@ -1,0 +1,18 @@
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>food group name</mat-label>
+    <input matInput [matAutocomplete]="existentFoodGroups" [formControl]="addFoodGroupForm.controls.foodGroupName">
+    <mat-autocomplete #existentFoodGroups="matAutocomplete" >
+      @for (foodGroupName of foodGroupsNames; track $index){
+        <mat-option [value]="foodGroupName">
+          {{foodGroupName}}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>target food group time</mat-label>
+    <input matInput [formControl]="addFoodGroupForm.controls.foodGroupTime">
+  </mat-form-field>
+  <button mat-stroked-button (click)="addFoodGroupToDiet()">Add</button>
+</mat-dialog-content>

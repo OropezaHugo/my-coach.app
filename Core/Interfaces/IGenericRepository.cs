@@ -11,7 +11,7 @@ public interface IGenericRepository<T> where T : BaseEntity
     
     Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> spec);
     Task<IEnumerable<TResult>> ListAllAsync<TResult>(ISpecification<T, TResult> spec);
-    void AddAsync(T entity);
+    T AddAsync(T entity);
     void UpdateAsync(T entity);
     void DeleteAsync(T entity);
     Task<bool> SaveChangesAsync();

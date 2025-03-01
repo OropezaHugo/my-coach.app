@@ -1,0 +1,18 @@
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>diet name</mat-label>
+    <input matInput [matAutocomplete]="existentDiets" [formControl]="addDietForm.controls.dietName">
+    <mat-autocomplete #existentDiets="matAutocomplete" >
+      @for (dietName of dietsNames; track $index){
+        <mat-option [value]="dietName">
+          {{dietName}}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>target daily water amount</mat-label>
+    <input matInput [formControl]="addDietForm.controls.waterAmount">
+  </mat-form-field>
+  <button mat-stroked-button (click)="addDietToUser()">Add</button>
+</mat-dialog-content>

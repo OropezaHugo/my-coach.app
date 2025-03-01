@@ -37,9 +37,9 @@ public class GenericRepository<T>(CoachAppContext context): IGenericRepository<T
         return await ApplySpecification(spec).ToListAsync();
     }
 
-    public void AddAsync(T entity)
+    public T AddAsync(T entity)
     {
-        context.Set<T>().Add(entity);
+        return context.Set<T>().Add(entity).Entity;
     }
 
     public void UpdateAsync(T entity)

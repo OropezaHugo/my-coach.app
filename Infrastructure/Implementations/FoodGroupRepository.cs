@@ -16,6 +16,7 @@ public class FoodGroupRepository(CoachAppContext context): IFoodGroupRepository
                     DietId = dietgroup.DietId,
                     FoodGroupId = group.Id,
                     FoodGroupName = group.FoodGroupName,
+                    FoodGroupTime = dietgroup.FoodGroupTime,
                     Id = dietgroup.Id,
                     FoodGroupFoodInfos = context.FoodGroupFoods
                         .Where(foodGroupFood => foodGroupFood.FoodGroupId == group.Id)

@@ -1,12 +1,23 @@
 <button mat-flat-button [routerLink]="['../../']">Back</button>
+@if (editable()) {
+  <button mat-stroked-button (click)="hideEdition.set(!hideEdition())">{{ hideEdition() ? 'Show Edition' : 'Hide Edition' }}</button>
+}
 @for (foodGroup of foodGroups; track $index) {
   <mat-divider/>
     <div class="diet-food-div">
-      <h3>{{foodGroup.foodGroupName}}</h3>
+      <div class="diet-food-div">
+        @if (editable() && !hideEdition()) {
+          <button mat-icon-button (click)="deleteFoodGroupFromDiet(foodGroup.id)"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button (click)="editDietFoodGroup(foodGroup)"><mat-icon>edit</mat-icon></button>
+        }
+        <h3>{{foodGroup.foodGroupName}}</h3>
+
+      </div>
+      <h3>{{foodGroup.foodGroupTime }}</h3>
       <div>
         @for (food of foodGroup.foodGroupFoodInfos; track $index) {
           <div class="diet-food-div">
-            @if (editable()) {
+            @if (editable() && !hideEdition()) {
               <button mat-icon-button (click)="deleteFoodFromFoodGroup(food.id)"><mat-icon>delete</mat-icon></button>
               <button mat-icon-button (click)="editFoodGroupFood(food)"><mat-icon>edit</mat-icon></button>
             }
@@ -14,7 +25,7 @@
             <p>{{food.foodAmount}} grams</p>
           </div>
         }
-        @if (editable()) {
+        @if (editable() && !hideEdition()) {
           <button mat-raised-button (click)="openAddFoodDialog({foodGroupId: foodGroup.foodGroupId})">add food</button>
         }
       </div>
@@ -23,3 +34,7 @@
     <mat-divider/>
 
 }
+@if (editable() && !hideEdition()) {
+  <button mat-raised-button (click)="openAddFoodGroupToDietDialog({dietId: dietId()})">Add Food Group</button>
+}
+

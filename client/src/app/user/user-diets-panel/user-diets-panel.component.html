@@ -5,3 +5,7 @@
 } @else {
   <p>There are not diets assigned yet</p>
 }
+@if (editable()){
+  <button mat-stroked-button (click)="openAddDietToUserDialog({userId: userId()})">Add Diet</button>
+}
+

@@ -5,6 +5,7 @@ import {UserDietsPanelComponent} from '../../../user/user-diets-panel/user-diets
 import {UserProfileComponent} from '../../../user/user-profile/user-profile.component';
 import {MatButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-student-profile',
@@ -12,7 +13,9 @@ import {RouterLink} from '@angular/router';
     UserDietsPanelComponent,
     UserProfileComponent,
     MatButton,
-    RouterLink
+    RouterLink,
+    MatTabGroup,
+    MatTab
   ],
   templateUrl: './student-profile.component.html',
   styleUrl: './student-profile.component.scss'

@@ -1,4 +1,4 @@
-export interface UserDiet {
+export interface UserDietCombined {
   id: number
   userId: number
   dietId: number
@@ -6,11 +6,30 @@ export interface UserDiet {
   waterAmount: number
   assignedDate: string
 }
+export interface UserDietData {
+  userId: number
+  dietId: number
+  assignedDate: string
+}
+export interface CreateDietData {
+  dietName: string
+  waterAmount: number
+}
+export interface AddDietData {
+  userId: number
+}
 
-export interface FoodGroupModel {
+export interface DietData {
+  id: number
+  dietName: string
+  waterAmount: number
+}
+
+export interface FoodGroupAndContentModel {
   id: number
   foodGroupId: number
   foodGroupName: string
+  foodGroupTime: string
   dietId: number
   foodGroupFoodInfos: FoodGroupFoodModel[]
 }
@@ -34,4 +53,23 @@ export interface FoodGroupFoodData {
   foodGroupId: number
   foodId: number
   foodAmount: number
+}
+
+export interface FoodGroupCreationData {
+  foodGroupName: string
+}
+
+export interface FoodGroupData {
+  id: number
+  foodGroupName: string
+}
+
+export interface DietFoodGroupData {
+  foodGroupId: number
+  dietId: number
+  foodGroupTime: string
+}
+
+export interface AddFoodGroupData {
+  dietId: number
 }
