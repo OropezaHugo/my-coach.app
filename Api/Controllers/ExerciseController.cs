@@ -30,11 +30,12 @@ public class ExerciseController(
     }
 
     [HttpPost]
-    public async Task<ActionResult<bool>> PostExercise(CreateExerciseDTO dto)
+    public async Task<ActionResult<ExerciseResponseDTO>> PostExercise(CreateExerciseDTO dto)
     {
         var entity = mapper.Map<Exercise>(dto);
-        repository.AddAsync(entity);
-        return Ok(await repository.SaveChangesAsync());
+        var newExercise = repository.AddAsync(entity);
+        await repository.SaveChangesAsync();
+        return Ok(mapper.Map<ExerciseResponseDTO>(newExercise));
     }
 
     [HttpPut("{id}")]

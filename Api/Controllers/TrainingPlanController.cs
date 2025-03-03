@@ -46,11 +46,12 @@ public class TrainingPlanController
     }
 
     [HttpPost]
-    public async Task<ActionResult<bool>> PostTrainingPlan(CreateTrainingPlanDTO trainingPlanDto)
+    public async Task<ActionResult<TrainingPlanResponseDTO>> PostTrainingPlan(CreateTrainingPlanDTO trainingPlanDto)
     {
         var trainingPlan = mapper.Map<TrainingPlan>(trainingPlanDto);
-        repository.AddAsync(trainingPlan);
-        return Ok(await repository.SaveChangesAsync());
+        var newPlan = repository.AddAsync(trainingPlan);
+        await repository.SaveChangesAsync();
+        return Ok(mapper.Map<TrainingPlanResponseDTO>(newPlan));
     }
 
     [HttpPut("{id}")]

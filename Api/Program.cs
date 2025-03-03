@@ -16,6 +16,7 @@ builder.Services.AddDbContext<CoachAppContext>(
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IDietRepository, DietRepository>();
 builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+builder.Services.AddScoped<ISetRepository, SetRepository>();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
 var app = builder.Build();

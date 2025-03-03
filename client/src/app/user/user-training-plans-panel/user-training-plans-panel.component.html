@@ -1,11 +1,11 @@
-@if (routines.length > 0) {
-  @for (trainingPlan of routines; track $index) {
+@if (trainingPlans.length > 0) {
+  @for (trainingPlan of trainingPlans; track $index) {
     <app-user-training-plan-card [trainingPlan]="trainingPlan"/>
   }
 } @else {
   <p>There are not routines assigned yet</p>
 }
 @if (editable()){
-
+  <button mat-stroked-button (click)="openAddTrainingPlanDialog({userId: userId()})">Add Training Plan</button>
 }
 

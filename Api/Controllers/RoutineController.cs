@@ -32,11 +32,12 @@ public class RoutineController
     }
 
     [HttpPost]
-    public async Task<ActionResult<bool>> PostRoutine(CreateRoutineDTO routineDto)
+    public async Task<ActionResult<RoutineResponseDTO>> PostRoutine(CreateRoutineDTO routineDto)
     {
         var routine = mapper.Map<Routine>(routineDto);
-        repository.AddAsync(routine);
-        return Ok(await repository.SaveChangesAsync());
+        var newRoutine = repository.AddAsync(routine);
+        await repository.SaveChangesAsync();
+        return Ok(mapper.Map<RoutineResponseDTO>(newRoutine));
     }
     
     [HttpPut("{id}")]

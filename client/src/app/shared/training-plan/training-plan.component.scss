@@ -4,3 +4,9 @@
   place-content: space-between;
   align-items: center;
 }
+.routines-div {
+  display: flex;
+  flex-direction: row;
+  place-content: start;
+  gap: 1rem;
+}

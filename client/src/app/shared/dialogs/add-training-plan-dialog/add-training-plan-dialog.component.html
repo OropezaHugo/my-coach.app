@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Training Plan Objective</mat-label>
+    <input matInput [formControl]="addTrainingPlanForm.controls.objective">
+  </mat-form-field>
+  <button mat-stroked-button (click)="addTrainingPlanToUser()">Add</button>
+</mat-dialog-content>

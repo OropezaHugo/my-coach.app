@@ -1,0 +1,11 @@
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>exercise Name</mat-label>
+    <input matInput [formControl]="addExerciseForm.controls.exerciseName">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>exercise Effort</mat-label>
+    <input matInput type="number" [formControl]="addExerciseForm.controls.exerciseEffort">
+  </mat-form-field>
+  <button mat-raised-button (click)="addExerciseToRoutine()">Add</button>
+</mat-dialog-content>

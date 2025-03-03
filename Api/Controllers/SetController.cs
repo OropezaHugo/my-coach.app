@@ -11,6 +11,7 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class SetController(
     IGenericRepository<Set> repository,
+    ISetRepository setRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -18,6 +19,13 @@ public class SetController(
     public async Task<ActionResult<IEnumerable<SetResponseDTO>>> GetSets()
     {
         var items = await repository.ListAllAsync();
+        return Ok(items.Select(item => mapper.Map<SetResponseDTO>(item)));
+    }
+    
+    [HttpGet("exercise/{id}")]
+    public async Task<ActionResult<IEnumerable<SetResponseDTO>>> GetSetsByExerciseId(int id)
+    {
+        var items = await setRepository.GetSetsByExerciseId(id);
         return Ok(items.Select(item => mapper.Map<SetResponseDTO>(item)));
     }
 
@@ -30,18 +38,19 @@ public class SetController(
     }
 
     [HttpPost]
-    public async Task<ActionResult<bool>> PostSet(CreateSetDTO dto)
+    public async Task<ActionResult<SetResponseDTO>> PostSet(CreateSetDTO dto)
     {
         var entity = mapper.Map<Set>(dto);
-        repository.AddAsync(entity);
-        return Ok(await repository.SaveChangesAsync());
+        var newSet = repository.AddAsync(entity);
+        await repository.SaveChangesAsync();
+        return Ok(mapper.Map<SetResponseDTO>(newSet));
     }
 
     [HttpPut("{id}")]
     public async Task<ActionResult<bool>> PutSetById(int id, CreateSetDTO dto)
     {
         var entity = mapper.Map<Set>((dto, id));
-        repository.AddAsync(entity);
+        repository.UpdateAsync(entity);
         return Ok(await repository.SaveChangesAsync());
     }
 

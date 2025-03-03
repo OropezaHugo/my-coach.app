@@ -1,0 +1,34 @@
+<mat-dialog-content>
+  <div class="set-row-div">
+    <h2>Nº</h2>
+    <h2>Reps</h2>
+    <h2>Weight(Kg)</h2>
+    <h2>Actions</h2>
+  </div>
+    @for (set of sets; track $index){
+      <div class="set-row-div">
+        <h2>{{$index + 1}}</h2>
+        <h4>{{set.repetitions}}</h4>
+        <h4>{{set.weight}}</h4>
+        <div class="set-row-div">
+          @if (!editing()) {
+            <button mat-icon-button (click)="deleteSet(set.id)"><mat-icon>delete</mat-icon></button>
+          }
+          <button mat-icon-button (click)="entryEditionMode(set)"><mat-icon>edit</mat-icon></button>
+        </div>
+      </div>
+    }
+  @if (editing()) {
+    <mat-form-field appearance="outline">
+      <mat-label>Repetitions</mat-label>
+      <input matInput [formControl]="editSetForm.controls.setRepetitions" min="1">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Weight</mat-label>
+      <input matInput [formControl]="editSetForm.controls.setWeight" min="0">
+    </mat-form-field>
+    <button mat-raised-button (click)="editSet()">Save set</button>
+  } @else {
+    <button mat-icon-button (click)="addEmptySet()"><mat-icon>add</mat-icon></button>
+  }
+</mat-dialog-content>

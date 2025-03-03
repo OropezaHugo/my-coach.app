@@ -11,21 +11,29 @@
       <div class="diet-food-div">
         @if (editable() && !hideEdition()) {
           <button mat-icon-button (click)="deleteFoodGroupFromDiet(foodGroup.id)"><mat-icon>delete</mat-icon></button>
-          <button mat-icon-button (click)="editDietFoodGroup(foodGroup)"><mat-icon>edit</mat-icon></button>
         }
         <h3>{{foodGroup.foodGroupName}}</h3>
 
       </div>
-      <h3>{{foodGroup.foodGroupTime }}</h3>
+      <div class="diet-food-div">
+        @if (editable() && !hideEdition()) {
+          <button mat-icon-button (click)="editDietFoodGroup(foodGroup)"><mat-icon>edit</mat-icon></button>
+        }
+        <h3>{{foodGroup.foodGroupTime }}</h3>
+      </div>
+
       <div>
         @for (food of foodGroup.foodGroupFoodInfos; track $index) {
           <div class="diet-food-div">
             @if (editable() && !hideEdition()) {
               <button mat-icon-button (click)="deleteFoodFromFoodGroup(food.id)"><mat-icon>delete</mat-icon></button>
-              <button mat-icon-button (click)="editFoodGroupFood(food)"><mat-icon>edit</mat-icon></button>
             }
             <h5>{{food.foodName}}</h5>
+
             <p>{{food.foodAmount}} grams</p>
+            @if (editable() && !hideEdition()) {
+              <button mat-icon-button (click)="editFoodGroupFood(food)"><mat-icon>edit</mat-icon></button>
+            }
           </div>
         }
         @if (editable() && !hideEdition()) {

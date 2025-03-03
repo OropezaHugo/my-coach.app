@@ -1,6 +1,5 @@
-<div class="user-routine-card-div">
+<div class="training-card-div">
   <h2>{{trainingPlan().objective}}</h2>
   <h4>{{trainingPlan().assignedDate | date}}</h4>
   <button mat-stroked-button [routerLink]="['training-plan',trainingPlan().trainingPlanId ]">more</button>
 </div>
-<router-outlet></router-outlet>
