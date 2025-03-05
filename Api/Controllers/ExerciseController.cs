@@ -20,6 +20,13 @@ public class ExerciseController(
         var items = await repository.ListAllAsync();
         return Ok(items.Select(item => mapper.Map<ExerciseResponseDTO>(item)));
     }
+    
+    [HttpGet("basicData")]
+    public async Task<ActionResult<IEnumerable<ExerciseBasicDataDTO>>> GetExercisesBasicData()
+    {
+        var items = await repository.ListAllAsync();
+        return Ok(items.Select(item => mapper.Map<ExerciseBasicDataDTO>(item)));
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<ExerciseResponseDTO>> GetExerciseById(int id)

@@ -1,0 +1,10 @@
+@if (editable()){
+  <button mat-flat-button (click)="openAddRecordDialog({userId: userId()})">New Record</button>
+}
+<mat-tab-group>
+  @for (exercise of exerciseBasicData; track $index){
+    <mat-tab [label]="exercise.exerciseName">
+      <app-user-training-records-tab [userId]="userId()" [exerciseId]="exercise.id"/>
+    </mat-tab>
+  }
+</mat-tab-group>

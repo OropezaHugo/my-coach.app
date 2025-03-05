@@ -1,0 +1,19 @@
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Repetitions</mat-label>
+    <input type="number" matInput [formControl]="addRecordForm.controls.repetitions" min="1">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Weight</mat-label>
+    <input type="number" matInput [formControl]="addRecordForm.controls.weight" min="0">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Exercise</mat-label>
+    <mat-select [formControl]="addRecordForm.controls.exerciseName">
+      @for (exercise of exercisesBasicData; track $index) {
+        <mat-option (onSelectionChange)="setExercise(exercise)" [value]="exercise.exerciseName">{{exercise.exerciseName}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button mat-flat-button (click)="createRecord()">Add</button>
+</mat-dialog-content>

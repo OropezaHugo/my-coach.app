@@ -7,6 +7,10 @@
     <mat-tab label="Training Plans">
       <app-user-training-plans-panel [userId]="user.id" [editable]="false"/>
     </mat-tab>
+
+    <mat-tab label="Training Records">
+      <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+    </mat-tab>
   </mat-tab-group>
 
 }

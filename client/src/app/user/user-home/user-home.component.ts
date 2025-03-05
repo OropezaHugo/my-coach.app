@@ -5,6 +5,7 @@ import {UserProfileComponent} from '../user-profile/user-profile.component';
 import {UserDietsPanelComponent} from '../user-diets-panel/user-diets-panel.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {UserTrainingPlansPanelComponent} from '../user-training-plans-panel/user-training-plans-panel.component';
+import {UserTrainingRecordsPanelComponent} from '../user-training-recods-panel/user-training-records-panel.component';
 
 @Component({
   selector: 'app-user-home',
@@ -13,7 +14,8 @@ import {UserTrainingPlansPanelComponent} from '../user-training-plans-panel/user
     UserDietsPanelComponent,
     MatTabGroup,
     MatTab,
-    UserTrainingPlansPanelComponent
+    UserTrainingPlansPanelComponent,
+    UserTrainingRecordsPanelComponent
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.scss'

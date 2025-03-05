@@ -7,6 +7,9 @@ import {MatButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {UserTrainingPlansPanelComponent} from '../../../user/user-training-plans-panel/user-training-plans-panel.component';
+import {
+  UserTrainingRecordsPanelComponent
+} from '../../../user/user-training-recods-panel/user-training-records-panel.component';
 
 @Component({
   selector: 'app-student-profile',
@@ -17,7 +20,8 @@ import {UserTrainingPlansPanelComponent} from '../../../user/user-training-plans
     RouterLink,
     MatTabGroup,
     MatTab,
-    UserTrainingPlansPanelComponent
+    UserTrainingPlansPanelComponent,
+    UserTrainingRecordsPanelComponent
   ],
   templateUrl: './student-profile.component.html',
   styleUrl: './student-profile.component.scss'
