@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.ResponseDTOs;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -23,6 +24,7 @@ public class UserController
         return Ok(users.Select(user => mapper.Map<UserResponseDTO>(user)));
     }
     
+    [Authorize(Roles = "Coach")]
     [HttpGet("role/{roleId}")]
     public async Task<ActionResult<IEnumerable<UserResponseDTO>>> GetUsersByRoleId(int roleId)
     {
@@ -30,7 +32,7 @@ public class UserController
         var users = await repository.ListAllAsync(spec);
         return Ok(users.Select(user => mapper.Map<UserResponseDTO>(user)));
     }
-    
+    [Authorize(Policy = "SelfOrCoachAccess")]
     [HttpGet("email/{email}")]
     public async Task<ActionResult<UserResponseDTO>> GetUserByEmail(string email)
     {
@@ -38,11 +40,10 @@ public class UserController
         var user = await repository.GetEntityWithSpec(spec);
         return Ok(mapper.Map<UserResponseDTO>(user));
     }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<UserResponseDTO>> GetUserById(int id)
+    [HttpGet("{userId}")]
+    public async Task<ActionResult<UserResponseDTO>> GetUserById(int userId)
     {
-        var user = await repository.GetByIdAsync(id);
+        var user = await repository.GetByIdAsync(userId);
         if (user == null) return NotFound();
         return Ok(mapper.Map<UserResponseDTO>(user));
     }

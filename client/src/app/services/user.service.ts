@@ -30,8 +30,7 @@ export class UserService {
   getTokenData() {
     let value = this.cookieService.get('auth_token')
     if (value.length > 2) {
-      let base64Payload = JSON.parse(this.httpUrlCodec.decodeValue(value)).id_token.toString().split('.')[1]
-      let jwtString = atob(base64Payload)
+      let jwtString = atob(value.split('.')[1]);
       let jwt: GoogleUserInfo = JSON.parse(jwtString)
       this.tokenData.set(jwt)
       return this.tokenData()

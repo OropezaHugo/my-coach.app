@@ -4,6 +4,7 @@ using Core.Entities.DietEntities;
 using Core.Interfaces;
 using Core.ResponseDTOs;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -17,6 +18,7 @@ public class DietController
     IMapper mapper
 ): ControllerBase
 {
+    [Authorize(Roles = "Coach")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<DietResponseDTO>>> GetDiets()
     {
@@ -24,6 +26,7 @@ public class DietController
         return Ok(diets.Select(diet => mapper.Map<DietResponseDTO>(diet)));
     }
 
+    [Authorize(Roles = "Coach")]
     [HttpGet("names")]
     public async Task<ActionResult<IEnumerable<string>>> GetDietNames()
     {
@@ -47,6 +50,7 @@ public class DietController
         return Ok(dietContent);
     }
     
+    [Authorize(Roles = "Coach,Student")]
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<UserDietInfoDTO>> GetDietsByUserId(int userId)
     {

@@ -1,8 +1,14 @@
+using System.Text;
+using Api.Handlers;
+using Api.Handlers.Requirements;
 using Api.Profiles;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Implementations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +19,43 @@ builder.Services.AddDbContext<CoachAppContext>(
     {
         optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+var secretKey = builder.Configuration["Jwt:SecretKey"];
+if (secretKey != null)
+{
+    var key = Encoding.UTF8.GetBytes(secretKey);
+
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+        });
+}
+
+builder.Services.AddSingleton<IAuthorizationHandler, CoachOrSelfAuthorizationHandler>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("SelfOrCoachAccess", policyBuilder => 
+        policyBuilder.Requirements.Add(new EmptyRequirement()));
+});
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IDietRepository, DietRepository>();
 builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 builder.Services.AddScoped<ISetRepository, SetRepository>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddAutoMapper(typeof(UserProfile));
+
+
 
 var app = builder.Build();
 
@@ -28,8 +66,9 @@ app.UseCors(policyBuilder =>
         .AllowAnyHeader()
         .AllowAnyMethod();
 });
-
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

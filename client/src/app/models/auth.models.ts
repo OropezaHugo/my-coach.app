@@ -12,4 +12,5 @@ export interface GoogleUserInfo {
   name: string;
   picture: string;
   sub: string;
+  role: string;
 }
