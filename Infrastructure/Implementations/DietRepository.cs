@@ -43,7 +43,24 @@ public class DietRepository(CoachAppContext context): IDietRepository
                                     FoodId = food.Id,
                                     FoodAmount = foodgroup.FoodAmount,
                                     FoodGroupId = foodgroup.FoodGroupId,
-                                    FoodName = food.FoodName
+                                    FoodName = food.FoodName,
+                                    FoodGroup = food.FoodGroup,
+                                    FoodAshGr = food.FoodAshGr,
+                                    FoodCalciumGr = food.FoodCalciumGr,
+                                    FoodCarbsGr = food.FoodCarbsGr,
+                                    FoodEnergyKcal = food.FoodEnergyKcal,
+                                    FoodFatGr = food.FoodFatGr,
+                                    FoodFibberGr = food.FoodFibberGr,
+                                    FoodHumidityGr = food.FoodHumidityGr,
+                                    FoodIronMg = food.FoodIronMg,
+                                    FoodPhosphorusMg = food.FoodPhosphorusMg,
+                                    FoodProteinGr = food.FoodProteinGr,
+                                    FoodSubGroup = food.FoodSubGroup,
+                                    FoodVitaminAMig = food.FoodVitaminAMig,
+                                    FoodVitaminB1Mg = food.FoodVitaminB1Mg,
+                                    FoodVitaminB2Mg = food.FoodVitaminB2Mg,
+                                    FoodVitaminB3Mg = food.FoodVitaminB3Mg,
+                                    FoodVitaminCMg = food.FoodVitaminCMg,
                                 }).ToList()
                     }
                 ).ToListAsync().Result

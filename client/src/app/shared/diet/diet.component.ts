@@ -16,6 +16,17 @@ import {MatIcon} from '@angular/material/icon';
 import {EditFoodInGroupDialogComponent} from '../dialogs/edit-food-in-group-dialog/edit-food-in-group-dialog.component';
 import {AddFoodGroupDialogComponent} from '../dialogs/add-food-group-doalog/add-food-group-dialog.component';
 import {EditFoodGroupDialogComponent} from '../dialogs/edit-food-group-doalog/edit-food-group-dialog.component';
+import {
+  MatCell, MatCellDef, MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef, MatTable
+} from '@angular/material/table';
+import {DecimalPipe} from '@angular/common';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   selector: 'app-diet',
@@ -24,7 +35,21 @@ import {EditFoodGroupDialogComponent} from '../dialogs/edit-food-group-doalog/ed
     RouterLink,
     MatDivider,
     MatIconButton,
-    MatIcon
+    MatIcon,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatColumnDef,
+    MatCellDef,
+    MatTable,
+    DecimalPipe,
+    MatMenuTrigger,
+    MatMenuItem,
+    MatMenu
   ],
   templateUrl: './diet.component.html',
   styleUrl: './diet.component.scss'
@@ -36,10 +61,13 @@ export class DietComponent implements OnInit {
   dietService = inject(DietService)
   dietContent?: DietContent = undefined
   readonly dialog = inject(MatDialog);
+  columns: string[] = []
+  advancedView = signal<boolean>(false);
   ngOnInit() {
     this.dietService.getDietContentById(this.dietId() as number).subscribe({
       next: (data) => {
         this.dietContent = data
+        this.columns = this.editable() ? ['foodName', 'foodAmount', 'foodEnergyKcal', 'foodProteinGr', 'foodFatGr', 'foodCarbsGr', 'foodFibberGr', 'foodAshGr', 'foodCalciumGr', 'foodPhosphorusMg', 'foodVitaminAMig', 'foodIronMg', 'foodVitaminB1Mg', 'foodVitaminB2Mg', 'foodVitaminB3Mg', 'foodVitaminCMg', 'actions'] : ['foodName', 'foodAmount', 'foodEnergyKcal', 'foodProteinGr', 'foodFatGr', 'foodCarbsGr', 'foodFibberGr', 'foodAshGr', 'foodCalciumGr', 'foodPhosphorusMg', 'foodVitaminAMig', 'foodIronMg', 'foodVitaminB1Mg', 'foodVitaminB2Mg', 'foodVitaminB3Mg', 'foodVitaminCMg']
       }
     })
   }
@@ -122,5 +150,14 @@ export class DietComponent implements OnInit {
         })
       }
     })
+  }
+
+  toggleHideEdition() {
+    this.hideEdition.set(!this.hideEdition())
+    if (this.hideEdition()) {
+      this.columns = this.columns.filter(c => c != 'actions')
+    } else {
+      this.columns.push('actions')
+    }
   }
 }

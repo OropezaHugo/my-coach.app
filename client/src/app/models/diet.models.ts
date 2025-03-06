@@ -43,12 +43,46 @@ export interface FoodGroupFoodCombinedModel {
   id: number
   foodId: number
   foodName: string
+  foodGroup: string;
+  foodSubGroup: string;
+  foodEnergyKcal: number;
+  foodHumidityGr: number;
+  foodProteinGr: number;
+  foodFatGr: number;
+  foodCarbsGr: number;
+  foodFibberGr: number;
+  foodAshGr: number;
+  foodCalciumGr: number;
+  foodPhosphorusMg: number;
+  foodIronMg: number;
+  foodVitaminAMig: number;
+  foodVitaminB1Mig: number;
+  foodVitaminB2Mg: number;
+  foodVitaminB3Mg: number;
+  foodVitaminCMg: number;
   foodAmount: number
   foodGroupId: number
 }
 export interface FoodModel {
   id: number
   foodName: string
+  foodGroup: string;
+  foodSubGroup: string;
+  foodEnergyKcal: number;
+  foodHumidityGr: number;
+  foodProteinGr: number;
+  foodFatGr: number;
+  foodCarbsGr: number;
+  foodFibberGr: number;
+  foodAshGr: number;
+  foodCalciumGr: number;
+  foodPhosphorusMg: number;
+  foodIronMg: number;
+  foodVitaminAMig: number;
+  foodVitaminB1Mg: number;
+  foodVitaminB2Mg: number;
+  foodVitaminB3Mg: number;
+  foodVitaminCMg: number;
 }
 
 export interface AddFoodToFoodGroupData {

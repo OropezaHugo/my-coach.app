@@ -1,8 +1,9 @@
 <button mat-flat-button [routerLink]="['../../']">Back</button>
 @if (editable()) {
-  <button mat-stroked-button (click)="hideEdition.set(!hideEdition())">{{ hideEdition() ? 'Show Edition' : 'Hide Edition' }}</button>
+  <button mat-stroked-button (click)="toggleHideEdition()">{{ hideEdition() ? 'Show Edition' : 'Hide Edition' }}</button>
 }
-@if (dietContent) {
+<button mat-flat-button (click)="advancedView.set(!advancedView())">Toggle Advanced View</button>
+@if (dietContent && !advancedView()) {
   <h2>{{dietContent.dietName}}</h2>
   <h3>must drink {{dietContent.waterAmount}}L of water daily</h3>
   @for (foodGroup of dietContent.dietFoodGroupInfos; track $index) {
@@ -45,9 +46,105 @@
     <mat-divider/>
 
   }
+} @else if (dietContent && advancedView()) {
+
+  <h2>{{dietContent.dietName}}</h2>
+  <h3>must drink {{dietContent.waterAmount}}L of water daily</h3>
+  @for (foodGroup of dietContent.dietFoodGroupInfos; track $index){
+    <h4>{{foodGroup.foodGroupName}}</h4>
+    <h4>{{foodGroup.foodGroupTime}}</h4>
+    @if (editable() && !hideEdition()){
+      <button mat-icon-button (click)="deleteFoodGroupFromDiet(foodGroup.id)"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button (click)="editDietFoodGroup(foodGroup)"><mat-icon>edit</mat-icon></button>
+    }
+    <div class="table-container">
+      <table mat-table [dataSource]="foodGroup.foodGroupFoodInfos" class="mat-elevation-z8">
+        <ng-container matColumnDef="foodName" sticky>
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodAmount" sticky>
+          <th mat-header-cell *matHeaderCellDef> Amount(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodAmount | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodEnergyKcal">
+          <th mat-header-cell *matHeaderCellDef> Energy(Kcal) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodEnergyKcal * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodProteinGr">
+          <th mat-header-cell *matHeaderCellDef> Protein(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodProteinGr * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodFatGr">
+          <th mat-header-cell *matHeaderCellDef> Fat(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodFatGr * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodCarbsGr">
+          <th mat-header-cell *matHeaderCellDef> Carbs(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodCarbsGr * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodFibberGr">
+          <th mat-header-cell *matHeaderCellDef> Fibber(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodFibberGr * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodIronMg">
+          <th mat-header-cell *matHeaderCellDef> Iron(mg) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodIronMg * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodAshGr">
+          <th mat-header-cell *matHeaderCellDef> Ash(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodAshGr * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodCalciumGr">
+          <th mat-header-cell *matHeaderCellDef> Calcium(gr) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodCalciumGr * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodPhosphorusMg">
+          <th mat-header-cell *matHeaderCellDef> Phosphorus(mg) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodPhosphorusMg * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodVitaminAMig">
+          <th mat-header-cell *matHeaderCellDef> Vitamin A(mig) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodVitaminAMig * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodVitaminB1Mg">
+          <th mat-header-cell *matHeaderCellDef> Vitamin B1(mg) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodVitaminB1Mg * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodVitaminB2Mg">
+          <th mat-header-cell *matHeaderCellDef> Vitamin B2(mg) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodVitaminB2Mg * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodVitaminB3Mg">
+          <th mat-header-cell *matHeaderCellDef> Vitamin B3(mg) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodVitaminB3Mg * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="foodVitaminCMg">
+          <th mat-header-cell *matHeaderCellDef> Vitamin C(mg) </th>
+          <td mat-cell *matCellDef="let element"> {{element.foodVitaminCMg * element.foodAmount / 100 | number: '1.1-3'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="deleteFoodFromFoodGroup(element.id)">Delete Food</button>
+              <button mat-menu-item (click)="editFoodGroupFood(element)">Edit Food Amount</button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+      </table>
+
+    </div>
+    @if (editable() && !hideEdition()){
+      <button mat-flat-button (click)="openAddFoodDialog({foodGroupId: foodGroup.foodGroupId})">Add Food</button>
+    }
+  }
+
 }
 
 @if (editable() && !hideEdition()) {
   <button mat-raised-button (click)="openAddFoodGroupToDietDialog({dietId: dietId()})">Add Food Group</button>
 }
-
