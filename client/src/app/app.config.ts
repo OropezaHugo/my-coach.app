@@ -30,6 +30,6 @@ export const appConfig: ApplicationConfig = {
       }
     ),
     provideAnimationsAsync(),
-    providePrimeNG()
+    providePrimeNG(),
   ]
 };

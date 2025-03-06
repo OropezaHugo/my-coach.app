@@ -1,69 +1,117 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   effect,
   inject,
   input,
-  OnChanges,
   OnInit,
-  PLATFORM_ID,
-  SimpleChanges
+  PLATFORM_ID, signal, viewChild,
 } from '@angular/core';
 import {TrainingRecordContent, TrainingRecordModel} from '../../models/training-records.models';
-import {ChartModule, UIChart} from 'primeng/chart';
+import {UIChart} from 'primeng/chart';
 import {AppConfigService} from '../../services/app-config.service';
 import {DesignerService} from '../../services/designer.service';
-import {isPlatformBrowser} from '@angular/common';
+import {DatePipe, isPlatformBrowser} from '@angular/common';
 import {TrainingRecordService} from '../../services/training-record.service';
 import {MatButton} from '@angular/material/button';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-user-training-records-tab',
   imports: [
     UIChart,
-    MatButton
+    MatButton,
+    MatLabel,
+    MatInput,
+    MatFormField,
+    MatSort,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatRowDef,
+    MatHeaderRow,
+    MatRow,
+    MatNoDataRow,
+    MatPaginator,
+    DatePipe,
+    MatSortHeader,
+    MatHeaderRowDef
   ],
   templateUrl: './user-training-records-tab.component.html',
   styleUrl: './user-training-records-tab.component.scss'
 })
-export class UserTrainingRecordsTabComponent implements OnInit{
+export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   userId = input.required<number>();
   exerciseId = input.required<number>();
+  chartView = signal<boolean>(false)
+  columns: string[] = ['weightLifted', 'repetitionsMade', 'recordDate']
   data: any;
   records: TrainingRecordContent[] = []
   options: any;
   platformId = inject(PLATFORM_ID);
-  configService = inject(AppConfigService);
   trainingRecordService = inject(TrainingRecordService)
-  designerService = inject(DesignerService);
-  constructor(private cd: ChangeDetectorRef) {}
+  dataSource:MatTableDataSource<TrainingRecordContent> = new MatTableDataSource()
+  paginator = viewChild.required<MatPaginator>(MatPaginator)
+  sort = viewChild.required<MatSort>(MatSort)
+  cd = inject(ChangeDetectorRef)
 
-  themeEffect = effect(() => {
-    if (this.configService.transitionComplete()) {
-      if (this.designerService.preset()) {
+  ngOnInit() {
+    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
+      next: (res) => {
+        this.records = res
+        this.dataSource = new MatTableDataSource(res);
         this.initChart();
       }
-    }
-  });
+    })
+  }
 
+  ngAfterViewInit() {
+    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
+      next: (res) => {
+        this.records = res
+        this.dataSource = new MatTableDataSource(res);
+        this.initChart();
+
+        this.dataSource.sort = this.sort();
+        this.dataSource.paginator = this.paginator();
+      }
+    })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   refreshRecords(){
     this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
       next: (res) => {
         this.records = res
         this.initChart();
+        this.dataSource.data = res;
+        this.dataSource.sort = this.sort();
+        this.dataSource.paginator = this.paginator();
       }
     })
   }
-  ngOnInit() {
-    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
-      next: (res) => {
-        this.records = res
-        this.initChart();
-      }
-    })
-
-  }
-
   initChart() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
@@ -129,4 +177,16 @@ export class UserTrainingRecordsTabComponent implements OnInit{
       this.cd.markForCheck();
     }
   }
+
+  loadTableView() {
+    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
+      next: (res) => {
+        this.records = res
+        this.initChart();
+        this.dataSource.data = res;
+        this.chartView.set(!this.chartView())
+      }
+    })
+  }
+
 }

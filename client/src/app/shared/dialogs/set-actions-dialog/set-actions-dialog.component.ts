@@ -52,7 +52,10 @@ export class SetActionsDialogComponent implements OnInit {
     })
   }
 
-  addEmptySet() {
+  addSet() {
+    if (this.sets.length > 0) {
+      this.activeSet = this.sets[this.sets.length - 1]
+    }
     this.trainingPlanService.createSet(this.activeSet ?? {
       weight: 0,
       repetitions: 0

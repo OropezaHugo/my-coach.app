@@ -9,7 +9,12 @@
       <app-user-training-plans-panel [userId]="user.id" [editable]="true"/>
     </mat-tab>
     <mat-tab label="Training Records">
-      <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+      @defer (on viewport){
+        <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+      } @placeholder (){
+        <p>Hola</p>
+      }
+
     </mat-tab>
   </mat-tab-group>
 
