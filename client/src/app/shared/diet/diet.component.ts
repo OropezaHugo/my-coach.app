@@ -74,7 +74,8 @@ export class DietComponent implements OnInit {
 
   openAddFoodDialog(addFoodData: AddFoodToFoodGroupData) {
     this.dialog.open(AddFoodDialogComponent, {
-      data: addFoodData
+      data: addFoodData,
+      minWidth: '100%'
     }).afterClosed().subscribe({
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({

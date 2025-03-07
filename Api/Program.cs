@@ -54,6 +54,7 @@ builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 builder.Services.AddScoped<ITrainingRecordRepository, TrainingRecordRepository>();
 builder.Services.AddScoped<ISetRepository, SetRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
 

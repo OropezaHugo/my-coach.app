@@ -11,6 +11,7 @@ import {StudentProfileComponent} from './coach/students/student-profile/student-
 import {DietComponent} from './shared/diet/diet.component';
 import {input} from '@angular/core';
 import {TrainingPlanComponent} from './shared/training-plan/training-plan.component';
+import {FoodComponent} from './shared/food/food.component';
 
 export const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
@@ -41,6 +42,6 @@ export const routes: Routes = [
       {path: 'home', component: GuestHomeComponent},
     ]
   },
-
+  {path: 'food', component: FoodComponent},
   { path: '**', component: GuestHomeComponent }
 ];

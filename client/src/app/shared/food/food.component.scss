@@ -1,0 +1,17 @@
+.table-container {
+  max-width: 100%;
+  overflow: auto;
+}
+.table-container::-webkit-scrollbar {
+  display: none;
+}
+table {
+  width: 800px;
+}
+.name-cols {
+  min-width: min(15vw, 200px);
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}

@@ -3,6 +3,7 @@ using AutoMapper;
 using Core.Entities.DietEntities;
 using Core.Interfaces;
 using Core.ResponseDTOs;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -11,6 +12,7 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class FoodController (
     IGenericRepository<Food> repository,
+    IFoodRepository foodRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -19,6 +21,14 @@ public class FoodController (
     {
         var foods = await repository.ListAllAsync();
         return Ok(foods.Select(food => mapper.Map<FoodResponseDTO>(food)));
+    }
+    
+    [HttpGet("filtercontent")]
+    public async Task<ActionResult<IEnumerable<FoodFoodGroupsAndFoodSubGroupsFilterDTO>>> GetFoodsFilterContent()
+    {
+        
+        var filterContent = await foodRepository.GetFoodGroupsAndFoodSubGroups();
+        return Ok(filterContent);
     }
 
     [HttpGet("{id}")]

@@ -1,0 +1,101 @@
+<mat-form-field appearance="outline">
+  <mat-label>Search By Name</mat-label>
+  <input matInput (keyup)="applyFiltering()" [formControl]="foodFiltersForm.controls.foodName">
+</mat-form-field>
+<mat-form-field appearance="outline">
+  <mat-label>Filter By SubGroup</mat-label>
+  <mat-select (selectionChange)="applyFiltering()" [formControl]="foodFiltersForm.controls.foodSubGroup" >
+    <mat-option value="">
+      None
+    </mat-option>
+    @for (group of filterOptions; track $index){
+      <mat-optgroup [label]="group.foodGroup">
+        @for (subGroup of group.foodSubGroups; track $index){
+          <mat-option [value]="subGroup">
+            {{subGroup}}
+          </mat-option>
+        }
+      </mat-optgroup>
+    }
+  </mat-select>
+</mat-form-field>
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="foodName" sticky >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="name-cols"> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodGroup" sticky >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="name-cols"> Food Group </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodGroup}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodSubGroup" sticky >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="name-cols"> Food Sub Group </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodSubGroup}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodEnergyKcal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Energy(Kcal) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodEnergyKcal | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodProteinGr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Protein(gr) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodProteinGr | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodFatGr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fat(gr) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodFatGr | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodCarbsGr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Carbs(gr) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodCarbsGr | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodFibberGr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fibber(gr) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodFibberGr | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodIronMg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Iron(mg) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodIronMg | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodAshGr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ash(gr) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodAshGr | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodCalciumGr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Calcium(gr) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodCalciumGr | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodPhosphorusMg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phosphorus(mg) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodPhosphorusMg | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodVitaminAMig">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vitamin A(mig) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodVitaminAMig | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodVitaminB1Mg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vitamin B1(mg) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodVitaminB1Mg | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodVitaminB2Mg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vitamin B2(mg) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodVitaminB2Mg | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodVitaminB3Mg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vitamin B3(mg) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodVitaminB3Mg | number: '1.1-3'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="foodVitaminCMg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vitamin C(mg) </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodVitaminCMg | number: '1.1-3'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;" (click)="selectedFood.emit(row)"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No food name matching the filter "{{foodFiltersForm.value.foodName}}"</td>
+    </tr>
+  </table>
+
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" ></mat-paginator>

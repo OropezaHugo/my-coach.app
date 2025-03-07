@@ -6,7 +6,14 @@ import {
   FoodGroupAndContentModel,
   FoodModel,
   UserDietDietCombined,
-  CreateFoodGroupData, FoodGroupModel, DietFoodGroupData, CreateDietData, DietModel, UserDietData, DietContent
+  CreateFoodGroupData,
+  FoodGroupModel,
+  DietFoodGroupData,
+  CreateDietData,
+  DietModel,
+  UserDietData,
+  DietContent,
+  FoodFilterOptions
 } from '../models/diet.models';
 
 @Injectable({
@@ -66,6 +73,10 @@ export class DietService {
   //food
   getAllFoods() {
     return this.http.get<FoodModel[]>(`${this.baseUrl}/food`)
+  }
+
+  getFoodFilterOptions() {
+    return this.http.get<FoodFilterOptions[]>(`${this.baseUrl}/food/filtercontent`)
   }
 
   getFoodById(id: number){

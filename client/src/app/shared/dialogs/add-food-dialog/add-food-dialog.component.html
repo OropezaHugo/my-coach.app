@@ -1,13 +1,6 @@
 <mat-dialog-content>
   <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Food</mat-label>
-      <mat-select [formControl]="addFoodForm.controls.foodId">
-        @for (food of foods; track $index) {
-          <mat-option [value]="food.id">{{food.foodName}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    <h3>food Selected: {{addFoodForm.value.food?.foodName}}</h3>
     <mat-form-field appearance="outline">
       <mat-label>Quantity(gr)</mat-label>
       <input matInput [formControl]="addFoodForm.controls.foodAmount" type="number">
@@ -15,4 +8,5 @@
     <button mat-button (click)="addFoodToFoodGroup()">Add Food</button>
 
   </div>
+  <app-food (selectedFood)="addFoodForm.controls.food.setValue($event);"/>
 </mat-dialog-content>

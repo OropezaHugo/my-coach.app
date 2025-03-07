@@ -7,6 +7,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {MatInput} from '@angular/material/input';
+import {FoodComponent} from '../../food/food.component';
 
 @Component({
   selector: 'app-add-food-dialog',
@@ -18,7 +19,8 @@ import {MatInput} from '@angular/material/input';
     MatOption,
     ReactiveFormsModule,
     MatInput,
-    MatLabel
+    MatLabel,
+    FoodComponent
   ],
   templateUrl: './add-food-dialog.component.html',
   styleUrl: './add-food-dialog.component.scss'
@@ -28,7 +30,7 @@ export class AddFoodDialogComponent implements OnInit {
   data = inject<AddFoodToFoodGroupData>(MAT_DIALOG_DATA);
   dietService = inject(DietService)
   addFoodForm = new FormGroup({
-    foodId: new FormControl<number | null>(null, [Validators.required]),
+    food: new FormControl<FoodModel | null>(null, [Validators.required]),
     foodAmount: new FormControl<number | null>(null, [Validators.required]),
   })
   foods: FoodModel[] = []
@@ -41,9 +43,9 @@ export class AddFoodDialogComponent implements OnInit {
   }
 
   addFoodToFoodGroup() {
-    if (this.addFoodForm.value.foodId && this.addFoodForm.value.foodAmount) {
+    if (this.addFoodForm.value.food && this.addFoodForm.value.foodAmount) {
       this.dietService.addFoodToFoodGroup({
-        foodId: this.addFoodForm.value.foodId,
+        foodId: this.addFoodForm.value.food.id,
         foodGroupId: this.data.foodGroupId,
         foodAmount: this.addFoodForm.value.foodAmount
       }).subscribe({
@@ -53,4 +55,6 @@ export class AddFoodDialogComponent implements OnInit {
       })
     }
   }
+
+  protected readonly focus = focus;
 }

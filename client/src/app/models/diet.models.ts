@@ -113,3 +113,8 @@ export interface DietFoodGroupData {
 export interface AddFoodGroupToDietData {
   dietId: number
 }
+
+export interface FoodFilterOptions {
+  foodGroup: string
+  foodSubGroups: string[]
+}
