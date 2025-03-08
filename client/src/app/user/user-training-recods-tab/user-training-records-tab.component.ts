@@ -14,7 +14,7 @@ import {AppConfigService} from '../../services/app-config.service';
 import {DesignerService} from '../../services/designer.service';
 import {DatePipe, isPlatformBrowser} from '@angular/common';
 import {TrainingRecordService} from '../../services/training-record.service';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
@@ -28,6 +28,7 @@ import {
 } from '@angular/material/table';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-training-records-tab',
@@ -51,7 +52,9 @@ import {MatInput} from '@angular/material/input';
     MatPaginator,
     DatePipe,
     MatSortHeader,
-    MatHeaderRowDef
+    MatHeaderRowDef,
+    MatIconButton,
+    MatIcon
   ],
   templateUrl: './user-training-records-tab.component.html',
   styleUrl: './user-training-records-tab.component.scss'
@@ -60,7 +63,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   userId = input.required<number>();
   exerciseId = input.required<number>();
   chartView = signal<boolean>(false)
-  columns: string[] = ['weightLifted', 'repetitionsMade', 'recordDate']
+  columns: string[] = ['weightLifted', 'repetitionsMade', 'recordDate','actions']
   data: any;
   records: TrainingRecordContent[] = []
   options: any;
@@ -96,6 +99,8 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filterPredicate = (rec, filter) => rec.recordDate.trim().toLowerCase().includes(filter)
+
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -109,6 +114,21 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
         this.dataSource.data = res;
         this.dataSource.sort = this.sort();
         this.dataSource.paginator = this.paginator();
+      }
+    })
+  }
+  deleteRecord(id:number){
+    this.trainingRecordService.deleteRecordById(id).subscribe({
+      next: (res) => {
+        this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
+          next: (res) => {
+            this.records = res
+            this.initChart();
+            this.dataSource.data = res;
+            this.dataSource.sort = this.sort();
+            this.dataSource.paginator = this.paginator();
+          }
+        })
       }
     })
   }
@@ -188,5 +208,4 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
       }
     })
   }
-
 }

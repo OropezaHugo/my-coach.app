@@ -90,7 +90,12 @@ export class SetActionsDialogComponent implements OnInit {
     })
   }
   editSet() {
-    if (this.editSetForm.value.setRepetitions && this.editSetForm.value.setWeight && this.activeSet) {
+    if (this.editSetForm.value.setRepetitions !== undefined
+      && this.editSetForm.value.setRepetitions !== null
+      && this.editSetForm.value.setWeight !== undefined
+      && this.editSetForm.value.setWeight !== null
+      && this.editSetForm.valid
+      && this.activeSet !== undefined) {
       this.trainingPlanService.editSet(this.activeSet.id, {
         repetitions: this.editSetForm.value.setRepetitions,
         weight: this.editSetForm.value.setWeight,

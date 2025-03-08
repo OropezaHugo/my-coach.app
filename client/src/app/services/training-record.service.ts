@@ -28,5 +28,7 @@ export class TrainingRecordService {
   createTrainingRecord(data: TrainingRecordData){
     return this.http.post<boolean>(this.baseUrl+'/trainingRecord', data);
   }
-
+deleteRecordById(id: number){
+    return this.http.delete<boolean>(this.baseUrl+'/trainingRecord/'+id);
+}
 }

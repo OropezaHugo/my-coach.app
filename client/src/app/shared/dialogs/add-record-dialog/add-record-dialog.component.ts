@@ -51,7 +51,12 @@ export class AddRecordDialogComponent implements OnInit {
   }
 
   createRecord() {
-    if (this.addRecordForm.value.weight && this.addRecordForm.value.exerciseId && this.addRecordForm.value.repetitions) {
+    if (this.addRecordForm.value.weight !== undefined
+      && this.addRecordForm.value.weight !== null
+      && this.addRecordForm.value.exerciseId !== undefined
+      && this.addRecordForm.value.exerciseId !== null
+      && this.addRecordForm.value.repetitions !== undefined
+      && this.addRecordForm.value.repetitions !== null) {
       this.trainingRecordService.createTrainingRecord({
         recordDate:  new Date().toISOString().split('T')[0],
         exerciseId: this.addRecordForm.value.exerciseId,

@@ -14,11 +14,17 @@ import {StudentCardComponent} from '../student-card/student-card.component';
 export class StudentsPanelComponent implements OnInit {
 
   userService = inject(UserService)
-  users: UserModel[] = []
+  students: UserModel[] = []
+  coaches: UserModel[] = []
   ngOnInit() {
     this.userService.getStudents().subscribe({
       next: data => {
-        this.users = data
+        this.students = data
+      }
+    })
+    this.userService.getCoaches().subscribe({
+      next: data => {
+        this.coaches = data
       }
     })
   }

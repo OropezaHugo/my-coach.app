@@ -2,6 +2,10 @@
 @if (trainingPlan){
 
   @if (editable()) {
+    <button mat-stroked-button (click)="hideEdition.set(!hideEdition())" >{{ hideEdition() ? 'Show Edition' : 'Hide Edition' }}</button>
+
+  }
+  @if (editable() && !hideEdition()){
     <button mat-stroked-button (click)="openAddRoutineDialog({trainingPlanId: trainingPlanId()})">Add Routine</button>
   }
   <div class="routines-div">
@@ -9,14 +13,14 @@
     <div>
       <div class="row-div">
         <h3>{{routine.routineName}}</h3>
-        @if (editable()){
+        @if (editable() && !hideEdition()){
           <button mat-icon-button (click)="deleteRoutineFromTrainingPlan(routine.id)"><mat-icon>delete</mat-icon></button>
 
         }
       </div>
       <div class="row-div">
         <h3>{{routine.routineWeekDay}}</h3>
-        @if (editable()){
+        @if (editable() && !hideEdition()){
           <button mat-icon-button (click)="openEditRoutineDialog(routine)"><mat-icon>edit</mat-icon></button>
         }
       </div>
@@ -26,14 +30,14 @@
           <mat-expansion-panel-header>
             <div class="row-div">
               <h4>{{exercise.exerciseName}}</h4>
-              @if (editable()){
+              @if (editable() && !hideEdition()){
                 <button mat-icon-button (click)="deleteExerciseFromRoutine(exercise.id)"><mat-icon>delete</mat-icon></button>
               }
 
             </div>
-
           </mat-expansion-panel-header>
-          <div (click)="openSetActionsDialog(exercise)">
+          <div (click)="(editable() && !hideEdition()) ? openSetActionsDialog(exercise) : null">
+            <h4>Effort: {{exercise.effort}}%</h4>
             <h3>{{exercise.exerciseSetContent.length}} Sets</h3>
 
               <div class="row-div">
@@ -50,7 +54,10 @@
         </mat-expansion-panel>
         }
       </mat-accordion>
-      <button mat-stroked-button (click)="openAddExerciseDialog({routineId: routine.routineId})">Add Exercise</button>
+      @if (editable() && !hideEdition()){
+        <button mat-stroked-button (click)="openAddExerciseDialog({routineId: routine.routineId})">Add Exercise</button>
+      }
+
     </div>
   }
 

@@ -59,6 +59,9 @@ export class TrainingPlanService {
   createExercise(exercise: CreateExerciseData){
     return this.http.post<ExerciseModel>(`${this.baseUrl}/exercise`, exercise)
   }
+  getExercises() {
+    return this.http.get<ExerciseModel[]>(`${this.baseUrl}/exercise`)
+  }
   addExerciseToRoutine(data: RoutineExerciseData){
     return this.http.post<boolean>(`${this.baseUrl}/routineexercise`, data)
   }

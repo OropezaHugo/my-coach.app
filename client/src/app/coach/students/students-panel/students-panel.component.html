@@ -1,3 +1,8 @@
-@for (user of users; track $index) {
+<h2>Students</h2>
+@for (user of students; track $index) {
+  <app-student-card [student]="user"/>
+}
+<h2>Coaches</h2>
+@for (user of coaches; track $index) {
   <app-student-card [student]="user"/>
 }

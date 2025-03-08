@@ -1,4 +1,4 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit, signal} from '@angular/core';
 import {
   AddExerciseToRoutineData,
   AddRoutineToTrainingPlanData, RoutineExerciseContent,
@@ -34,6 +34,7 @@ export class TrainingPlanComponent implements OnInit {
   userId = input.required<number>();
   trainingPlanId = input.required<number>();
   editable = input.required<boolean>();
+  hideEdition = signal<boolean>(false)
   trainingPlanService = inject(TrainingPlanService)
   trainingPlan? : TrainingPlanContent = undefined
   dialog = inject(MatDialog)

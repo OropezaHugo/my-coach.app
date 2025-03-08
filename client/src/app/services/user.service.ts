@@ -46,4 +46,8 @@ export class UserService {
     this.cookieService.delete('auth_token', '/', undefined, false, 'Lax')
     window.location.reload()
   }
+
+  getCoaches() {
+    return this.http.get<UserModel[]>(`${this.baseUrl}/user/role/1`)
+  }
 }
