@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  effect,
   inject,
   input,
   OnInit,
@@ -147,7 +146,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
             fill: false,
             borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
             yAxisID: 'y',
-            tension: 0.4,
+            tension: 0,
             data: this.records.map(value => value.repetitionsMade)
           },
           {
@@ -155,7 +154,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
             fill: false,
             borderColor: documentStyle.getPropertyValue('--p-gray-500'),
             yAxisID: 'y',
-            tension: 0.4,
+            tension: 0,
             data: this.records.map(value => value.weightLifted)
           }
         ]
@@ -205,6 +204,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
         this.initChart();
         this.dataSource.data = res;
         this.chartView.set(!this.chartView())
+        this.refreshRecords()
       }
     })
   }

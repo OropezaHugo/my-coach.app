@@ -98,7 +98,7 @@ export class FoodComponent implements OnInit, AfterViewInit{
       this.dataSource.filterPredicate = (food, filterString) => food.foodName.trim().toLowerCase().includes(filterString.split('+')[0]) && food.foodSubGroup == filterString.split('+')[1]
       this.dataSource.filter = filterValue
     } else {
-      this.dataSource.filterPredicate = (food, filterString) => food.foodName.includes(filterString)
+      this.dataSource.filterPredicate = (food, filterString) => food.foodName.trim().toLowerCase().includes(filterString)
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
   }

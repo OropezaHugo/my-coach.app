@@ -9,6 +9,7 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<ISAKMeasures> IsakMeasures { get; set; }
     public DbSet<TrainingRecord> TrainingRecords { get; set; }
     
     public DbSet<Prize> Prizes { get; set; }

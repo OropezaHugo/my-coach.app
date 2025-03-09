@@ -1,0 +1,183 @@
+@if (editable() && editing()){
+  <h5>Skin Folds (mm)</h5>
+  <div class="measures-form">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Triceps
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.tricepsMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Biceps
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.bicepsMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Sub Scapular
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.subscapularMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Iliac
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.iliacMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Supra Spinal
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.supraespinalMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Abdominal
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.abdominalMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Front Thigh
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.frontThighMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Medial Calf
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.medialCalfMmSkinfold" matInput type="number" min="0" >
+    </mat-form-field>
+  </div>
+  <h5>Perimeters(cm)</h5>
+  <div class="measures-form">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Relaxed Arm
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.relaxedArmCmPerimeter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Flexed Arm
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.flexedArmCmPerimeter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Waist
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.waistCmPerimeter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Hip
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.hipCmPerimeter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Mid Thigh
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.midThighCmPerimeter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Calf
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.calfCmPerimeter" matInput type="number" min="0" >
+    </mat-form-field>
+  </div>
+  <h5>Bone Diameters (cm)</h5>
+  <div class="measures-form">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Wrist
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.wristCmDiameter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Elbow
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.elbowCmDiameter" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Knee
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.kneeCmDiameter" matInput type="number" min="0" >
+    </mat-form-field>
+  </div>
+  <h5>Other Measures</h5>
+  <div class="measures-form">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Weight (Kg)
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.weightKgMeasure" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Total Height (Mt)
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.totalHeightMtsMeasure" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Foot Length (cm)
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.footLengthCmMeasure" matInput type="number" min="0" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>
+        Wingspan (cm)
+      </mat-label>
+      <input [formControl]="addMeasuresForm.controls.wingspanCmMeasure" matInput type="number" min="0" >
+    </mat-form-field>
+
+  </div>
+  <button mat-flat-button (click)="createMeasureReport()">Add Report</button>
+  <button mat-stroked-button (click)="editing.set(false)">Cancel</button>
+} @else if (editable()){
+  <button mat-stroked-button (click)="entryEditingMode()">Create Report</button>
+}
+<button mat-stroked-button (click)="chartView.set(!chartView())">Toggle View</button>
+@if (!editing() && !chartView()){
+  <div class="measure-div-display">
+  @for (measure of userMeasures; track $index){
+    <div>
+      <h2>{{measure.measureDate}}</h2>
+      <app-user-measures-table [ISAKMeasures]="measure"/>
+    </div>
+  }
+  </div>
+} @else if (!editing()){
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Skin Folds</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p-chart type="line" [data]="skinFoldsData" [options]="options" class="h-[30rem]" />
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Perimeters</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p-chart type="line" [data]="perimetersData" [options]="options" class="h-[30rem]" />
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Diameters</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p-chart type="line" [data]="diametersData" [options]="options" class="h-[30rem]" />
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Other Measures</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p-chart type="line" [data]="otherMeasuresData" [options]="options" class="h-[30rem]" />
+    </mat-expansion-panel>
+  </mat-accordion>
+}

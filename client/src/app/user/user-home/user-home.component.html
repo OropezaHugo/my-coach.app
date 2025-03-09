@@ -2,14 +2,29 @@
   <app-user-profile [user]="user"/>
   <mat-tab-group>
     <mat-tab label="Diets">
-      <app-user-diets-panel [userId]="user.id" [editable]="false"/>
+      <div class="user-home-tab-content-div">
+        <app-user-diets-panel [userId]="user.id" [editable]="false"/>
+      </div>
     </mat-tab>
     <mat-tab label="Training Plans">
-      <app-user-training-plans-panel [userId]="user.id" [editable]="false"/>
+      <div class="user-home-tab-content-div">
+        <app-user-training-plans-panel [userId]="user.id" [editable]="false"/>
+      </div>
+    </mat-tab>
+    <mat-tab label="Training Records">
+      @defer (on viewport){
+        <div class="user-home-tab-content-div">
+          <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+        </div>
+      } @placeholder (){
+        <h1>Loading</h1>
+      }
     </mat-tab>
 
-    <mat-tab label="Training Records">
-      <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+    <mat-tab label="Meassures Reports">
+      <div class="user-home-tab-content-div">
+        <app-user-measures-panel [userId]="user.id" [editable]="false"/>
+      </div>
     </mat-tab>
   </mat-tab-group>
 

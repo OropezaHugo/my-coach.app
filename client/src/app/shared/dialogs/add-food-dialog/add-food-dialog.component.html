@@ -6,7 +6,6 @@
       <input matInput [formControl]="addFoodForm.controls.foodAmount" type="number">
     </mat-form-field>
     <button mat-button (click)="addFoodToFoodGroup()">Add Food</button>
-
   </div>
   <app-food (selectedFood)="addFoodForm.controls.food.setValue($event);"/>
 </mat-dialog-content>

@@ -1,6 +1,6 @@
 <div class="user-diet-card-div">
   <h2>{{diet().dietName}}</h2>
-  <h2>{{diet().waterAmount}}</h2>
+  <h2>{{diet().waterAmount}}L</h2>
   <h4>{{diet().assignedDate | date}}</h4>
   <button mat-stroked-button [routerLink]="['diet',diet().dietId ]">more</button>
 </div>

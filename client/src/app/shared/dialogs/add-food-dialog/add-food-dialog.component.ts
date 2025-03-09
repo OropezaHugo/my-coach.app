@@ -56,5 +56,4 @@ export class AddFoodDialogComponent implements OnInit {
     }
   }
 
-  protected readonly focus = focus;
 }
