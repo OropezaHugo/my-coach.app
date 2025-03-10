@@ -111,7 +111,7 @@ public class AuthController(
             SameSite = SameSiteMode.Lax
         });
 
-        return Redirect($"http://localhost:4200/callback");
+        return Redirect($"https://localhost:4200/callback");
     }
     private string GenerateJwtToken(UserTokenInfo userInfo, string email, string role)
     {

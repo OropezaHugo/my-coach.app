@@ -8,5 +8,26 @@ services:
       - "1433:1433"
     volumes:
       - sql-data:/var/opt/mssql
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_CORS_ALLOW_CREDENTIALS=true
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_CORS_ALLOW_ORIGIN=http://localhost:4200
+      - N8N_CORS_ALLOW_METHODS=GET,POST,OPTIONS
+      - N8N_CORS_ALLOW_HEADERS=Content-Type, Authorization
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+
 volumes:
   sql-data:
+  n8n_data:
