@@ -1,0 +1,12 @@
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Prize name</mat-label>
+    <input matInput [formControl]="addPrizeForm.controls.prizeName">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Prize name</mat-label>
+    <input matInput type="number" [formControl]="addPrizeForm.controls.prizePoints" min="0">
+  </mat-form-field>
+  <button mat-flat-button (click)="createPrize()">Create Prize</button>
+</mat-dialog-content>

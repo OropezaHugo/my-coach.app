@@ -177,5 +177,18 @@ public static class CoachAppSeed
                 await coachAppContext.SaveChangesAsync();
             }
         }
+        
+        
+        // Seed Prizes
+        if (!coachAppContext.Prizes.Any())
+        {
+            var prizesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/PrizeData.json");
+            var prizes = JsonSerializer.Deserialize<List<Prize>>(prizesData);
+            if (prizes != null)
+            {
+                coachAppContext.Prizes.AddRange(prizes);
+                await coachAppContext.SaveChangesAsync();
+            }
+        }
     }
 }

@@ -1,0 +1,10 @@
+@if (editable()) {
+  <button mat-flat-button (click)="addPrizeToUser({userId: userId()})">Add Prize To User</button>
+}
+
+@for (prize of prizes; track $index) {
+  <app-user-prize-card [prize]="prize"/>
+  @if (editable()){
+    <button mat-icon-button (click)="deletePrizeFromUser(prize.id)"><mat-icon>delete</mat-icon></button>
+  }
+}

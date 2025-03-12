@@ -7,6 +7,7 @@ import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {UserTrainingPlansPanelComponent} from '../user-training-plans-panel/user-training-plans-panel.component';
 import {UserTrainingRecordsPanelComponent} from '../user-training-recods-panel/user-training-records-panel.component';
 import {UserMeasuresPanelComponent} from '../user-measures-panel/user-measures-panel.component';
+import {UserPrizesPanelComponent} from '../user-prizes-panel/user-prizes-panel.component';
 
 @Component({
   selector: 'app-user-home',
@@ -17,7 +18,8 @@ import {UserMeasuresPanelComponent} from '../user-measures-panel/user-measures-p
     MatTab,
     UserTrainingPlansPanelComponent,
     UserTrainingRecordsPanelComponent,
-    UserMeasuresPanelComponent
+    UserMeasuresPanelComponent,
+    UserPrizesPanelComponent,
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.scss'

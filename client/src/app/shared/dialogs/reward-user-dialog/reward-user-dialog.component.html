@@ -1,0 +1,5 @@
+<mat-dialog-content>
+  @for (prize of prizes; track $index){
+    <app-user-prize-card [prize]="prize" [editable]="true" (prizeId)="rewardUserWithPrize($event)"/>
+  }
+</mat-dialog-content>

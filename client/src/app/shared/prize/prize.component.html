@@ -1,0 +1,4 @@
+<button mat-flat-button (click)="OpenCreateNewPrizeDialog()">Add Prize</button>
+@for (prize of prizes; track $index){
+  <app-user-prize-card [prize]="prize"/>
+}

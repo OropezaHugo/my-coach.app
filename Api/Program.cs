@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Api.Handlers;
 using Api.Handlers.Requirements;
@@ -19,6 +20,15 @@ builder.Services.AddDbContext<CoachAppContext>(
     {
         optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ConfigureHttpsDefaults(adapterOptions =>
+    {
+        adapterOptions.ServerCertificate = new X509Certificate2(
+            "../ssl/localhost.pfx", ""
+        );
+    });
+});
 var secretKey = builder.Configuration["Jwt:SecretKey"];
 if (secretKey != null)
 {
@@ -55,19 +65,22 @@ builder.Services.AddScoped<ITrainingRecordRepository, TrainingRecordRepository>(
 builder.Services.AddScoped<ISetRepository, SetRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<IPrizeRepository, PrizeRepository>();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
 
 
 var app = builder.Build();
+app.UseRouting();
 
 app.UseCors(policyBuilder =>
 {
     policyBuilder.AllowCredentials()
-        .WithOrigins("http://localhost:4200", "https://localhost:4200")
+        .WithOrigins("https://localhost:4200")
         .AllowAnyHeader()
         .AllowAnyMethod();
 });
+
 app.UseAuthentication();
 app.UseAuthorization();
 

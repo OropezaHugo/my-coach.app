@@ -12,6 +12,7 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class PrizeController(
     IGenericRepository<Prize> repository,
+    IPrizeRepository prizeRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -20,6 +21,13 @@ public class PrizeController(
     {
         var items = await repository.ListAllAsync();
         return Ok(items.Select(item => mapper.Map<PrizeResponseDTO>(item)));
+    }
+    
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<UserPrizeInfoDTO>>> GetPrizesByUserId(int userId)
+    {
+        var items = await prizeRepository.GetPrizesByUserId(userId);
+        return Ok(items.Select(item => mapper.Map<UserPrizeInfoDTO>(item)));
     }
 
     [HttpGet("{id}")]

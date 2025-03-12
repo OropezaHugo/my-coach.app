@@ -28,6 +28,11 @@
         </div>
       </mat-tab>
     </mat-tab>
+    <mat-tab label="Prizes">
+      <div class="student-tab-content-div">
+        <app-user-prize-panel [userId]="user.id" [editable]="true"/>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 
 

@@ -11,20 +11,22 @@ import {
   UserTrainingRecordsPanelComponent
 } from '../../../user/user-training-recods-panel/user-training-records-panel.component';
 import {UserMeasuresPanelComponent} from "../../../user/user-measures-panel/user-measures-panel.component";
+import {UserPrizesPanelComponent} from '../../../user/user-prizes-panel/user-prizes-panel.component';
 
 @Component({
   selector: 'app-student-profile',
-    imports: [
-        UserDietsPanelComponent,
-        UserProfileComponent,
-        MatButton,
-        RouterLink,
-        MatTabGroup,
-        MatTab,
-        UserTrainingPlansPanelComponent,
-        UserTrainingRecordsPanelComponent,
-        UserMeasuresPanelComponent
-    ],
+  imports: [
+    UserDietsPanelComponent,
+    UserProfileComponent,
+    MatButton,
+    RouterLink,
+    MatTabGroup,
+    MatTab,
+    UserTrainingPlansPanelComponent,
+    UserTrainingRecordsPanelComponent,
+    UserMeasuresPanelComponent,
+    UserPrizesPanelComponent,
+  ],
   templateUrl: './student-profile.component.html',
   styleUrl: './student-profile.component.scss'
 })
