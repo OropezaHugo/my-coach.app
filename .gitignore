@@ -13,6 +13,7 @@
 *.userosscache
 *.sln.docstates
 /n8n_data/
+/cert-n8n
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
