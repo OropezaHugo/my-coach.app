@@ -63,9 +63,16 @@ export class DietComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   columns: string[] = []
   advancedView = signal<boolean>(false);
+  toMinutes = (time: string): number => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
   ngOnInit() {
     this.dietService.getDietContentById(this.dietId() as number).subscribe({
       next: (data) => {
+        data.dietFoodGroupInfos.sort((a, b) => {
+          return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+        });
         this.dietContent = data
         this.columns = this.editable() ? ['foodName', 'foodAmount', 'foodEnergyKcal', 'foodProteinGr', 'foodFatGr', 'foodCarbsGr', 'foodFibberGr', 'foodAshGr', 'foodCalciumGr', 'foodPhosphorusMg', 'foodVitaminAMig', 'foodIronMg', 'foodVitaminB1Mg', 'foodVitaminB2Mg', 'foodVitaminB3Mg', 'foodVitaminCMg', 'actions'] : ['foodName', 'foodAmount', 'foodEnergyKcal', 'foodProteinGr', 'foodFatGr', 'foodCarbsGr', 'foodFibberGr', 'foodAshGr', 'foodCalciumGr', 'foodPhosphorusMg', 'foodVitaminAMig', 'foodIronMg', 'foodVitaminB1Mg', 'foodVitaminB2Mg', 'foodVitaminB3Mg', 'foodVitaminCMg']
       }
@@ -80,6 +87,9 @@ export class DietComponent implements OnInit {
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
+            data.dietFoodGroupInfos.sort((a, b) => {
+              return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+            });
             this.dietContent = data
           }
         })
@@ -92,6 +102,9 @@ export class DietComponent implements OnInit {
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
+            data.dietFoodGroupInfos.sort((a, b) => {
+              return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+            });
             this.dietContent = data
           }
         })
@@ -106,6 +119,9 @@ export class DietComponent implements OnInit {
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
+            data.dietFoodGroupInfos.sort((a, b) => {
+              return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+            });
             this.dietContent = data
           }
         })
@@ -120,6 +136,9 @@ export class DietComponent implements OnInit {
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
+            data.dietFoodGroupInfos.sort((a, b) => {
+              return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+            });
             this.dietContent = data
           }
         })
@@ -132,6 +151,9 @@ export class DietComponent implements OnInit {
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
+            data.dietFoodGroupInfos.sort((a, b) => {
+              return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+            });
             this.dietContent = data
           }
         })
@@ -146,6 +168,9 @@ export class DietComponent implements OnInit {
       next: (data) => {
         this.dietService.getDietContentById(this.dietId() as number).subscribe({
           next: (data) => {
+            data.dietFoodGroupInfos.sort((a, b) => {
+              return this.toMinutes(a.foodGroupTime) - this.toMinutes(b.foodGroupTime);
+            });
             this.dietContent = data
           }
         })

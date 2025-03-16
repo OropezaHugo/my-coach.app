@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar>
-      <img ngSrc="prize1.png" width="64" height="64" alt="prize">
+      <img [src]="imageUrl" width="64" height="64" alt="prize">
     </div>
     <mat-card-title>{{prize().prizeName}}</mat-card-title>
     <mat-card-subtitle>{{prize().points}}</mat-card-subtitle>

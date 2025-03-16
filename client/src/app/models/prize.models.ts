@@ -1,11 +1,13 @@
 export interface PrizeModel {
   id: number;
   prizeName: string;
+  prizeImage: string;
   points: number;
 }
 
 export interface PrizeData {
   prizeName: string;
+  prizeImage: string;
   points: number;
 }
 
@@ -22,5 +24,6 @@ export interface UserPrizeInfoModel {
   prizeId: number;
   userId: number;
   prizeName: string;
+  prizeImage: string;
   points: number;
 }

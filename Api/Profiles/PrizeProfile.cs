@@ -15,6 +15,7 @@ public class PrizeProfile : Profile
         CreateMap< (CreatePrizeDTO, int), Prize>()
             .ForMember(dest => dest.Points, expression => expression.MapFrom(src => src.Item1.Points))
             .ForMember(dest => dest.PrizeName, expression => expression.MapFrom(src => src.Item1.PrizeName))
+            .ForMember(dest => dest.PrizeImage, expression => expression.MapFrom(src => src.Item1.PrizeImage))
             .ForMember(dest => dest.Id, expression => expression.MapFrom(src => src.Item2));
     }
 }

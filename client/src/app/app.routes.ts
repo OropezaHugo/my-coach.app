@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import {LoginComponent} from './auth/login/login.component';
 import {CoachHomeComponent} from './coach/home/coach-home.component';
 import {authGuard} from './guards/auth.guard';
 import {CallbackComponent} from './auth/callback/callback.component';
@@ -9,9 +8,9 @@ import {studentGuard} from './guards/student.guard';
 import {coachGuard} from './guards/coach.guard';
 import {StudentProfileComponent} from './coach/students/student-profile/student-profile.component';
 import {DietComponent} from './shared/diet/diet.component';
-import {input} from '@angular/core';
 import {TrainingPlanComponent} from './shared/training-plan/training-plan.component';
 import {FoodComponent} from './shared/food/food.component';
+import {PrizeComponent} from './shared/prize/prize.component';
 
 export const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
@@ -21,6 +20,7 @@ export const routes: Routes = [
           { path: 'diet/:dietId', component: DietComponent, data: {editable: true}},
         ]
       },
+      {path: 'prizes', component: PrizeComponent},
       { path: 'student/:userId', children: [
           {path: '', component: StudentProfileComponent},
           {path: 'diet/:dietId', component: DietComponent, data: {editable: true}},

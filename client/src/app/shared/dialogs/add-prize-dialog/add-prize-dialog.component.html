@@ -1,10 +1,12 @@
 <mat-dialog-content>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Prize name</mat-label>
     <input matInput [formControl]="addPrizeForm.controls.prizeName">
   </mat-form-field>
-
-  <mat-form-field>
+  <input #prizeUpload class="upload-prize-image-input" type="file" accept=".png, .jpg" (change)="convertToBase64($event)"/>
+  <button mat-fab extended (click)="prizeUpload.click()">Upload Image<mat-icon>upload</mat-icon></button>
+  <p>{{fileName || 'no file uploaded'}}</p>
+  <mat-form-field appearance="outline">
     <mat-label>Prize name</mat-label>
     <input matInput type="number" [formControl]="addPrizeForm.controls.prizePoints" min="0">
   </mat-form-field>

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {LoginComponent} from '../auth/login/login.component';
 import {RouterLink} from '@angular/router';
+import {UserService} from '../services/user.service';
+import {ROLES_IDS} from '../models/auth.models';
 
 @Component({
   selector: 'app-layout',
@@ -28,11 +30,12 @@ import {RouterLink} from '@angular/router';
   ]
 })
 export class LayoutComponent {
+  userService = inject(UserService)
   private breakpointObserver = inject(BreakpointObserver);
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+  protected readonly ROLES_IDS = ROLES_IDS;
 }

@@ -20,6 +20,7 @@ public class UserPrizeProfile : Profile
             .ForMember(dest => dest.PrizeId, expression => expression.MapFrom(src => src.Item1.PrizeId))
             .ForMember(dest => dest.Id, expression => expression.MapFrom(src => src.Item1.Id))
             .ForMember(dest => dest.Points, expression => expression.MapFrom(src => src.Item2.Points))
+            .ForMember(dest => dest.PrizeImage, expression => expression.MapFrom(src => src.Item2.PrizeImage))
             .ForMember(dest => dest.PrizeName, expression => expression.MapFrom(src => src.Item2.PrizeName));
     }
 }

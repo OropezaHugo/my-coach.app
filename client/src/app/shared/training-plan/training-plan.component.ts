@@ -1,7 +1,7 @@
 import {Component, inject, input, OnInit, signal} from '@angular/core';
 import {
   AddExerciseToRoutineData,
-  AddRoutineToTrainingPlanData, RoutineExerciseContent,
+  AddRoutineToTrainingPlanData, DAYS_OF_WEEK_ORDER, RoutineExerciseContent,
   TrainingPlanContent, TrainingPlanRoutineContent,
   UserTrainingPlanTrainingPlanCombined
 } from '../../models/training-plan.models';
@@ -38,9 +38,11 @@ export class TrainingPlanComponent implements OnInit {
   trainingPlanService = inject(TrainingPlanService)
   trainingPlan? : TrainingPlanContent = undefined
   dialog = inject(MatDialog)
+
   ngOnInit() {
     this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
       next: data => {
+        data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
         this.trainingPlan = data;
       }
     })
@@ -53,6 +55,7 @@ export class TrainingPlanComponent implements OnInit {
       next: data => {
         this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
           next: data => {
+            data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
             this.trainingPlan = data;
           }
         })
@@ -65,6 +68,7 @@ export class TrainingPlanComponent implements OnInit {
       next: data => {
         this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
           next: data => {
+            data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
             this.trainingPlan = data;
           }
         })
@@ -79,6 +83,7 @@ export class TrainingPlanComponent implements OnInit {
       next: data => {
         this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
           next: data => {
+            data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
             this.trainingPlan = data;
           }
         })
@@ -91,6 +96,7 @@ export class TrainingPlanComponent implements OnInit {
       next: data => {
         this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
           next: data => {
+            data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
             this.trainingPlan = data;
           }
         })
@@ -105,6 +111,7 @@ export class TrainingPlanComponent implements OnInit {
       next: data => {
         this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
           next: data => {
+            data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
             this.trainingPlan = data;
           }
         })
@@ -121,6 +128,7 @@ export class TrainingPlanComponent implements OnInit {
       next: data => {
         this.trainingPlanService.getTrainingPlanContentById(this.trainingPlanId() as number).subscribe({
           next: data => {
+            data.routineResponses = data.routineResponses.sort((a, b) => (DAYS_OF_WEEK_ORDER[a.routineWeekDay.toLowerCase()] ?? 8) - (DAYS_OF_WEEK_ORDER[b.routineWeekDay.toLowerCase()] ?? 8));
             this.trainingPlan = data;
           }
         })

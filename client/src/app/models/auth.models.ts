@@ -14,3 +14,9 @@ export interface GoogleUserInfo {
   sub: string;
   role: string;
 }
+
+export const ROLES_IDS: Record<string, number> = {
+  "Coach": 1,
+  "Student": 2,
+  "Guest": 3,
+};
