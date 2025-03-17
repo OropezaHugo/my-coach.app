@@ -13,7 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api/[controller]")]
 public class AuthController(
     IConfiguration configuration,
     IAuthRepository repository
@@ -23,7 +23,7 @@ public class AuthController(
     public IActionResult Login()
     {
         var clientId = configuration["GoogleOAuth:ClientId"];
-        var redirectUri = "https://localhost:5050/auth/callback"; 
+        var redirectUri = "http://mycoachapp12qw34as56zx78cv90bn.runasp.net/api/auth/callback"; 
 
         var googleAuthUrl = $"https://accounts.google.com/o/oauth2/auth?" +
                             $"client_id={clientId}&" +
@@ -45,7 +45,8 @@ public class AuthController(
 
         var clientId = configuration["GoogleOAuth:ClientId"];
         var clientSecret = configuration["GoogleOAuth:ClientSecret"];
-        var redirectUri = "https://localhost:5050/auth/callback"; 
+
+        var redirectUri = "http://mycoachapp12qw34as56zx78cv90bn.runasp.net/api/auth/callback"; 
 
         using var httpClient = new HttpClient();
         var tokenResponse = await httpClient.PostAsync("https://oauth2.googleapis.com/token",
@@ -121,7 +122,7 @@ public class AuthController(
             SameSite = SameSiteMode.Lax
         });
 
-        return Redirect($"https://localhost:4200/callback");
+        return Redirect($"http://mycoachapp12qw34as56zx78cv90bn.runasp.net/callback");
     }
     private string GenerateJwtToken(UserTokenInfo userInfo, string email, string role)
     {

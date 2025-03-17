@@ -89,7 +89,7 @@ app.UseRouting();
 app.UseCors(policyBuilder =>
 {
     policyBuilder.AllowCredentials()
-        .WithOrigins("https://localhost:4200")
+        .WithOrigins("https://localhost:4200", "http://127.0.0.1:4200")
         .AllowAnyHeader()
         .AllowAnyMethod();
 });
@@ -97,7 +97,8 @@ app.UseCors(policyBuilder =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.MapControllers();
 
 try

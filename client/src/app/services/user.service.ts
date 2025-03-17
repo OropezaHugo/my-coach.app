@@ -1,5 +1,5 @@
 import {inject, Injectable, signal} from '@angular/core';
-import {environment} from '../../environments/environment.development';
+import {environment} from '../../environments/environment';
 import {HttpClient, HttpUrlEncodingCodec} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {UserData, UserModel} from '../models/user.models';

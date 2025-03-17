@@ -69,7 +69,7 @@ export class EditUserProfileDialogComponent implements OnInit{
     && this.userDataForm.value.userBirthDate !== null
       && this.userDataForm.value.avatar !== undefined
       && this.userDataForm.value.avatar !== null) {
-      
+
       this.userService.updateUserData(this.data.id, {
         name: this.userDataForm.value.userName,
         birthday: this.userDataForm.value.userBirthDate.toISOString().split('T')[0],

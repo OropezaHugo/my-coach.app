@@ -24,4 +24,43 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="publish\web.config" />
+    <_ContentIncludedByDefault Remove="publish\Api.deps.json" />
+    <_ContentIncludedByDefault Remove="publish\Api.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="publish\Api.staticwebassets.endpoints.json" />
+    <_ContentIncludedByDefault Remove="publish\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="publish\appsettings.json" />
+    <_ContentIncludedByDefault Remove="publish\wwwroot\ngsw.json" />
+    <_ContentIncludedByDefault Remove="publish\wwwroot\prerendered-routes.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\3rdpartylicenses.txt" />
+    <_ContentIncludedByDefault Remove="wwwroot\biceps-curl-full-body-with-dumbells-from-aside.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\chunk-75XZZHAI.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\chunk-HDYI5GJV.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\chunk-N55JTGHT.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\chunk-X6TMJH4E.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-128x128.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-144x144.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-152x152.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-192x192.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-384x384.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-512x512.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-72x72.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\icons\icon-96x96.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\index.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\main-6MGP3TR3.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\manifest.webmanifest" />
+    <_ContentIncludedByDefault Remove="wwwroot\ngsw-worker.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\ngsw.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\polyfills-FFHMD2TL.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\prerendered-routes.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\prize1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\safety-worker.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\styles-EACAPDJ6.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\worker-basic.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\main-PYBT37GG.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\main-MKCZPUMF.js" />
+  </ItemGroup>
+
 </Project>
