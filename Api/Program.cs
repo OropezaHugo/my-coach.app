@@ -27,7 +27,7 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ConfigureHttpsDefaults(adapterOptions =>
     {
         adapterOptions.ServerCertificate = new X509Certificate2(
-            "../ssl/localhost.pfx", ""
+            "../ssl/mycoachapp12qw34as56zx78cv90bn.runasp.net.pfx", ""
         );
     });
 });
