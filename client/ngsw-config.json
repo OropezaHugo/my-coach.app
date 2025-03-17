@@ -26,5 +26,20 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": ["**/api/**"],
+      "cacheQueryOptions": {
+        "ignoreSearch": true
+      },
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 200,
+        "maxAge": "1h",
+        "timeout": "10s"
+      }
+    }
   ]
 }
