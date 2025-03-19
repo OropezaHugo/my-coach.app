@@ -11,7 +11,6 @@ public class CreateUserDTO
     [Required]
     public required string Password { get; set; }
     public string AvatarUrl { get; set; } = string.Empty;
-    [DataType(DataType.Date)]
     public DateOnly Birthday { get; set; }
     [Required]
     public int RoleId { get; set; }

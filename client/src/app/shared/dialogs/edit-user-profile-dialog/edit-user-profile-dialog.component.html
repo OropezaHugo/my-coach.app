@@ -1,0 +1,15 @@
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>User Name</mat-label>
+    <input matInput [formControl]="userDataForm.controls.userName">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Birth Date</mat-label>
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="userDataForm.controls.userBirthDate">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-dialog-actions>
+    <button mat-flat-button (click)="updateUserData()">Update Profile</button>
+  </mat-dialog-actions>
+</mat-dialog-content>

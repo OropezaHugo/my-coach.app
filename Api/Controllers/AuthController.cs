@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using Core.Entities;
 using Core.Interfaces;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -15,14 +16,15 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class AuthController(
     IConfiguration configuration,
-    IAuthRepository repository
+    IAuthRepository repository,
+    IGenericRepository<User> userRepository
     ) : ControllerBase
 {
     [HttpGet("login")]
     public IActionResult Login()
     {
         var clientId = configuration["GoogleOAuth:ClientId"];
-        var redirectUri = "http://localhost:5050/auth/callback"; 
+        var redirectUri = "https://localhost:5050/auth/callback"; 
 
         var googleAuthUrl = $"https://accounts.google.com/o/oauth2/auth?" +
                             $"client_id={clientId}&" +
@@ -44,7 +46,7 @@ public class AuthController(
 
         var clientId = configuration["GoogleOAuth:ClientId"];
         var clientSecret = configuration["GoogleOAuth:ClientSecret"];
-        var redirectUri = "http://localhost:5050/auth/callback"; 
+        var redirectUri = "https://localhost:5050/auth/callback"; 
 
         using var httpClient = new HttpClient();
         var tokenResponse = await httpClient.PostAsync("https://oauth2.googleapis.com/token",
@@ -76,13 +78,25 @@ public class AuthController(
 
         if (user == null)
         {
-            return Unauthorized("Usuario no registrado en el sistema.");
+            user = userRepository.AddAsync(new User()
+            {
+                Email = email,
+                Name = payload.Name,
+                AvatarUrl = payload.Picture,
+                Password = "qwerty",
+                RoleId = 2,
+                Birthday = new DateOnly(DateTime.UtcNow.Year - 13, DateTime.UtcNow.Month, DateTime.UtcNow.Day),
+                Id = 0
+            });
+            await userRepository.SaveChangesAsync();
         }
-
+        
         if (user.Role == null)
         {
-            return Problem("Usuario no registrado en el sistema.");
+            user = await repository.GetUserByEmailWithRole(email);
         }
+        
+        if (user == null || user.Role == null) return Problem("error al recuperar el usuario");
         var role = user.Role.RoleName;
 
         var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(tokenData.id_token);

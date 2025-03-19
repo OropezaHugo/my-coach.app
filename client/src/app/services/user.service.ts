@@ -2,7 +2,7 @@ import {inject, Injectable, signal} from '@angular/core';
 import {environment} from '../../environments/environment.development';
 import {HttpClient, HttpUrlEncodingCodec} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {UserModel} from '../models/user.models';
+import {UserData, UserModel} from '../models/user.models';
 import {GoogleUserInfo} from '../models/auth.models';
 import {CookieService} from 'ngx-cookie-service';
 
@@ -49,5 +49,9 @@ export class UserService {
 
   getCoaches() {
     return this.http.get<UserModel[]>(`${this.baseUrl}/user/role/1`)
+  }
+
+  updateUserData(id: number, user: UserData) {
+    return this.http.put<boolean>(`${this.baseUrl}/user/${id}`, user)
   }
 }

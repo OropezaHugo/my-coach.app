@@ -60,7 +60,7 @@ public class UserController
     public async Task<ActionResult<bool>> PutUserById(int id, CreateUserDTO userDto)
     {
         var user = mapper.Map<User>((userDto, id));
-        repository.AddAsync(user);
+        repository.UpdateAsync(user);
         return Ok(await repository.SaveChangesAsync());
     }
 
