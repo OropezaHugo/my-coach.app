@@ -29,4 +29,8 @@ export class PrizesService {
   removePrizeFromUser(id: number){
     return this.http.delete<boolean>(this.baseUrl+'/userprize/'+id);
   }
+
+  updatePrizeById(id: number, data: PrizeData){
+    return this.http.put<boolean>(this.baseUrl+'/prize/'+id,data);
+  }
 }
