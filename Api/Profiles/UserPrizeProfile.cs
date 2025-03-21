@@ -1,6 +1,7 @@
 using Api.RequestDTOs;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.GamificationEntities;
 using Core.ResponseDTOs;
 
 namespace Api.Profiles;
@@ -14,6 +15,7 @@ public class UserPrizeProfile : Profile
         CreateMap< (CreateUserPrizeDTO, int), UserPrize>()
             .ForMember(dest => dest.UserId, expression => expression.MapFrom(src => src.Item1.UserId))
             .ForMember(dest => dest.PrizeId, expression => expression.MapFrom(src => src.Item1.PrizeId))
+            .ForMember(dest => dest.ObtainedDate, expression => expression.MapFrom(src => src.Item1.ObtainedDate))
             .ForMember(dest => dest.Id, expression => expression.MapFrom(src => src.Item2));
         CreateMap< (UserPrize, Prize), UserPrizeInfoDTO>()
             .ForMember(dest => dest.UserId, expression => expression.MapFrom(src => src.Item1.UserId))
@@ -21,6 +23,7 @@ public class UserPrizeProfile : Profile
             .ForMember(dest => dest.Id, expression => expression.MapFrom(src => src.Item1.Id))
             .ForMember(dest => dest.Points, expression => expression.MapFrom(src => src.Item2.Points))
             .ForMember(dest => dest.PrizeImage, expression => expression.MapFrom(src => src.Item2.PrizeImage))
+            .ForMember(dest => dest.ObtainedDate, expression => expression.MapFrom(src => src.Item1.ObtainedDate))
             .ForMember(dest => dest.PrizeName, expression => expression.MapFrom(src => src.Item2.PrizeName));
     }
 }

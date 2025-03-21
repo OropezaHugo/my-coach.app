@@ -31,7 +31,8 @@ export class RewardUserDialogComponent implements OnInit{
   rewardUserWithPrize(event: number) {
     this.prizeService.addPrizeToUser({
       userId: this.data.userId,
-      prizeId: event
+      prizeId: event,
+      obtainedDate: new Date().toISOString().split('T')[0],
     }).subscribe({
       next: data => {
         this.dialogRef.close()

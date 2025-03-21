@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Entities.GamificationEntities;
 
 namespace Core.Entities;
 
@@ -11,4 +12,6 @@ public class UserPrize: BaseEntity
     public int PrizeId { get; set; }
     [ForeignKey(nameof(PrizeId))]
     public Prize? Prize { get; set; }
+    
+    public DateOnly ObtainedDate { get; set; }
 }

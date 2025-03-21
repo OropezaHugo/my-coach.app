@@ -1,4 +1,5 @@
 using Core.Entities;
+using Core.Entities.GamificationEntities;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

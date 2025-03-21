@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Entities.DietEntities;
+using Core.Entities.GamificationEntities;
 using Core.Entities.TrainingPlanEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,8 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
     
     public DbSet<Prize> Prizes { get; set; }
     public DbSet<UserPrize> UserPrizes { get; set; }
+    public DbSet<Achievement> Achievements { get; set; }
+    public DbSet<UserAchievements> UserAchievements { get; set; }
     
     public DbSet<Food> Foods { get; set; }
     public DbSet<FoodGroupFood> FoodGroupFoods { get; set; }
@@ -59,6 +62,15 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
             .HasOne(pu => pu.Prize)
             .WithMany(u => u.UserPrizes)
             .HasForeignKey(pu => pu.PrizeId);
+        
+        modelBuilder.Entity<UserAchievements>()
+            .HasOne(ua => ua.User)
+            .WithMany(u => u.UserAchievements)
+            .HasForeignKey(ua => ua.UserId);
+        modelBuilder.Entity<UserAchievements>()
+            .HasOne(ua => ua.Achievement)
+            .WithMany(u => u.UserAchievements)
+            .HasForeignKey(ua => ua.AchievementId);
         
         modelBuilder.Entity<DietFoodGroup>()
             .HasOne(dfg => dfg.Diet)

@@ -8,5 +8,6 @@ public class UserPrizeInfoDTO
     public int PrizeId { get; set; }
     public required string PrizeName { get; set; }
     public required string PrizeImage { get; set; }
+    public DateOnly ObtainedDate { get; set; }
     public int Points { get; set; }
 }

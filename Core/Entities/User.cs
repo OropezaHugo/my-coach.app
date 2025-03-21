@@ -17,4 +17,5 @@ public class User: BaseEntity
     public List<UserTrainingPlans> UserTrainingPlans { get; set; } = new List<UserTrainingPlans>();
     public List<UserDiet> UserDiets { get; set; } = new List<UserDiet>();
     public List<UserPrize> UserPrizes { get; set; } = new List<UserPrize>();
+    public List<UserAchievements> UserAchievements { get; set; } = new List<UserAchievements>();
 }

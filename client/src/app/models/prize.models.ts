@@ -18,6 +18,7 @@ export interface RewardUserDialogData {
 export interface AddPrizeToUserData {
   prizeId: number;
   userId: number;
+  obtainedDate: string;
 }
 export interface UserPrizeInfoModel {
   id: number;
@@ -26,4 +27,5 @@ export interface UserPrizeInfoModel {
   prizeName: string;
   prizeImage: string;
   points: number;
+  obtainedDate: string;
 }

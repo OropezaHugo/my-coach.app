@@ -1,6 +1,7 @@
 using Api.RequestDTOs;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.GamificationEntities;
 using Core.ResponseDTOs;
 
 namespace Api.Profiles;
