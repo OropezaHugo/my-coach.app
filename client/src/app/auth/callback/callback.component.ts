@@ -31,6 +31,11 @@ export class CallbackComponent implements OnInit {
           } else {
             this.router.navigateByUrl('/guest/home')
           }
+        },
+        error: error => {
+          if (error.status === 401) {
+            this.userService.logout()
+          }
         }
       })
     } else {

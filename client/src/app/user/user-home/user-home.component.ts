@@ -14,6 +14,7 @@ import {
 } from '../../shared/dialogs/edit-user-profile-dialog/edit-user-profile-dialog.component';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
+import {UserAchievementsPanelComponent} from '../user-achievements-panel/user-achievements-panel.component';
 
 @Component({
   selector: 'app-user-home',
@@ -28,6 +29,7 @@ import {MatIconButton} from '@angular/material/button';
     UserPrizesPanelComponent,
     MatIcon,
     MatIconButton,
+    UserAchievementsPanelComponent,
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.scss'

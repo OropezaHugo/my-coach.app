@@ -1,0 +1,7 @@
+@if (achievements.length > 0) {
+  @for (achievement of achievements; track $index) {
+    <app-user-achievements-card [achievement]="achievement"/>
+  }
+} @else {
+  <p>There are not diets assigned yet</p>
+}

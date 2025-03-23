@@ -155,7 +155,7 @@ public class AuthController(
             issuer: "https://accounts.google.com",
             audience: userInfo.aud,
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(24),
+            expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: credentials
         );
 

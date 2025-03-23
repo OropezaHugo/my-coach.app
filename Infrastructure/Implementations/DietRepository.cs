@@ -9,11 +9,11 @@ namespace Infrastructure.Implementations;
 
 public class DietRepository(CoachAppContext context): IDietRepository
 {
-    public async Task<List<(Diet, UserDiet)>> GetDietsByUserId(int id)
+    public async Task<IEnumerable<(Diet, UserDiet)>> GetDietsByUserId(int id)
     {
         var res = await context.UserDiets.Where(userdiet => userdiet.UserId == id)
             .Join(context.Diets, userdiet => userdiet.DietId, diet => diet.Id, (userdiet, diet) => new {diet, userdiet}).ToListAsync();
-        return res.Select(x => (x.diet, x.userdiet)).ToList();
+        return res.Select(x => (x.diet, x.userdiet));
 
     }
     public async Task<DietContentResponseDTO?> GetDietContentByDietId(int dietId)

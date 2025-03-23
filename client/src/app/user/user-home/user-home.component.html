@@ -32,6 +32,12 @@
         <app-user-prize-panel [userId]="user.id" [editable]="false"/>
       </div>
     </mat-tab>
+
+    <mat-tab label="Achievements">
+      <div class="user-home-tab-content-div">
+        <app-user-achievements-panel [userId]="user.id"/>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 
 }

@@ -11,6 +11,7 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class AchievementController(
     IGenericRepository<Achievement> repository,
+    IAchievementRepository achievementRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -19,6 +20,13 @@ public class AchievementController(
     {
         var items = await repository.ListAllAsync();
         return Ok(items.Select(item => mapper.Map<AchievementResponseDTO>(item)));
+    }
+    
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<UserAchievementContentDTO>>> GetAchievementsByUserId(int userId)
+    {
+        var items = await achievementRepository.GetAchievementsByUserId(userId);
+        return Ok(items.Select(item => mapper.Map<UserAchievementContentDTO>(item)));
     }
 
     [HttpGet("{id}")]

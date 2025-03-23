@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="user-achievements-card.component.scss">
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{achievement().achievementName}}</mat-card-title>
+    <mat-card-subtitle>{{achievement().achievementActualLevel}} of {{achievement().achievementStepsPerLevel.length}} </mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="video-container" [style]="'border-color: ' + LEVEL_COLORS[achievement().achievementActualLevel]">
+    <video autoplay loop muted playsinline>
+      <source [src]="'achievements/achievement-gif/' + achievement().achievementImage" type="video/mp4">
+      video unsupported
+    </video>
+  </div>
+
+  <mat-card-content>
+    <p>
+      {{achievement().obtainingDescription}}
+    </p>
+    @if (achievement().achievementActualLevel < achievement().achievementStepsPerLevel.length){
+      <mat-progress-bar mode="determinate" [value]="100 * achievement().achievementStepsProgress / achievement().achievementStepsPerLevel[achievement().achievementActualLevel]"></mat-progress-bar>
+      <p>{{achievement().achievementStepsProgress}} / {{ achievement().achievementStepsPerLevel[achievement().achievementActualLevel]}}</p>
+    } @else {
+      <p>You mastered this achievement, since then you made {{achievement().achievementStepsProgress}} steps</p>
+    }
+
+  </mat-card-content>
+</mat-card>
