@@ -14,6 +14,7 @@ public class TrainingRecordController
 (
     IGenericRepository<TrainingRecord> repository,
     ITrainingRecordRepository trainingRecordRepository,
+    IAchievementRepository achievementRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -52,6 +53,7 @@ public class TrainingRecordController
     {
         var trainingRecord = mapper.Map<TrainingRecord>(trainingRecordDto);
         repository.AddAsync(trainingRecord);
+        achievementRepository.AddOnePointProgressToExerciseAchievement(trainingRecord.UserId, trainingRecord.ExerciseId);
         return Ok(await repository.SaveChangesAsync());
     }
 
@@ -69,6 +71,7 @@ public class TrainingRecordController
         var trainingRecord = await repository.GetByIdAsync(id);
         if (trainingRecord == null) return NotFound();
         repository.DeleteAsync(trainingRecord);
+        achievementRepository.ReduceOnePointProgressToExerciseAchievement(trainingRecord.UserId, trainingRecord.ExerciseId);
         return Ok(await repository.SaveChangesAsync());
     }
 }

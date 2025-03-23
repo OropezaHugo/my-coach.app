@@ -8,6 +8,7 @@ export interface UserAchievementModel {
   achievementImage: string;
   obtainingDescription: string;
   achievementStepsPerLevel: number[];
+  exerciseId: number;
 }
 
 export const LEVEL_COLORS: Record<number, string> = {

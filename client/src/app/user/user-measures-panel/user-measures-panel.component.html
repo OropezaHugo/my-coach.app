@@ -143,41 +143,45 @@
 } @else if (editable()){
   <button mat-stroked-button (click)="entryEditingMode()">Create Report</button>
 }
-<button mat-stroked-button (click)="chartView.set(!chartView())">Toggle View</button>
-@if (!editing() && !chartView()){
-  <div class="measure-div-display">
-  @for (measure of userMeasures; track $index){
-    <div>
-      <h2>{{measure.measureDate}}</h2>
-      <app-user-measures-table [ISAKMeasures]="measure"/>
+@if (userMeasures.length > 0) {
+  <button mat-stroked-button (click)="chartView.set(!chartView())">Toggle View</button>
+  @if (!editing() && !chartView()){
+    <div class="measure-div-display">
+      @for (measure of userMeasures; track $index){
+        <div>
+          <h2>{{measure.measureDate}}</h2>
+          <app-user-measures-table [ISAKMeasures]="measure"/>
+        </div>
+      }
     </div>
+  } @else if (!editing()){
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Skin Folds</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p-chart type="line" [data]="skinFoldsData" [options]="options" class="h-[30rem]" />
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Perimeters</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p-chart type="line" [data]="perimetersData" [options]="options" class="h-[30rem]" />
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Diameters</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p-chart type="line" [data]="diametersData" [options]="options" class="h-[30rem]" />
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Other Measures</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p-chart type="line" [data]="otherMeasuresData" [options]="options" class="h-[30rem]" />
+      </mat-expansion-panel>
+    </mat-accordion>
   }
-  </div>
-} @else if (!editing()){
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Skin Folds</mat-panel-title>
-      </mat-expansion-panel-header>
-      <p-chart type="line" [data]="skinFoldsData" [options]="options" class="h-[30rem]" />
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Perimeters</mat-panel-title>
-      </mat-expansion-panel-header>
-      <p-chart type="line" [data]="perimetersData" [options]="options" class="h-[30rem]" />
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Diameters</mat-panel-title>
-      </mat-expansion-panel-header>
-      <p-chart type="line" [data]="diametersData" [options]="options" class="h-[30rem]" />
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Other Measures</mat-panel-title>
-      </mat-expansion-panel-header>
-      <p-chart type="line" [data]="otherMeasuresData" [options]="options" class="h-[30rem]" />
-    </mat-expansion-panel>
-  </mat-accordion>
+} @else {
+  <p>no measures submit yet </p>
 }

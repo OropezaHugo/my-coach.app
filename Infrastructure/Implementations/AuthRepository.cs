@@ -13,4 +13,23 @@ public class AuthRepository(CoachAppContext context): IAuthRepository
             .Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.Email == email);
     }
+
+    public async Task<User> RegisterUser(User user)
+    {
+        var newUser = context.Set<User>().Add(user).Entity;
+        await context.SaveChangesAsync();
+        await context.Achievements.ForEachAsync(achievement =>
+        {
+            context.UserAchievements.Add(new UserAchievements()
+            {
+                AchievementId = achievement.Id,
+                UserId = newUser.Id,
+                AchievementActualLevel = 0,
+                AchievementStepsProgress = 0
+            });
+            context.SaveChanges();
+        });
+        
+        return newUser;
+    }
 }

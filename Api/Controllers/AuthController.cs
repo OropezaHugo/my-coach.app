@@ -16,8 +16,7 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class AuthController(
     IConfiguration configuration,
-    IAuthRepository repository,
-    IGenericRepository<User> userRepository
+    IAuthRepository repository
     ) : ControllerBase
 {
     [HttpGet("login")]
@@ -78,7 +77,7 @@ public class AuthController(
 
         if (user == null)
         {
-            user = userRepository.AddAsync(new User()
+            user = await repository.RegisterUser(new User()
             {
                 Email = email,
                 Name = payload.Name,
@@ -88,7 +87,6 @@ public class AuthController(
                 Birthday = new DateOnly(DateTime.UtcNow.Year - 13, DateTime.UtcNow.Month, DateTime.UtcNow.Day),
                 Id = 0
             });
-            await userRepository.SaveChangesAsync();
         }
         
         if (user.Role == null)

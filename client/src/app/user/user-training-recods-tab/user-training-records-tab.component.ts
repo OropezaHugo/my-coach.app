@@ -89,7 +89,6 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
         this.records = res
         this.dataSource = new MatTableDataSource(res);
         this.initChart();
-
         this.dataSource.sort = this.sort();
         this.dataSource.paginator = this.paginator();
       }
@@ -119,15 +118,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   deleteRecord(id:number){
     this.trainingRecordService.deleteRecordById(id).subscribe({
       next: (res) => {
-        this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
-          next: (res) => {
-            this.records = res
-            this.initChart();
-            this.dataSource.data = res;
-            this.dataSource.sort = this.sort();
-            this.dataSource.paginator = this.paginator();
-          }
-        })
+        this.refreshRecords()
       }
     })
   }

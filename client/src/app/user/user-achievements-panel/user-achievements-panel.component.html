@@ -1,7 +1,10 @@
 @if (achievements.length > 0) {
-  @for (achievement of achievements; track $index) {
-    <app-user-achievements-card [achievement]="achievement"/>
-  }
+  <div class="achievement-panel-div">
+    @for (achievement of achievements; track $index) {
+      <app-user-achievements-card [achievement]="achievement"/>
+    }
+  </div>
+
 } @else {
-  <p>There are not diets assigned yet</p>
+  <p>There are not achievements</p>
 }

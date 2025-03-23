@@ -15,4 +15,43 @@ public class AchievementRepository(CoachAppContext context): IAchievementReposit
             .Join(context.Achievements, ua => ua.AchievementId, a => a.Id, (ua, achievement) => new {ua, achievement}).ToListAsync();
         return res.Select(x => (x.ua, x.achievement));
     }
+
+    public void AddOnePointProgressToExerciseAchievement(int userId, int exerciseId)
+    {
+        var achievement = context.Achievements.First(achievement => achievement.ExerciseId == exerciseId);
+        var userAchievement = context.UserAchievements.First(achievements =>
+            achievements.AchievementId == achievement.Id && achievements.UserId == userId);
+        
+        if (userAchievement.AchievementActualLevel < achievement.AchievementStepsPerLevel.Count && userAchievement.AchievementStepsProgress + 1 >= achievement.AchievementStepsPerLevel[userAchievement.AchievementActualLevel])
+        {
+            userAchievement.AchievementActualLevel += 1;
+            userAchievement.AchievementStepsProgress = 0;
+        }
+        else
+        {
+            userAchievement.AchievementStepsProgress += 1;
+        }
+        context.UserAchievements.Update(userAchievement);
+        context.SaveChanges();
+    }
+
+    public void ReduceOnePointProgressToExerciseAchievement(int userId, int exerciseId)
+    {
+        
+        var achievement = context.Achievements.First(achievement => achievement.ExerciseId == exerciseId);
+        var userAchievement = context.UserAchievements.First(achievements =>
+            achievements.AchievementId == achievement.Id && achievements.UserId == userId);
+        
+        if (userAchievement.AchievementActualLevel < achievement.AchievementStepsPerLevel.Count && userAchievement.AchievementStepsProgress - 1 < 0)
+        {
+            userAchievement.AchievementActualLevel -= 1;
+            userAchievement.AchievementStepsProgress = achievement.AchievementStepsPerLevel[userAchievement.AchievementActualLevel] - 1;
+        }
+        else
+        {
+            userAchievement.AchievementStepsProgress -= 1;
+        }
+        context.UserAchievements.Update(userAchievement);
+        context.SaveChanges();
+    }
 }
