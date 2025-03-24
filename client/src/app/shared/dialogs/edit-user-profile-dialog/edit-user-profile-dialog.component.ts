@@ -56,7 +56,9 @@ export class EditUserProfileDialogComponent {
         email: this.data.email,
         roleId: this.data.roleId,
         avatarUrl: this.data.avatarUrl,
-        password: this.data.password
+        auth: this.data.auth,
+        endpoint: this.data.endpoint,
+        p256dh: this.data.p256dh,
       }).subscribe({
         next: data => {
           this.dialogRef.close();

@@ -6,6 +6,7 @@ using Core.ResponseDTOs;
 using Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebPush;
 
 namespace Api.Controllers;
 
@@ -60,6 +61,19 @@ public class UserController
     public async Task<ActionResult<bool>> PutUserById(int id, CreateUserDTO userDto)
     {
         var user = mapper.Map<User>((userDto, id));
+        repository.UpdateAsync(user);
+        return Ok(await repository.SaveChangesAsync());
+    }
+    
+    
+    [HttpPut("{id}/subscribe")]
+    public async Task<ActionResult<bool>> SubscribeForNotifications(int id, PushSubscription subscription)
+    {
+        var user = await repository.GetByIdAsync(id);
+        if (user == null) return NotFound();
+        user.Endpoint = subscription.Endpoint;
+        user.Auth = subscription.Auth;
+        user.P256dh = subscription.P256DH;
         repository.UpdateAsync(user);
         return Ok(await repository.SaveChangesAsync());
     }

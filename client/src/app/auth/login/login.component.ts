@@ -3,6 +3,7 @@ import {MatButton} from '@angular/material/button';
 import {UserService} from '../../services/user.service';
 import {NgOptimizedImage} from '@angular/common';
 import {GoogleUserInfo} from '../../models/auth.models';
+import {NotificationsService} from '../../services/notifications.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import {GoogleUserInfo} from '../../models/auth.models';
 })
 export class LoginComponent implements OnInit{
   userService = inject(UserService)
+  notificationService = inject(NotificationsService)
   tokenData: GoogleUserInfo | undefined = undefined;
   ngOnInit() {
     this.tokenData = this.userService.getTokenData()
@@ -26,5 +28,12 @@ export class LoginComponent implements OnInit{
 
   logout() {
     this.userService.logout()
+  }
+
+  notifyMe() {
+    let id = this.userService.userData()?.id
+    if (id) {
+      this.notificationService.subscribeToNotifications(id)
+    }
   }
 }

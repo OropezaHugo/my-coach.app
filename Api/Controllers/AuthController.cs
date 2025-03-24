@@ -82,10 +82,8 @@ public class AuthController(
                 Email = email,
                 Name = payload.Name,
                 AvatarUrl = payload.Picture,
-                Password = "qwerty",
                 RoleId = 2,
                 Birthday = new DateOnly(DateTime.UtcNow.Year - 13, DateTime.UtcNow.Month, DateTime.UtcNow.Day),
-                Id = 0
             });
         }
         

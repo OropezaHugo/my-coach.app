@@ -2,6 +2,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Api.Handlers;
 using Api.Handlers.Requirements;
+using Api.Jobs;
 using Api.Profiles;
 using Core.Interfaces;
 using Infrastructure.Data;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,8 +71,16 @@ builder.Services.AddScoped<IPrizeRepository, PrizeRepository>();
 builder.Services.AddScoped<IAchievementRepository, AchievementRepository>();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
-
-
+builder.Services.AddQuartz(q =>
+{
+    var jobKey = new JobKey("PushNotificationJob");
+    q.AddJob<PushNotificationJob>(opts => opts.WithIdentity(jobKey));
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("DailyTrigger")
+        .WithCronSchedule("0 40 8 * * ?", scheduleBuilder => scheduleBuilder.InTimeZone(TimeZoneInfo.Local).Build()));
+});
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 var app = builder.Build();
 app.UseRouting();
 
