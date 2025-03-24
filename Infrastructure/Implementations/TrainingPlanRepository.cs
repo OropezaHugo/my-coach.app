@@ -33,6 +33,7 @@ public class TrainingPlanRepository(CoachAppContext context): ITrainingPlanRepos
                         Id = plan.Id,
                         RoutineName = routine.RoutineName,
                         RoutineWeekDay = plan.RoutineWeekDay,
+                        ArrivalTime = plan.ArrivalTime,
                         RoutineExerciseContent = context.RoutineExercises.Where(routineExercise => routineExercise.RoutineId == routine.Id)
                             .Join(context.Exercises, routineExercise => routineExercise.ExerciseId, exercise => exercise.Id, 
                                 (routineExercise, exercise) => new RoutineExerciseContentDTO()

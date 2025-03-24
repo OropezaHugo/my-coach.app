@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CoachAppContext))]
-    partial class CoachAppContextModelSnapshot : ModelSnapshot
+    [Migration("20250324153152_ArrivalTimeOnRoutines")]
+    partial class ArrivalTimeOnRoutines
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,36 +216,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ExerciseId");
 
                     b.ToTable("Achievements");
-                });
-
-            modelBuilder.Entity("Core.Entities.GamificationEntities.NotificationSubscription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Auth")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Endpoint")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("P256dh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("NotificationSubscriptions");
                 });
 
             modelBuilder.Entity("Core.Entities.GamificationEntities.Prize", b =>
@@ -741,17 +714,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Exercise");
-                });
-
-            modelBuilder.Entity("Core.Entities.GamificationEntities.NotificationSubscription", b =>
-                {
-                    b.HasOne("Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.Entities.ISAKMeasures", b =>

@@ -65,19 +65,6 @@ public class UserController
         return Ok(await repository.SaveChangesAsync());
     }
     
-    
-    [HttpPut("{id}/subscribe")]
-    public async Task<ActionResult<bool>> SubscribeForNotifications(int id, PushSubscription subscription)
-    {
-        var user = await repository.GetByIdAsync(id);
-        if (user == null) return NotFound();
-        user.Endpoint = subscription.Endpoint;
-        user.Auth = subscription.Auth;
-        user.P256dh = subscription.P256DH;
-        repository.UpdateAsync(user);
-        return Ok(await repository.SaveChangesAsync());
-    }
-
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> DeleteUserById(int id)
     {

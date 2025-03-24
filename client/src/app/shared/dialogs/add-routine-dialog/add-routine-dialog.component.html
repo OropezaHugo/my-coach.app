@@ -13,5 +13,9 @@
       }
     </mat-select>
   </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Routine Name</mat-label>
+    <input matInput [formControl]="addRoutineForm.controls.routineArrivalTime">
+  </mat-form-field>
   <button mat-raised-button (click)="addRoutineToTrainingPlan()">Add Routine</button>
 </mat-dialog-content>

@@ -2,26 +2,31 @@
   {
     "TrainingPlanId": 1,
     "RoutineId": 1,
-    "RoutineWeekDay": "Lunes"
+    "RoutineWeekDay": "Lunes",
+    "ArrivalTime": "10:00:00"
   },
   {
     "TrainingPlanId": 1,
     "RoutineId": 2,
-    "RoutineWeekDay": "Miércoles"
+    "RoutineWeekDay": "Miércoles",
+    "ArrivalTime": "10:00:00"
   },
   {
     "TrainingPlanId": 2,
     "RoutineId": 3,
-    "RoutineWeekDay": "Martes"
+    "RoutineWeekDay": "Martes",
+    "ArrivalTime": "10:00:00"
   },
   {
     "TrainingPlanId": 3,
     "RoutineId": 4,
-    "RoutineWeekDay": "Jueves"
+    "RoutineWeekDay": "Jueves",
+    "ArrivalTime": "10:00:00"
   },
   {
     "TrainingPlanId": 4,
     "RoutineId": 5,
-    "RoutineWeekDay": "Viernes"
+    "RoutineWeekDay": "Viernes",
+    "ArrivalTime": "10:00:00"
   }
 ]

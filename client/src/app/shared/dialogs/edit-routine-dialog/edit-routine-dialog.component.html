@@ -1,11 +1,15 @@
 <mat-dialog-content>
   <mat-form-field appearance="outline">
     <mat-label>Routine WeekDay</mat-label>
-    <mat-select [formControl]="routineWeekDayForm">
+    <mat-select [formControl]="routineForm.controls.routineWeekDayForm">
       @for (weekDay of WEEKDAYS; track $index){
         <mat-option [value]="weekDay">{{weekDay}}</mat-option>
       }
     </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Routine Arrival Schedule</mat-label>
+    <input matInput [formControl]="routineForm.controls.routineArrivalTime">
   </mat-form-field>
   <button mat-raised-button (click)="editRoutineInTrainingPlan()">Done</button>
 </mat-dialog-content>

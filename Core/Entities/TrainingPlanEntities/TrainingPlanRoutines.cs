@@ -13,4 +13,5 @@ public class TrainingPlanRoutines: BaseEntity
     public Routine? Routine { get; set; }
     
     public required string RoutineWeekDay { get; set; }
+    public required TimeOnly ArrivalTime { get; set; }
 }

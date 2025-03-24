@@ -17,6 +17,7 @@ public class TrainingPlanRoutineProfile : Profile
                     .ForMember(dest => dest.TrainingPlanId, expression => expression.MapFrom(src => src.Item1.TrainingPlanId))
                     .ForMember(dest => dest.RoutineId, expression => expression.MapFrom(src => src.Item1.RoutineId))
                     .ForMember(dest => dest.RoutineWeekDay, expression => expression.MapFrom(src => src.Item1.RoutineWeekDay))
+                    .ForMember(dest => dest.ArrivalTime, expression => expression.MapFrom(src => src.Item1.ArrivalTime))
                     .ForMember(dest => dest.Id, expression => expression.MapFrom(src => src.Item2));
     }
 }

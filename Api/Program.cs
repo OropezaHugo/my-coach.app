@@ -69,6 +69,7 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<IPrizeRepository, PrizeRepository>();
 builder.Services.AddScoped<IAchievementRepository, AchievementRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
 builder.Services.AddQuartz(q =>
@@ -78,7 +79,7 @@ builder.Services.AddQuartz(q =>
     q.AddTrigger(opts => opts
         .ForJob(jobKey)
         .WithIdentity("DailyTrigger")
-        .WithCronSchedule("0 40 8 * * ?", scheduleBuilder => scheduleBuilder.InTimeZone(TimeZoneInfo.Local).Build()));
+        .WithCronSchedule("0 * * * * ?", scheduleBuilder => scheduleBuilder.InTimeZone(TimeZoneInfo.Local).Build()));
 });
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 var app = builder.Build();

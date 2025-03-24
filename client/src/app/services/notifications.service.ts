@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {SwPush} from '@angular/service-worker';
 import {UserModel} from '../models/user.models';
 import {convertBrowserOptions} from '@angular-devkit/build-angular/src/builders/browser-esbuild';
+import {NotificationData} from '../models/notification.models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,19 @@ export class NotificationsService {
       this.swPush.requestSubscription({
         serverPublicKey: this.VAPID_PUBLIC_KEY
       }).then(subscription => {
-        this.http.put<boolean>(`${this.baseUrl}/user/${userId}/subscribe`, {
-          endpoint: subscription.endpoint,
-          auth: subscription.toJSON().keys!['auth'],
-          p256dh: subscription.toJSON().keys!['p256dh']
-        }).subscribe();
+        this.createNotificationSubscription(
+          {
+            userId: userId,
+            endpoint: subscription.endpoint,
+            auth: subscription.toJSON().keys!['auth'],
+            p256dh: subscription.toJSON().keys!['p256dh']
+          }).subscribe()
       }).catch(error => {
         console.log(error);
       })
     }
+  }
+  createNotificationSubscription(data: NotificationData) {
+    return this.http.post<boolean>(`${this.baseUrl}/notificationsubscription`, data);
   }
 }

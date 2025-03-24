@@ -29,6 +29,7 @@ export interface TrainingPlanRoutineContent {
   routineId: number
   routineName: string
   routineWeekDay: string
+  arrivalTime: string
   routineExerciseContent: RoutineExerciseContent[]
 }
 
@@ -80,6 +81,7 @@ export interface TrainingPlanRoutineData {
   routineId: number
   trainingPlanId: number
   routineWeekDay: string
+  arrivalTime: string
 }
 
 export interface CreateExerciseData {

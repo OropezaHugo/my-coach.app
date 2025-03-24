@@ -33,19 +33,21 @@ export class AddRoutineDialogComponent {
   addRoutineForm = new FormGroup({
     routineName: new FormControl<string>('', Validators.required),
     routineWeekDay: new FormControl<string>('', [Validators.required]),
+    routineArrivalTime: new FormControl<string>('hh:mm', [Validators.required, Validators.pattern('^(?:[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')])
   })
 
   addRoutineToTrainingPlan() {
-    if (this.addRoutineForm.value.routineName && this.addRoutineForm.value.routineWeekDay) {
+    if (this.addRoutineForm.value.routineName && this.addRoutineForm.value.routineWeekDay && this.addRoutineForm.value.routineArrivalTime) {
       this.trainingPlanService.createRoutine({
         routineName: this.addRoutineForm.value.routineName,
       }).subscribe({
         next: routine => {
-          if (this.addRoutineForm.value.routineWeekDay){
+          if (this.addRoutineForm.value.routineWeekDay && this.addRoutineForm.value.routineArrivalTime){
             this.trainingPlanService.addRoutineToTrainingPlan({
               routineId: routine.id,
               routineWeekDay: this.addRoutineForm.value.routineWeekDay,
               trainingPlanId: this.data.trainingPlanId,
+              arrivalTime: this.addRoutineForm.value.routineArrivalTime,
             }).subscribe({
               next: routine => {
                 this.dialogRef.close()
