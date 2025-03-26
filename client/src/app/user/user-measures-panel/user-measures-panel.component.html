@@ -160,25 +160,151 @@
         <mat-expansion-panel-header>
           <mat-panel-title>Skin Folds</mat-panel-title>
         </mat-expansion-panel-header>
-        <p-chart type="line" [data]="skinFoldsData" [options]="options" class="h-[30rem]" />
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            [yScaleMin]="0.1"
+            xAxisLabel="Date"
+            yAxisLabel="Skin Fold[mm]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Skin Folds of"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="skinFoldsChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>Perimeters</mat-panel-title>
         </mat-expansion-panel-header>
-        <p-chart type="line" [data]="perimetersData" [options]="options" class="h-[30rem]" />
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            [yScaleMin]="15"
+            xAxisLabel="Date"
+            yAxisLabel="Perimeter[cm]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Perimeters of"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="perimetersChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>Diameters</mat-panel-title>
         </mat-expansion-panel-header>
-        <p-chart type="line" [data]="diametersData" [options]="options" class="h-[30rem]" />
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            [yScaleMin]="10"
+            xAxisLabel="Date"
+            yAxisLabel="Diameter [cm]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Diameters of"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="diametersChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title>Other Measures</mat-panel-title>
+          <mat-panel-title>Lengths Measures</mat-panel-title>
         </mat-expansion-panel-header>
-        <p-chart type="line" [data]="otherMeasuresData" [options]="options" class="h-[30rem]" />
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            [yScaleMin]="30"
+            xAxisLabel="Date"
+            yAxisLabel="Partial Length[cm]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Body Partial Lengths"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="lengthMeasuresChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Weight Measure</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            xAxisLabel="Date"
+            yAxisLabel="Weight[kg]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Body Weight"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="weightMeasuresChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Height Measure</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            xAxisLabel="Date"
+            yAxisLabel="Height[m]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            [yScaleMin]="0.1"
+            [yScaleMax]="3"
+            legendTitle="Total Height"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="heightMeasuresChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   }

@@ -1,7 +1,24 @@
-import {ChangeDetectorRef, Component, inject, input, OnInit, PLATFORM_ID, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  input,
+  OnInit,
+  PLATFORM_ID,
+  signal
+} from '@angular/core';
 import {MeasuresService} from '../../services/measures.service';
 import {MatButton} from '@angular/material/button';
-import {ISAKMeasuresModel} from '../../models/measure.models';
+import {
+  ISAKMeasuresModel,
+  transformMeasuresToDiametersSeries,
+  transformMeasuresToHeightMeasuresSeries,
+  transformMeasuresToLengthMeasuresSeries,
+  transformMeasuresToPerimetersSeries,
+  transformMeasuresToSkinFoldsSeries,
+  transformMeasuresToWeightMeasuresSeries
+} from '../../models/measure.models';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -14,6 +31,8 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
+import {LegendPosition, NgxChartsModule} from '@swimlane/ngx-charts';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-user-measures-panel',
@@ -28,7 +47,8 @@ import {
     UIChart,
     MatExpansionPanelHeader,
     MatExpansionPanel,
-    MatAccordion
+    MatAccordion,
+    NgxChartsModule
   ],
   templateUrl: './user-measures-panel.component.html',
   styleUrl: './user-measures-panel.component.scss'
@@ -38,6 +58,12 @@ export class UserMeasuresPanelComponent implements OnInit {
   editable = input.required<boolean>()
   editing = signal<boolean>(false)
   measuresService = inject(MeasuresService)
+  skinFoldsChartData: object[] = []
+  perimetersChartData: object[] = []
+  diametersChartData: object[] = []
+  lengthMeasuresChartData: object[] = []
+  weightMeasuresChartData: object[] = []
+  heightMeasuresChartData: object[] = []
   userMeasures: ISAKMeasuresModel[] = []
   addMeasuresForm = new FormGroup({
     tricepsMmSkinfold: new FormControl<number>(0, [Validators.required]),
@@ -65,20 +91,14 @@ export class UserMeasuresPanelComponent implements OnInit {
     wingspanCmMeasure: new FormControl<number>(0, [Validators.required]),
     footLengthCmMeasure: new FormControl<number>(0, [Validators.required]),
   })
-  otherMeasuresData: any;
-  skinFoldsData: any;
-  perimetersData: any;
-  diametersData: any;
   chartView = signal<boolean>(false);
-  options: any;
-  platformId = inject(PLATFORM_ID);
-  cd = inject(ChangeDetectorRef)
 
   ngOnInit() {
     this.measuresService.getMeasuresByUserId(this.userId() as number).subscribe({
       next: data => {
         this.userMeasures = data
         this.initChart();
+
       }
     })
   }
@@ -162,235 +182,13 @@ export class UserMeasuresPanelComponent implements OnInit {
   }
 
   initChart() {
-    if (isPlatformBrowser(this.platformId)) {
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = 'white'
-      const textColorSecondary = 'white'
-      const surfaceBorder = 'white'
-
-      this.otherMeasuresData = {
-        labels: this.userMeasures.map(value => value.measureDate),
-        datasets: [
-          {
-            label: 'weight (kg)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.weightKg)
-          },
-          {
-            label: 'height (mts)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.totalHeightMts)
-          },
-          {
-            label: 'wingspan (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.wingspanCm)
-          },
-          {
-            label: 'footLength (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.footLengthCm)
-          }
-        ]
-      };
-
-      this.skinFoldsData = {
-        labels: this.userMeasures.map(value => value.measureDate),
-        datasets: [
-          {
-            label: 'triceps (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.tricepsMm)
-          },
-          {
-            label: 'sub scapular (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.subscapularMm)
-          },
-          {
-            label: 'biceps (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.bicepsMm)
-          },
-          {
-            label: 'iliac (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.iliacCrestMm)
-          },
-          {
-            label: 'supra spinal (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.supraespinalMm)
-          },
-          {
-            label: 'abdominal (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.abdominalMm)
-          },
-          {
-            label: 'front thigh (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.frontThighMm)
-          },
-          {
-            label: 'medial calf (mm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.medialCalfMm)
-          }
-        ]
-      };
-      this.perimetersData = {
-        labels: this.userMeasures.map(value => value.measureDate),
-        datasets: [
-          {
-            label: 'relaxed arm (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.relaxedArmCm)
-          },
-          {
-            label: 'flexed arm (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.flexedArmCm)
-          },
-          {
-            label: 'waist (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.waistCm)
-          },
-          {
-            label: 'hip (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.hipCm)
-          },
-          {
-            label: 'mid thigh (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.midThighCm)
-          },
-          {
-            label: 'calf (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.calfCm)
-          },
-        ]
-      }
-      this.diametersData = {
-        labels: this.userMeasures.map(value => value.measureDate),
-        datasets: [
-          {
-            label: 'wrist (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.wristDiameterCm)
-          },
-          {
-            label: 'elbow (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.elbowDiameterCm)
-          },
-          {
-            label: 'knee (cm)',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.userMeasures.map(value => value.kneeDiameterCm)
-          },
-        ]
-      }
-      this.options = {
-        stacked: false,
-        maintainAspectRatio: false,
-        aspectRatio: 0.5,
-        plugins: {
-          legend: {
-            labels: {
-              color: textColor
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder
-            }
-          },
-          y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder
-            }
-          }
-        }
-      };
-      this.cd.markForCheck();
-    }
+    this.skinFoldsChartData = transformMeasuresToSkinFoldsSeries(this.userMeasures)
+    this.perimetersChartData = transformMeasuresToPerimetersSeries(this.userMeasures)
+    this.diametersChartData = transformMeasuresToDiametersSeries(this.userMeasures)
+    this.lengthMeasuresChartData = transformMeasuresToLengthMeasuresSeries(this.userMeasures)
+    this.weightMeasuresChartData = transformMeasuresToWeightMeasuresSeries(this.userMeasures)
+    this.heightMeasuresChartData = transformMeasuresToHeightMeasuresSeries(this.userMeasures)
   }
+
+  protected readonly LegendPosition = LegendPosition;
 }

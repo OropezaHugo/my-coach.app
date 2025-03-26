@@ -1,16 +1,17 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, computed,
   inject,
   input,
   OnInit,
-  PLATFORM_ID, signal, viewChild,
+  PLATFORM_ID,
+  signal,
+  viewChild,
 } from '@angular/core';
-import {TrainingRecordContent, TrainingRecordModel} from '../../models/training-records.models';
+import {TrainingRecordContent} from '../../models/training-records.models';
 import {UIChart} from 'primeng/chart';
-import {AppConfigService} from '../../services/app-config.service';
-import {DesignerService} from '../../services/designer.service';
 import {DatePipe, isPlatformBrowser} from '@angular/common';
 import {TrainingRecordService} from '../../services/training-record.service';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -21,21 +22,50 @@ import {
   MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {
+  MatDatepicker, MatDatepickerInput,
+  MatDatepickerToggle,
+  MatDateRangeInput,
+  MatDateRangePicker,
+  MatEndDate,
+  MatStartDate
+} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatInput} from '@angular/material/input';
+import {MatDialogActions, MatDialogContent} from '@angular/material/dialog';
+import {LegendPosition, NgxChartsModule} from '@swimlane/ngx-charts';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-user-training-records-tab',
   imports: [
-    UIChart,
+    NgxChartsModule,
+    MatSuffix,
+    MatButton,
+    MatDatepickerToggle,
+    ReactiveFormsModule,
+    MatLabel,
+    MatFormField,
+    MatExpansionPanelHeader,
     MatButton,
     MatLabel,
-    MatInput,
     MatFormField,
     MatSort,
     MatTable,
@@ -53,66 +83,103 @@ import {MatIcon} from '@angular/material/icon';
     MatSortHeader,
     MatHeaderRowDef,
     MatIconButton,
-    MatIcon
+    MatIcon,
+    MatHint,
+    MatError,
+    MatDateRangePicker,
+    MatDatepickerToggle,
+    ReactiveFormsModule,
+    MatStartDate,
+    MatEndDate,
+    MatDateRangeInput,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    MatAccordion
   ],
+  providers: [provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user-training-records-tab.component.html',
   styleUrl: './user-training-records-tab.component.scss'
 })
 export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   userId = input.required<number>();
-  exerciseId = input.required<number>();
+  exerciseId = input.required<number[]>();
   chartView = signal<boolean>(false)
-  columns: string[] = ['weightLifted', 'repetitionsMade', 'recordDate','actions']
-  data: any;
-  records: TrainingRecordContent[] = []
-  options: any;
-  platformId = inject(PLATFORM_ID);
+  columns: string[] = ['exerciseName','weightLifted', 'repetitionsMade', 'recordDate','actions']
+  recordsForTable: TrainingRecordContent[] = []
+  recordsForChart: TrainingRecordContent[][] = []
   trainingRecordService = inject(TrainingRecordService)
   dataSource:MatTableDataSource<TrainingRecordContent> = new MatTableDataSource()
   paginator = viewChild.required<MatPaginator>(MatPaginator)
   sort = viewChild.required<MatSort>(MatSort)
-  cd = inject(ChangeDetectorRef)
+  dateRangeForm = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  })
+  repetitionsChartData: object[] = []
+  weightsChartData: object[] = []
 
   ngOnInit() {
-    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
-      next: (res) => {
-        this.records = res
-        this.dataSource = new MatTableDataSource(res);
-        this.initChart();
-      }
+    this.recordsForTable = []
+    this.recordsForChart = []
+    this.exerciseId().forEach((exerciseId) => {
+      this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, exerciseId as number).subscribe({
+        next: (res) => {
+          this.recordsForTable = this.recordsForTable.concat(res)
+          this.recordsForChart.push(res)
+          this.dataSource = new MatTableDataSource(this.recordsForTable);
+          this.initChart();
+        }
+      })
     })
   }
 
   ngAfterViewInit() {
-    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
-      next: (res) => {
-        this.records = res
-        this.dataSource = new MatTableDataSource(res);
-        this.initChart();
-        this.dataSource.sort = this.sort();
-        this.dataSource.paginator = this.paginator();
-      }
-    })
+    this.refreshRecords()
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filterPredicate = (rec, filter) => rec.recordDate.trim().toLowerCase().includes(filter)
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  dateRangeFilter() {
+    return (data: TrainingRecordContent, filter: string): boolean => {
+      if (!this.dateRangeForm.value.start || !this.dateRangeForm.value.end) return true;
+      const recordDate = new Date(data.recordDate);
+      recordDate.setMinutes(recordDate.getTimezoneOffset());
+      return recordDate >= this.dateRangeForm.value.start && recordDate <= this.dateRangeForm.value.end;
+    };
+  }
+  dateRangeFilterChart() {
+    return (data: TrainingRecordContent): boolean => {
+      if (!this.dateRangeForm.value.start || !this.dateRangeForm.value.end) return true;
+      const recordDate = new Date(data.recordDate)
+      recordDate.setMinutes(recordDate.getTimezoneOffset());
+      return recordDate >= this.dateRangeForm.value.start && recordDate <= this.dateRangeForm.value.end;
+    };
+  }
+  applyFilter() {
+    const filterValue = `${this.dateRangeForm.value.start}-${this.dateRangeForm.value.end}`;;
+    this.dataSource.filterPredicate = this.dateRangeFilter()
+    this.initChart()
+    this.dataSource.filter = filterValue
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
   refreshRecords(){
-    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
-      next: (res) => {
-        this.records = res
-        this.initChart();
-        this.dataSource.data = res;
-        this.dataSource.sort = this.sort();
-        this.dataSource.paginator = this.paginator();
-      }
+    this.recordsForTable = []
+    this.recordsForChart = []
+    this.exerciseId().forEach((exerciseId) => {
+      this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, exerciseId as number).subscribe({
+        next: (res) => {
+          this.recordsForTable = this.recordsForTable.concat(res)
+          this.recordsForChart.push(res)
+          this.initChart();
+          this.dataSource.data = this.recordsForTable;
+          if (!this.chartView()) {
+            this.dataSource.sort = this.sort();
+            this.dataSource.paginator = this.paginator();
+          }
+
+        }
+      })
     })
   }
   deleteRecord(id:number){
@@ -122,81 +189,43 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
       }
     })
   }
+
   initChart() {
-    if (isPlatformBrowser(this.platformId)) {
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = 'white'
-      const textColorSecondary = 'white'
-      const surfaceBorder = 'white'
-
-      this.data = {
-        labels: this.records.map(value => value.recordDate),
-        datasets: [
-          {
-            label: 'repetitions',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.records.map(value => value.repetitionsMade)
-          },
-          {
-            label: 'weight',
-            fill: false,
-            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-            yAxisID: 'y',
-            tension: 0,
-            data: this.records.map(value => value.weightLifted)
-          }
-        ]
-      };
-
-      this.options = {
-        stacked: false,
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
-        plugins: {
-          legend: {
-            labels: {
-              color: textColor
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder
-            }
-          },
-          y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-            ticks: {
-              color: textColorSecondary
-            },
-            grid: {
-              color: surfaceBorder
-            }
-          }
-        }
-      };
-      this.cd.markForCheck();
-    }
+    this.repetitionsChartData = this.toNgxChartFormatRepetitions(this.recordsForChart)
+    this.weightsChartData = this.toNgxChartFormatWeights(this.recordsForChart)
   }
 
-  loadTableView() {
-    this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, this.exerciseId() as number).subscribe({
-      next: (res) => {
-        this.records = res
-        this.initChart();
-        this.dataSource.data = res;
-        this.chartView.set(!this.chartView())
-        this.refreshRecords()
-      }
+  changeView() {
+    this.chartView.set(!this.chartView())
+    this.refreshRecords()
+  }
+  toNgxChartFormatRepetitions(trainingData: TrainingRecordContent[][]) {
+    let result: any[] = [];
+    trainingData.forEach(recList => {
+      result.push({
+        name: recList[0].exercise.exerciseName,
+        series: recList.filter(this.dateRangeFilterChart()).map(rec => ({
+          name: rec.recordDate,
+          value: [rec.repetitionsMade],
+        }))
+      })
     })
+    return result;
   }
+  toNgxChartFormatWeights(trainingData: TrainingRecordContent[][]) {
+    let result: any[] = [];
+    trainingData.forEach(recList => {
+      result.push({
+        name: recList[0].exercise.exerciseName,
+        series: recList.filter(this.dateRangeFilterChart()).map(rec => ({
+          name: rec.recordDate,
+          value: [rec.weightLifted],
+        }))
+      })
+    })
+    return result;
+  }
+
+
+  protected readonly LegendPosition = LegendPosition;
 }

@@ -1,21 +1,87 @@
 <div class="record-tab-content">
   <button mat-raised-button (click)="refreshRecords()">Reload</button>
-  <button mat-raised-button (click)="loadTableView()">Change View</button>
+  <button mat-raised-button (click)="changeView()">Change View</button>
+
+  <mat-form-field appearance="outline" >
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="dateRangeForm" [rangePicker]="picker">
+      <input (dateChange)="applyFilter()" matStartDate [formControl]="dateRangeForm.controls.start" placeholder="Start date">
+      <input (dateChange)="applyFilter()" matEndDate [formControl]="dateRangeForm.controls.end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    @if (dateRangeForm.controls.start.hasError('matStartDateInvalid')) {
+      <mat-error>Invalid start date</mat-error>
+    }
+    @if (dateRangeForm.controls.end.hasError('matEndDateInvalid')) {
+      <mat-error>Invalid end date</mat-error>
+    }
+  </mat-form-field>
   @if (chartView()){
-    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Repetitions Chart</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            xAxisLabel="Date"
+            yAxisLabel="Repetitions"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Repetitions On Series of"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="repetitionsChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Weights Chart</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="chart-div">
+          <ngx-charts-line-chart
+            [autoScale]="true"
+            xAxisLabel="Date"
+            yAxisLabel="Weight[Kg]"
+            [legendPosition]="LegendPosition.Below"
+            [showGridLines]="true"
+            [legend]="true"
+            [showRefLabels]="true"
+            legendTitle="Weights On Series of"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="weightsChartData"
+          >
+          </ngx-charts-line-chart>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   } @else {
-    <mat-form-field appearance="outline">
-      <mat-label>Date filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="YYYY-MM-DD" #input>
-    </mat-form-field>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
 
+        <ng-container matColumnDef="exerciseName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ExerciseName </th>
+          <td mat-cell *matCellDef="let row"> {{row.exercise.exerciseName}} </td>
+        </ng-container>
         <ng-container matColumnDef="weightLifted">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
           <td mat-cell *matCellDef="let row"> {{row.weightLifted}} </td>
         </ng-container>
-
         <ng-container matColumnDef="repetitionsMade">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Repetitions </th>
           <td mat-cell *matCellDef="let row"> {{row.repetitionsMade}} </td>
@@ -36,7 +102,7 @@
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the date "{{input.value}}"</td>
+          <td class="mat-cell" colspan="4">No data matching the date ""</td>
         </tr>
       </table>
       <mat-paginator  [pageSizeOptions]="[5, 10, 15, 20]" ></mat-paginator>

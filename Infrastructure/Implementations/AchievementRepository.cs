@@ -18,10 +18,11 @@ public class AchievementRepository(CoachAppContext context): IAchievementReposit
 
     public void AddOnePointProgressToExerciseAchievement(int userId, int exerciseId)
     {
-        var achievement = context.Achievements.First(achievement => achievement.ExerciseId == exerciseId);
-        var userAchievement = context.UserAchievements.First(achievements =>
+        var achievement = context.Achievements.FirstOrDefault(achievement => achievement.ExerciseId == exerciseId);
+        if (achievement == null) return;
+        var userAchievement = context.UserAchievements.FirstOrDefault(achievements =>
             achievements.AchievementId == achievement.Id && achievements.UserId == userId);
-        
+        if (userAchievement == null) return;
         if (userAchievement.AchievementActualLevel < achievement.AchievementStepsPerLevel.Count && userAchievement.AchievementStepsProgress + 1 >= achievement.AchievementStepsPerLevel[userAchievement.AchievementActualLevel])
         {
             userAchievement.AchievementActualLevel += 1;

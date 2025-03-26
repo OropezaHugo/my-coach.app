@@ -22,6 +22,7 @@
     "@angular/router": "^19.0.0",
     "@angular/service-worker": "^19.0.0",
     "@primeng/themes": "^19.0.9",
+    "@swimlane/ngx-charts": "^22.0.0-alpha.0",
     "chart.js": "^4.4.8",
     "cookie-service": "^0.0.0",
     "jwt-decode": "^4.0.0",
