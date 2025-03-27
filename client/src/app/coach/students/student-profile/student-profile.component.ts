@@ -13,6 +13,7 @@ import {
 import {UserMeasuresPanelComponent} from "../../../user/user-measures-panel/user-measures-panel.component";
 import {UserPrizesPanelComponent} from '../../../user/user-prizes-panel/user-prizes-panel.component';
 import {UserAchievementsPanelComponent} from "../../../user/user-achievements-panel/user-achievements-panel.component";
+import {UserBadgesPanelComponent} from "../../../user/user-badges-panel/user-badges-panel.component";
 
 @Component({
   selector: 'app-student-profile',
@@ -28,6 +29,7 @@ import {UserAchievementsPanelComponent} from "../../../user/user-achievements-pa
         UserMeasuresPanelComponent,
         UserPrizesPanelComponent,
         UserAchievementsPanelComponent,
+        UserBadgesPanelComponent,
     ],
   templateUrl: './student-profile.component.html',
   styleUrl: './student-profile.component.scss'

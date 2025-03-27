@@ -29,6 +29,7 @@ public class AchievementProfile : Profile
             .ForMember(dest => dest.AchievementId, opt => opt.MapFrom(src => src.ua.AchievementId))
             .ForMember(dest => dest.AchievementStepsProgress, opt => opt.MapFrom(src => src.ua.AchievementStepsProgress))
             .ForMember(dest => dest.AchievementActualLevel, opt => opt.MapFrom(src => src.ua.AchievementActualLevel))
+            .ForMember(dest => dest.IsBadge, opt => opt.MapFrom(src => src.ua.IsBadge))
             .ForMember(dest => dest.AchievementStepsPerLevel, opt => opt.MapFrom(src => src.ac.AchievementStepsPerLevel));
     }
 }

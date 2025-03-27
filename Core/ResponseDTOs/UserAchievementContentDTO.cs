@@ -8,6 +8,7 @@ public class UserAchievementContentDTO
     public required int AchievementId { get; set; }
     public int AchievementStepsProgress { get; set; }
     public int AchievementActualLevel { get; set; }
+    public bool IsBadge { get; set; }
     
     
     public required string AchievementName { get; set; }

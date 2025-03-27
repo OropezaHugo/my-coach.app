@@ -1,6 +1,7 @@
 @if (user) {
   <button mat-icon-button (click)="openEditProfileDataDialog()"><mat-icon>edit</mat-icon></button>
   <app-user-profile [user]="user"/>
+  <app-user-badges-panel [userId]="user.id" [editable]="true"/>
   <mat-tab-group>
     <mat-tab label="Diets">
       <div class="user-home-tab-content-div">

@@ -14,4 +14,5 @@ public class UserAchievements: BaseEntity
     
     public int AchievementStepsProgress { get; set; }
     public int AchievementActualLevel { get; set; }
+    public bool IsBadge { get; set; }
 }

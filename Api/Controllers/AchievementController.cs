@@ -28,6 +28,13 @@ public class AchievementController(
         var items = await achievementRepository.GetAchievementsByUserId(userId);
         return Ok(items.Select(item => mapper.Map<UserAchievementContentDTO>(item)));
     }
+    
+    [HttpGet("user/{userId}/badges")]
+    public async Task<ActionResult<IEnumerable<UserAchievementContentDTO>>> GetAchievementsBadgesByUserId(int userId)
+    {
+        var items = await achievementRepository.GetAchievementsBadgesByUserId(userId);
+        return Ok(items.Select(item => mapper.Map<UserAchievementContentDTO>(item)));
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<AchievementResponseDTO>> GetAchievementById(int id)

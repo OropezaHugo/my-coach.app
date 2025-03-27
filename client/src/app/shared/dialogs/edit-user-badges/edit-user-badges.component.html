@@ -1,0 +1,19 @@
+<mat-dialog-content>
+  <div class="edit-badges-div">
+    @for (achievement of achievements; track $index){
+      <mat-card class="achievement-card" appearance="outlined" (click)="changeBadgeState(achievement)">
+        <mat-card-header>
+          <mat-card-title>{{achievement.achievementName}}</mat-card-title>
+          <mat-card-subtitle>{{achievement.isBadge ? 'Badge' : ''}}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="video-container" [style]="'border-color: ' + LEVEL_COLORS[achievement.achievementActualLevel]">
+          <video autoplay loop muted playsinline>
+            <source [src]="'achievements/achievement-gif/' + achievement.achievementImage" type="video/mp4">
+            video unsupported
+          </video>
+        </div>
+      </mat-card>
+    }
+  </div>
+
+</mat-dialog-content>

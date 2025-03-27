@@ -1,6 +1,7 @@
 <button mat-flat-button routerLink="/coach/home">Back</button>
 @if (user) {
   <app-user-profile [user]="user"/>
+  <app-user-badges-panel [userId]="user.id" [editable]="false"/>
   <mat-tab-group [dynamicHeight]="true">
     <mat-tab label="Diets">
       <div class="student-tab-content-div">

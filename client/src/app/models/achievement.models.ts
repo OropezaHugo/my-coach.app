@@ -9,8 +9,16 @@ export interface UserAchievementModel {
   obtainingDescription: string;
   achievementStepsPerLevel: number[];
   exerciseId: number;
+  isBadge: boolean;
 }
 
+export interface UserBadgeData {
+  userId: number;
+  achievementId: number;
+  achievementStepsProgress: number;
+  achievementActualLevel: number;
+  isBadge: boolean;
+}
 export const LEVEL_COLORS: Record<number, string> = {
   1: "#CD7F32",
   2: "#C0C0C0",

@@ -1,0 +1,11 @@
+<mat-card class="badge-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{badge().achievementName}}</mat-card-title>
+  </mat-card-header>
+  <div class="video-container" [style]="'border-color: ' + LEVEL_COLORS[badge().achievementActualLevel]">
+    <video autoplay loop muted playsinline>
+      <source [src]="'achievements/achievement-gif/' + badge().achievementImage" type="video/mp4">
+      video unsupported
+    </video>
+  </div>
+</mat-card>

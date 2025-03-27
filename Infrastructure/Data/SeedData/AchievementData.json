@@ -1,0 +1,23 @@
+[
+  {
+    "AchievementName": "Maestro de Flexiones",
+    "AchievementImage": "Man Doing Dead Stop Push Up Exercise For Chest.mp4",
+    "ObtainingDescription": "Completa flexiones para progresar en este logro.",
+    "AchievementStepsPerLevel": [10, 25, 50, 100, 200],
+    "ExerciseId": 1
+  },
+  {
+    "AchievementName": "Rey de las Sentadillas",
+    "AchievementImage": "Man Doing Squat Exercise for Legs.mp4",
+    "ObtainingDescription": "Domina las sentadillas",
+    "AchievementStepsPerLevel": [15, 30, 60, 120, 250],
+    "ExerciseId": 2
+  },
+  {
+    "AchievementName": "Dominadas Épicas",
+    "AchievementImage": "Man Doing Regular Reverse Grip Pull Up Exercise for Back.mp4",
+    "ObtainingDescription": "Supera te cada dia en las dominadas",
+    "AchievementStepsPerLevel": [5, 15, 30, 50, 100],
+    "ExerciseId": 3
+  }
+]

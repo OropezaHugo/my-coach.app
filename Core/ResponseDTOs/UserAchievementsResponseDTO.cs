@@ -7,4 +7,5 @@ public class UserAchievementsResponseDTO
     public required int AchievementId { get; set; }
     public int AchievementStepsProgress { get; set; }
     public int AchievementActualLevel { get; set; }
+    public bool IsBadge { get; set; }
 }

@@ -15,6 +15,7 @@ import {
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {UserAchievementsPanelComponent} from '../user-achievements-panel/user-achievements-panel.component';
+import {UserBadgesPanelComponent} from '../user-badges-panel/user-badges-panel.component';
 
 @Component({
   selector: 'app-user-home',
@@ -30,6 +31,7 @@ import {UserAchievementsPanelComponent} from '../user-achievements-panel/user-ac
     MatIcon,
     MatIconButton,
     UserAchievementsPanelComponent,
+    UserBadgesPanelComponent,
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.scss'

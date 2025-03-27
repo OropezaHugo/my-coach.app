@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Core.Entities;
 using Core.Entities.DietEntities;
+using Core.Entities.GamificationEntities;
 using Core.Entities.TrainingPlanEntities;
 
 namespace Infrastructure.Data;
@@ -177,7 +178,17 @@ public static class CoachAppSeed
                 await coachAppContext.SaveChangesAsync();
             }
         }
-        
+        // Seed Achievements
+        if (!coachAppContext.Achievements.Any())
+        {
+            var achievementData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/AchievementData.json");
+            var achievements = JsonSerializer.Deserialize<List<Achievement>>(achievementData);
+            if (achievements != null)
+            {
+                coachAppContext.Achievements.AddRange(achievements);
+                await coachAppContext.SaveChangesAsync();
+            }
+        }
         
     }
 }

@@ -1,0 +1,19 @@
+@if (badges.length > 0) {
+  <div class="achievement-panel-div" >
+    @for (badge of badges; track $index) {
+      @if (editable()) {
+        <app-user-badges-card [badge]="badge" (click)="openEditBadgesDialog()"/>
+      } @else {
+        <app-user-badges-card [badge]="badge"/>
+      }
+    }
+  </div>
+
+} @else {
+  @if (editable()) {
+    <p (click)="openEditBadgesDialog()">There are not badges yet </p>
+  } @else {
+    <p>There are not badges yet </p>
+  }
+
+}

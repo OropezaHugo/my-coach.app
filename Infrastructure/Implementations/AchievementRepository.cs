@@ -16,6 +16,13 @@ public class AchievementRepository(CoachAppContext context): IAchievementReposit
         return res.Select(x => (x.ua, x.achievement));
     }
 
+    public async Task<IEnumerable<(UserAchievements, Achievement)>> GetAchievementsBadgesByUserId(int userId)
+    {
+        var res = await context.UserAchievements.Where(userAchievement => userAchievement.UserId == userId && userAchievement.IsBadge)
+            .Join(context.Achievements, ua => ua.AchievementId, a => a.Id, (ua, achievement) => new {ua, achievement}).ToListAsync();
+        return res.Select(x => (x.ua, x.achievement));
+    }
+
     public void AddOnePointProgressToExerciseAchievement(int userId, int exerciseId)
     {
         var achievement = context.Achievements.FirstOrDefault(achievement => achievement.ExerciseId == exerciseId);
