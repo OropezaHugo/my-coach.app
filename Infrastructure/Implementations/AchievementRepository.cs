@@ -25,7 +25,7 @@ public class AchievementRepository(CoachAppContext context): IAchievementReposit
 
     public void AddOnePointProgressToExerciseAchievement(int userId, int exerciseId)
     {
-        var achievement = context.Achievements.FirstOrDefault(achievement => achievement.ExerciseId == exerciseId);
+        var achievement = context.Achievements.FirstOrDefault(achievement => achievement.ExerciseId == exerciseId && achievement.AchievementType == AchievementType.SeriesQuantityDone);
         if (achievement == null) return;
         var userAchievement = context.UserAchievements.FirstOrDefault(achievements =>
             achievements.AchievementId == achievement.Id && achievements.UserId == userId);
@@ -46,10 +46,12 @@ public class AchievementRepository(CoachAppContext context): IAchievementReposit
     public void ReduceOnePointProgressToExerciseAchievement(int userId, int exerciseId)
     {
         
-        var achievement = context.Achievements.First(achievement => achievement.ExerciseId == exerciseId);
-        var userAchievement = context.UserAchievements.First(achievements =>
-            achievements.AchievementId == achievement.Id && achievements.UserId == userId);
+        var achievement = context.Achievements.FirstOrDefault(achievement => achievement.ExerciseId == exerciseId && achievement.AchievementType == AchievementType.SeriesQuantityDone);
+        if (achievement == null) return;
         
+        var userAchievement = context.UserAchievements.FirstOrDefault(achievements =>
+            achievements.AchievementId == achievement.Id && achievements.UserId == userId);
+        if (userAchievement == null) return;
         if (userAchievement.AchievementActualLevel < achievement.AchievementStepsPerLevel.Count && userAchievement.AchievementStepsProgress - 1 < 0)
         {
             userAchievement.AchievementActualLevel -= 1;

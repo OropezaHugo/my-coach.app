@@ -1,5 +1,5 @@
 @if (badges.length > 0) {
-  <div class="achievement-panel-div" >
+  <div class="badges-panel-div" >
     @for (badge of badges; track $index) {
       @if (editable()) {
         <app-user-badges-card [badge]="badge" (click)="openEditBadgesDialog()"/>

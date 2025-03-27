@@ -15,6 +15,7 @@
     <p>
       {{achievement().obtainingDescription}}
     </p>
+    <p>{{ACHIEVEMENT_TYPE[achievement().achievementType]}}</p>
     @if (achievement().achievementActualLevel < achievement().achievementStepsPerLevel.length){
       <mat-progress-bar mode="determinate" [value]="100 * achievement().achievementStepsProgress / achievement().achievementStepsPerLevel[achievement().achievementActualLevel]"></mat-progress-bar>
       <p>{{achievement().achievementStepsProgress}} / {{ achievement().achievementStepsPerLevel[achievement().achievementActualLevel]}}</p>

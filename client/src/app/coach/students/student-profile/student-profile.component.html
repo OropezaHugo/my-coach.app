@@ -1,13 +1,17 @@
-<button mat-flat-button routerLink="/coach/home">Back</button>
+<button mat-flat-button routerLink="/coach/students">Back</button>
 @if (user) {
-  <app-user-profile [user]="user"/>
-  <app-user-badges-panel [userId]="user.id" [editable]="false"/>
+
   <mat-tab-group [dynamicHeight]="true">
+    <mat-tab label="Profile">
+      <div class="student-tab-content-div">
+        <app-user-profile [user]="user"/>
+        <app-user-badges-panel [userId]="user.id" [editable]="false"/>
+      </div>
+    </mat-tab>
     <mat-tab label="Diets">
       <div class="student-tab-content-div">
         <app-user-diets-panel [userId]="user.id" [editable]="true"/>
       </div>
-
     </mat-tab>
     <mat-tab label="Training Plans">
       <div class="student-tab-content-div">
@@ -18,7 +22,7 @@
     <mat-tab label="Training Records">
       @defer (on viewport){
         <div class="student-tab-content-div">
-          <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+          <app-user-training-records-tab [userId]="user.id"/>
         </div>
       } @placeholder (){
         <p>Hola</p>

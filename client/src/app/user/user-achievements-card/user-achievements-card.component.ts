@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {LEVEL_COLORS, UserAchievementModel} from '../../models/achievement.models';
+import {ACHIEVEMENT_TYPE, LEVEL_COLORS, UserAchievementModel} from '../../models/achievement.models';
 import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from '@angular/material/card';
 import {MatProgressBar} from '@angular/material/progress-bar';
 
@@ -20,4 +20,5 @@ export class UserAchievementsCardComponent {
   achievement = input.required<UserAchievementModel>()
 
   protected readonly LEVEL_COLORS = LEVEL_COLORS;
+  protected readonly ACHIEVEMENT_TYPE = ACHIEVEMENT_TYPE;
 }

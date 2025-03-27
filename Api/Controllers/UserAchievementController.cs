@@ -11,6 +11,7 @@ namespace Api.Controllers;
 [Route("/api/[controller]")]
 public class UserAchievementController(
     IGenericRepository<UserAchievements> repository,
+    IUserAchievementRepository userAchievementRepository,
     IMapper mapper
 ) : ControllerBase
 {
@@ -43,6 +44,15 @@ public class UserAchievementController(
         var entity = mapper.Map<UserAchievements>((dto, id));
         repository.UpdateAsync(entity);
         return Ok(await repository.SaveChangesAsync());
+    }
+    
+    
+    
+    
+    [HttpPut("{id}/badge")]
+    public async Task<ActionResult<bool>> ChangeBadgeStateById(int id, ChangeBasgeStateOfUserAchievementDTO dto)
+    {
+        return Ok(await userAchievementRepository.ChangeAchievementBadgeState(id, dto.IsBadge));
     }
 
     [HttpDelete("{id}")]

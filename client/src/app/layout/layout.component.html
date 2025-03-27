@@ -7,10 +7,12 @@
     <mat-nav-list>
       <a mat-list-item routerLink="guest/home">App Home</a>
       <a mat-list-item routerLink="callback">My Profile</a>
+      <a mat-list-item routerLink="community">Community</a>
       @if ((ROLES_IDS[userService.tokenData()?.role ?? ''] ?? 4) < 3){
         <a mat-list-item routerLink="food">Food Table</a>
       }
       @if ((ROLES_IDS[userService.tokenData()?.role ?? ''] ?? 4) < 2){
+        <a mat-list-item routerLink="coach/students">Manage Students</a>
         <a mat-list-item routerLink="coach/prizes">Prizes</a>
       }
 

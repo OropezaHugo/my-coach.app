@@ -12,13 +12,17 @@ export class MeasuresService {
   private http = inject(HttpClient)
 
   getMeasuresByUserId(userId: number){
-    return this.http.get<ISAKMeasuresModel[]>(`${environment.baseUrl}/isakmeasures/user/${userId}`)
+    return this.http.get<ISAKMeasuresModel[]>(`${this.baseUrl}/isakmeasures/user/${userId}`)
   }
 
   createISAKMeasure(data: ISAKMeasuresData){
-    return this.http.post<boolean>(`${environment.baseUrl}/isakmeasures`,data)
+    return this.http.post<boolean>(`${this.baseUrl}/isakmeasures`,data)
+  }
+
+  updateISAKMeasure(id: number, data: ISAKMeasuresData){
+    return this.http.put<boolean>(`${this.baseUrl}/isakmeasures/${id}`,data)
   }
   getLastMeasureIn3MonthsByUserId(userId: number){
-    return this.http.get<ISAKMeasuresModel>(`${environment.baseUrl}/isakmeasures/user/${userId}/last`)
+    return this.http.get<ISAKMeasuresModel>(`${this.baseUrl}/isakmeasures/user/${userId}/last`)
   }
 }

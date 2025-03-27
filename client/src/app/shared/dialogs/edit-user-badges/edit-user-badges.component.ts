@@ -35,11 +35,7 @@ export class EditUserBadgesComponent implements OnInit {
 
   changeBadgeState(achievement: UserAchievementModel) {
     this.achievementsService.updateUserBadge(achievement.id, {
-      userId: achievement.userId,
       isBadge: !achievement.isBadge,
-      achievementActualLevel: achievement.achievementActualLevel,
-      achievementId: achievement.achievementId,
-      achievementStepsProgress: achievement.achievementStepsProgress
     }).subscribe({
       next: data => {
         this.achievementsService.getUserAchievementsDataByUserId(this.data).subscribe({

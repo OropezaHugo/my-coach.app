@@ -1,3 +1,5 @@
+using Core.Entities.GamificationEntities;
+
 namespace Core.ResponseDTOs;
 
 public class UserAchievementContentDTO
@@ -14,6 +16,7 @@ public class UserAchievementContentDTO
     public required string AchievementName { get; set; }
     public required string AchievementImage { get; set; }
     public required string ObtainingDescription { get; set; }
+    public required AchievementType AchievementType { get; set; }
     public List<int> AchievementStepsPerLevel { get; set; } = new List<int>();
     public required int ExerciseId { get; set; }
 }

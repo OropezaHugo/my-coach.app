@@ -1,6 +1,13 @@
 import {Component, input} from '@angular/core';
 import {UserModel} from '../../../models/user.models';
-import {MatCard, MatCardActions, MatCardHeader, MatCardSubtitle, MatCardTitle} from '@angular/material/card';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle
+} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 
@@ -13,7 +20,8 @@ import {RouterLink} from '@angular/router';
     MatCardHeader,
     MatCardActions,
     MatCard,
-    RouterLink
+    RouterLink,
+    MatCardContent
   ],
   templateUrl: './student-card.component.html',
   styleUrl: './student-card.component.scss'

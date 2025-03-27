@@ -1,8 +1,12 @@
 @if (user) {
-  <button mat-icon-button (click)="openEditProfileDataDialog()"><mat-icon>edit</mat-icon></button>
-  <app-user-profile [user]="user"/>
-  <app-user-badges-panel [userId]="user.id" [editable]="true"/>
   <mat-tab-group>
+    <mat-tab label="Profile">
+      <div class="user-home-tab-content-div">
+        <button mat-icon-button (click)="openEditProfileDataDialog()"><mat-icon>edit</mat-icon></button>
+        <app-user-profile [user]="user"/>
+        <app-user-badges-panel [userId]="user.id" [editable]="true"/>
+      </div>
+    </mat-tab>
     <mat-tab label="Diets">
       <div class="user-home-tab-content-div">
         <app-user-diets-panel [userId]="user.id" [editable]="false"/>
@@ -16,7 +20,7 @@
     <mat-tab label="Training Records">
       @defer (on viewport){
         <div class="user-home-tab-content-div">
-          <app-user-training-recods-panel [userId]="user.id" [editable]="true"/>
+          <app-user-training-records-tab [userId]="user.id"/>
         </div>
       } @placeholder (){
         <h1>Loading</h1>

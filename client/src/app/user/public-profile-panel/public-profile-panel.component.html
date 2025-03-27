@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline">
+  <mat-label>Search By Name</mat-label>
+  <input matInput [formControl]="filetByNameForm" type="text" (keyup)="filterUsers()">
+</mat-form-field>
+
+@for (user of filteredUsers; track $index){
+  <app-public-profile [user]="user"/>
+}

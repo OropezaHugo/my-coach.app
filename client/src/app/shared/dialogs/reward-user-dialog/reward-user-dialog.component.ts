@@ -3,12 +3,16 @@ import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from '@angular/material
 import {PrizeModel, RewardUserDialogData} from '../../../models/prize.models';
 import {PrizesService} from '../../../services/prizes.service';
 import {UserPrizesCardComponent} from '../../../user/user-prizes-card/user-prizes-card.component';
+import {MatButton} from '@angular/material/button';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-reward-user-dialog',
   imports: [
     MatDialogContent,
-    UserPrizesCardComponent
+    UserPrizesCardComponent,
+    MatButton,
+    RouterLink
   ],
   templateUrl: './reward-user-dialog.component.html',
   styleUrl: './reward-user-dialog.component.scss'

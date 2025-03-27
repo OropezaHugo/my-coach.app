@@ -1,0 +1,7 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>{{user().name}}</mat-panel-title>
+  </mat-expansion-panel-header>
+  <h4>Birthdate: {{user().birthday | date}}</h4>
+  <app-user-badges-panel [userId]="user().id" [editable]="false"/>
+</mat-expansion-panel>

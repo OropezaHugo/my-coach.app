@@ -25,7 +25,6 @@ public class UserController
         return Ok(users.Select(user => mapper.Map<UserResponseDTO>(user)));
     }
     
-    [Authorize(Roles = "Coach")]
     [HttpGet("role/{roleId}")]
     public async Task<ActionResult<IEnumerable<UserResponseDTO>>> GetUsersByRoleId(int roleId)
     {

@@ -1,5 +1,12 @@
 <mat-dialog-content>
-  @for (prize of prizes; track $index){
-    <app-user-prize-card [prize]="prize" [editable]="true" (prizeId)="rewardUserWithPrize($event)"/>
+  <button mat-flat-button (click)="dialogRef.close()" [routerLink]="['/coach/prizes']">Go to prizes section</button>
+  @if (prizes.length > 0) {
+    @for (prize of prizes; track $index){
+      <app-user-prize-card [prize]="prize" [editable]="true" (prizeId)="rewardUserWithPrize($event)"/>
+    }
+  } @else {
+    <p>no prizes to give, create more in the prizes section</p>
+
   }
+
 </mat-dialog-content>

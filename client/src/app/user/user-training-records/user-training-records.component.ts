@@ -10,7 +10,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import {TrainingRecordContent} from '../../models/training-records.models';
+import {AddRecordDialogDada, ExerciseBasicData, TrainingRecordContent} from '../../models/training-records.models';
 import {UIChart} from 'primeng/chart';
 import {DatePipe, isPlatformBrowser} from '@angular/common';
 import {TrainingRecordService} from '../../services/training-record.service';
@@ -33,7 +33,7 @@ import {
 } from '@angular/material/table';
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
   MatDatepicker, MatDatepickerInput,
   MatDatepickerToggle,
@@ -42,9 +42,9 @@ import {
   MatEndDate,
   MatStartDate
 } from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
 import {MatInput} from '@angular/material/input';
-import {MatDialogActions, MatDialogContent} from '@angular/material/dialog';
+import {MatDialog, MatDialogActions, MatDialogContent} from '@angular/material/dialog';
 import {LegendPosition, NgxChartsModule} from '@swimlane/ngx-charts';
 import {
   MatAccordion,
@@ -52,6 +52,9 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
+import {MatSelect} from '@angular/material/select';
+import {convertBrowserOptions} from '@angular-devkit/build-angular/src/builders/browser-esbuild';
+import {AddRecordDialogComponent} from '../../shared/dialogs/add-record-dialog/add-record-dialog.component';
 
 @Component({
   selector: 'app-user-training-records-tab',
@@ -94,16 +97,18 @@ import {
     MatDateRangeInput,
     MatExpansionPanel,
     MatExpansionPanelTitle,
-    MatAccordion
+    MatAccordion,
+    MatOption,
+    MatSelect
   ],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './user-training-records-tab.component.html',
-  styleUrl: './user-training-records-tab.component.scss'
+  templateUrl: './user-training-records.component.html',
+  styleUrl: './user-training-records.component.scss'
 })
-export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
+export class UserTrainingRecordsComponent implements OnInit, AfterViewInit{
   userId = input.required<number>();
-  exerciseId = input.required<number[]>();
+  exerciseIdList: number[] = [];
   chartView = signal<boolean>(false)
   columns: string[] = ['exerciseName','weightLifted', 'repetitionsMade', 'recordDate','actions']
   recordsForTable: TrainingRecordContent[] = []
@@ -118,11 +123,23 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   })
   repetitionsChartData: object[] = []
   weightsChartData: object[] = []
+  exerciseBasicData: ExerciseBasicData[] = []
+  exerciseForm = new FormControl<number[]>([]);
+  dialog = inject(MatDialog)
 
+  loadUserExercises(){
+    this.trainingRecordService.getTrainingRecordExercisesBasicDataByUserId(this.userId() as number).subscribe({
+      next: (data) => {
+        this.exerciseBasicData = data;
+      }
+    })
+  }
   ngOnInit() {
     this.recordsForTable = []
     this.recordsForChart = []
-    this.exerciseId().forEach((exerciseId) => {
+    this.exerciseIdList = this.exerciseForm.value ?? []
+    this.loadUserExercises()
+    this.exerciseIdList.forEach((exerciseId) => {
       this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, exerciseId as number).subscribe({
         next: (res) => {
           this.recordsForTable = this.recordsForTable.concat(res)
@@ -164,9 +181,12 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
     }
   }
   refreshRecords(){
+    this.exerciseIdList = this.exerciseForm.value ?? []
     this.recordsForTable = []
     this.recordsForChart = []
-    this.exerciseId().forEach((exerciseId) => {
+    this.dataSource.data = this.recordsForTable;
+    this.initChart()
+    this.exerciseIdList.forEach((exerciseId) => {
       this.trainingRecordService.getTrainingRecordsByUserIdAndExerciseId(this.userId() as number, exerciseId as number).subscribe({
         next: (res) => {
           this.recordsForTable = this.recordsForTable.concat(res)
@@ -185,7 +205,18 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   deleteRecord(id:number){
     this.trainingRecordService.deleteRecordById(id).subscribe({
       next: (res) => {
+        this.loadUserExercises()
         this.refreshRecords()
+      }
+    })
+  }
+
+  openAddRecordDialog(data: AddRecordDialogDada) {
+    this.dialog.open(AddRecordDialogComponent, {
+      data: data,
+    }).afterClosed().subscribe({
+      next: () => {
+        this.loadUserExercises()
       }
     })
   }
@@ -202,6 +233,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   toNgxChartFormatRepetitions(trainingData: TrainingRecordContent[][]) {
     let result: any[] = [];
     trainingData.forEach(recList => {
+      if (recList.length < 1) return;
       result.push({
         name: recList[0].exercise.exerciseName,
         series: recList.filter(this.dateRangeFilterChart()).map(rec => ({
@@ -215,6 +247,7 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
   toNgxChartFormatWeights(trainingData: TrainingRecordContent[][]) {
     let result: any[] = [];
     trainingData.forEach(recList => {
+      if (recList.length < 1) return;
       result.push({
         name: recList[0].exercise.exerciseName,
         series: recList.filter(this.dateRangeFilterChart()).map(rec => ({
@@ -228,4 +261,5 @@ export class UserTrainingRecordsTabComponent implements OnInit, AfterViewInit{
 
 
   protected readonly LegendPosition = LegendPosition;
+  protected readonly console = console;
 }

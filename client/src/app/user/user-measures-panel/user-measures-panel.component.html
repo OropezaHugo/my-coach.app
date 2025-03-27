@@ -1,4 +1,9 @@
-@if (editable() && editing()){
+@if (editable() && (creating() || editing())){
+  @if (editing()) {
+    <h2>In Editing Mode we load the measures chose to edit</h2>
+  } @else if (creating()) {
+    <h2>In Creating Mode we load the last measures taken</h2>
+  }
   <h5>Skin Folds (mm)</h5>
   <div class="measures-form">
     <mat-form-field appearance="outline">
@@ -138,23 +143,30 @@
     </mat-form-field>
 
   </div>
-  <button mat-flat-button (click)="createMeasureReport()">Add Report</button>
-  <button mat-stroked-button (click)="editing.set(false)">Cancel</button>
+  @if (editing()) {
+    <button mat-flat-button (click)="updateMeasureReport()">Update Report</button>
+  } @else if (creating()) {
+    <button mat-flat-button (click)="createMeasureReport()">Add Report</button>
+  }
+  <button mat-stroked-button (click)="creating.set(false); editing.set(false); measureEditId = 0;">Cancel</button>
 } @else if (editable()){
-  <button mat-stroked-button (click)="entryEditingMode()">Create Report</button>
+  <button mat-stroked-button (click)="entryCreatingMode()">Create Report</button>
 }
 @if (userMeasures.length > 0) {
-  <button mat-stroked-button (click)="chartView.set(!chartView())">Toggle View</button>
-  @if (!editing() && !chartView()){
+
+  @if (!creating() && !editing() && !chartView()){
+    <button mat-stroked-button (click)="chartView.set(!chartView())">Toggle View</button>
     <div class="measure-div-display">
       @for (measure of userMeasures; track $index){
         <div>
           <h2>{{measure.measureDate}}</h2>
+          <button mat-icon-button (click)="entryEditingMode(measure)"><mat-icon>edit</mat-icon></button>
           <app-user-measures-table [ISAKMeasures]="measure"/>
         </div>
       }
     </div>
-  } @else if (!editing()){
+  } @else if (!creating() && !editing()){
+    <button mat-stroked-button (click)="chartView.set(!chartView())">Toggle View</button>
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -213,7 +225,7 @@
         <div class="chart-div">
           <ngx-charts-line-chart
             [autoScale]="true"
-            [yScaleMin]="10"
+            [yScaleMin]="1"
             xAxisLabel="Date"
             yAxisLabel="Diameter [cm]"
             [legendPosition]="LegendPosition.Below"
@@ -311,3 +323,4 @@
 } @else {
   <p>no measures submit yet </p>
 }
+

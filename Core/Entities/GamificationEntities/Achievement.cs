@@ -8,6 +8,7 @@ public class Achievement: BaseEntity
     public required string AchievementName { get; set; }
     public required string AchievementImage { get; set; }
     public required string ObtainingDescription { get; set; }
+    public required AchievementType AchievementType { get; set; }
     
     // index 0 = steps from level 0 to 1
     public List<int> AchievementStepsPerLevel { get; set; } = new List<int>();
@@ -17,4 +18,10 @@ public class Achievement: BaseEntity
     [ForeignKey(nameof(ExerciseId))]
     public Exercise? Exercise { get; set; }
     
+}
+
+public enum AchievementType
+{
+    SeriesQuantityDone,
+    MaxWeightLifted,
 }

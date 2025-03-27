@@ -1,8 +1,25 @@
+<mat-form-field appearance="outline">
+  <mat-label>Search By Name</mat-label>
+  <input matInput [formControl]="filetByNameForm" type="text" (keyup)="filterByName()">
+</mat-form-field>
 <h2>Students</h2>
-@for (user of students; track $index) {
-  <app-student-card [student]="user"/>
+@if (filteredStudents.length > 0) {
+  <div class="user-cards-div">
+    @for (user of filteredStudents; track $index) {
+      <app-student-card [student]="user"/>
+    }
+  </div>
+
+} @else {
+  <p>No students names contains "{{filetByNameForm.value}}"</p>
 }
 <h2>Coaches</h2>
-@for (user of coaches; track $index) {
-  <app-student-card [student]="user"/>
+@if (filteredCoaches.length > 0) {
+  <div class="user-cards-div">
+    @for (user of filteredCoaches; track $index) {
+      <app-student-card [student]="user"/>
+    }
+  </div>
+} @else {
+  <p>No coaches names contains "{{filetByNameForm.value}}"</p>
 }

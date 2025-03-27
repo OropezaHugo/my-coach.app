@@ -12,22 +12,24 @@ import {LoginComponent} from '../auth/login/login.component';
 import {RouterLink} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {ROLES_IDS} from '../models/auth.models';
+import {StudentsPanelComponent} from "../coach/students/students-panel/students-panel.component";
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
   standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    AsyncPipe,
-    LoginComponent,
-    RouterLink,
-  ]
+    imports: [
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        AsyncPipe,
+        LoginComponent,
+        RouterLink,
+        StudentsPanelComponent,
+    ]
 })
 export class LayoutComponent {
   userService = inject(UserService)

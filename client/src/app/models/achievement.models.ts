@@ -8,15 +8,13 @@ export interface UserAchievementModel {
   achievementImage: string;
   obtainingDescription: string;
   achievementStepsPerLevel: number[];
+  achievementType: number;
   exerciseId: number;
   isBadge: boolean;
 }
 
-export interface UserBadgeData {
-  userId: number;
-  achievementId: number;
-  achievementStepsProgress: number;
-  achievementActualLevel: number;
+export interface UserBadgeStateData {
+
   isBadge: boolean;
 }
 export const LEVEL_COLORS: Record<number, string> = {
@@ -27,3 +25,8 @@ export const LEVEL_COLORS: Record<number, string> = {
   5: "#800020",
   6: "#A5E4FF",
 };
+
+export const ACHIEVEMENT_TYPE: Record<number, string> = {
+  0: "Series Quantity Done",
+  1: "Max Weight Lifted"
+}

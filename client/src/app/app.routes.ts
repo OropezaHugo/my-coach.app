@@ -11,9 +11,12 @@ import {DietComponent} from './shared/diet/diet.component';
 import {TrainingPlanComponent} from './shared/training-plan/training-plan.component';
 import {FoodComponent} from './shared/food/food.component';
 import {PrizeComponent} from './shared/prize/prize.component';
+import {PublicProfilePanelComponent} from './user/public-profile-panel/public-profile-panel.component';
+import {StudentsPanelComponent} from './coach/students/students-panel/students-panel.component';
 
 export const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
+  {path: 'community', component: PublicProfilePanelComponent},
   { path: 'coach', canActivate:[authGuard, coachGuard], children: [
       { path: 'home', children: [
           {path: '', component: CoachHomeComponent},
@@ -21,6 +24,7 @@ export const routes: Routes = [
         ]
       },
       {path: 'prizes', component: PrizeComponent},
+      {path: 'students', component: StudentsPanelComponent},
       { path: 'student/:userId', children: [
           {path: '', component: StudentProfileComponent},
           {path: 'diet/:dietId', component: DietComponent, data: {editable: true}},

@@ -5,7 +5,6 @@ import {UserProfileComponent} from '../user-profile/user-profile.component';
 import {UserDietsPanelComponent} from '../user-diets-panel/user-diets-panel.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {UserTrainingPlansPanelComponent} from '../user-training-plans-panel/user-training-plans-panel.component';
-import {UserTrainingRecordsPanelComponent} from '../user-training-recods-panel/user-training-records-panel.component';
 import {UserMeasuresPanelComponent} from '../user-measures-panel/user-measures-panel.component';
 import {UserPrizesPanelComponent} from '../user-prizes-panel/user-prizes-panel.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -16,6 +15,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {UserAchievementsPanelComponent} from '../user-achievements-panel/user-achievements-panel.component';
 import {UserBadgesPanelComponent} from '../user-badges-panel/user-badges-panel.component';
+import {UserTrainingRecordsComponent} from '../user-training-records/user-training-records.component';
 
 @Component({
   selector: 'app-user-home',
@@ -25,13 +25,13 @@ import {UserBadgesPanelComponent} from '../user-badges-panel/user-badges-panel.c
     MatTabGroup,
     MatTab,
     UserTrainingPlansPanelComponent,
-    UserTrainingRecordsPanelComponent,
     UserMeasuresPanelComponent,
     UserPrizesPanelComponent,
     MatIcon,
     MatIconButton,
     UserAchievementsPanelComponent,
     UserBadgesPanelComponent,
+    UserTrainingRecordsComponent,
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.scss'
