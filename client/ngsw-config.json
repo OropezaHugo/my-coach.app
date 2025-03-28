@@ -35,7 +35,7 @@
         "ignoreSearch": true
       },
       "cacheConfig": {
-        "strategy": "performance",
+        "strategy": "freshness",
         "maxSize": 200,
         "maxAge": "1h",
         "timeout": "10s"

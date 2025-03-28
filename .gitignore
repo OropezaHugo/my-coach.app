@@ -13,6 +13,7 @@
 *.userosscache
 *.sln.docstates
 /n8n_data/
+/Api/wwwroot/
 /cert-n8n
 
 

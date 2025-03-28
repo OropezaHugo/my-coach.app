@@ -61,6 +61,9 @@
     <_ContentIncludedByDefault Remove="wwwroot\worker-basic.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\main-PYBT37GG.js" />
     <_ContentIncludedByDefault Remove="wwwroot\main-MKCZPUMF.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\chunk-WGWUOOWV.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\chunk-YOPUJXDV.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\main-B26Q732O.js" />
   </ItemGroup>
 
 </Project>
