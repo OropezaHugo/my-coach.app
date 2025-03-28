@@ -54,6 +54,7 @@ public class TrainingRecordController
         var trainingRecord = mapper.Map<TrainingRecord>(trainingRecordDto);
         repository.AddAsync(trainingRecord);
         achievementRepository.AddOnePointProgressToExerciseAchievement(trainingRecord.UserId, trainingRecord.ExerciseId);
+        achievementRepository.CheckForWeightImprovementOnAchievement(trainingRecord.UserId, trainingRecord.ExerciseId, trainingRecord.WeightLifted);
         return Ok(await repository.SaveChangesAsync());
     }
 

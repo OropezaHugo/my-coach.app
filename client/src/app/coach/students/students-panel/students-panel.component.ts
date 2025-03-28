@@ -32,7 +32,6 @@ export class StudentsPanelComponent implements OnInit {
     this.userService.getStudents().subscribe({
       next: data => {
         this.students = data
-        console.log(data)
         this.filterByName()
       }
     })

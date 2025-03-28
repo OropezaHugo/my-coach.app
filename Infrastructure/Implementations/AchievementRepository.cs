@@ -64,4 +64,57 @@ public class AchievementRepository(CoachAppContext context): IAchievementReposit
         context.UserAchievements.Update(userAchievement);
         context.SaveChanges();
     }
+
+    public void CheckForWeightImprovementOnAchievement(int userId, int exerciseId, double recordWeightLifted)
+    {
+        int recordInt = (int) recordWeightLifted;
+        var achievement = context.Achievements.FirstOrDefault(achievement => achievement.ExerciseId == exerciseId && achievement.AchievementType == AchievementType.MaxWeightLifted);
+        if (achievement == null) return;
+        var userAchievement = context.UserAchievements.FirstOrDefault(achievements =>
+            achievements.AchievementId == achievement.Id && achievements.UserId == userId);
+        if (userAchievement == null) return;
+        var actualMaxWeightLifted = CalculateActualMaxWeightLifted(achievement, userAchievement);
+        if (recordWeightLifted <= actualMaxWeightLifted) return;
+        var weightImprovement = recordInt - actualMaxWeightLifted;
+    
+        while (weightImprovement > 0)
+        {
+            if (userAchievement.AchievementActualLevel >= achievement.AchievementStepsPerLevel.Count)
+            {
+                userAchievement.AchievementStepsProgress += weightImprovement;
+                break;
+            }
+            var stepsForActualLevelUpgrade =
+                achievement.AchievementStepsPerLevel[userAchievement.AchievementActualLevel];
+            if (weightImprovement + userAchievement.AchievementStepsProgress >= stepsForActualLevelUpgrade)
+            {
+                userAchievement.AchievementActualLevel += 1;
+                userAchievement.AchievementStepsProgress = 0;
+            }
+            else
+            {
+                userAchievement.AchievementStepsProgress += weightImprovement;
+                
+            }
+            weightImprovement -= stepsForActualLevelUpgrade;
+        }
+        
+        context.UserAchievements.Update(userAchievement);
+        context.SaveChanges();
+    }
+
+    private int CalculateActualMaxWeightLifted(Achievement achievement, UserAchievements userAchievements)
+    {
+        var result = 0;
+        if (userAchievements.AchievementActualLevel > 0)
+        {
+            foreach (int weightPerLevel in achievement.AchievementStepsPerLevel.Slice(0, userAchievements.AchievementActualLevel))
+            {
+                result += weightPerLevel;
+            }    
+        }
+        result += userAchievements.AchievementStepsProgress;
+        return result;
+    }
+    
 }

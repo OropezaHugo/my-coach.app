@@ -24,6 +24,7 @@ public class AchievementProfile : Profile
             .ForMember(dest => dest.AchievementName, opt => opt.MapFrom(src => src.ac.AchievementName))
             .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ac.ExerciseId))
             .ForMember(dest => dest.AchievementImage, opt => opt.MapFrom(src => src.ac.AchievementImage))
+            .ForMember(dest => dest.AchievementType, opt => opt.MapFrom(src => src.ac.AchievementType))
             .ForMember(dest => dest.ObtainingDescription, opt => opt.MapFrom(src => src.ac.ObtainingDescription))
             .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.ua.UserId))
             .ForMember(dest => dest.AchievementId, opt => opt.MapFrom(src => src.ua.AchievementId))

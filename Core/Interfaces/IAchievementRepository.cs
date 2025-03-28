@@ -10,4 +10,5 @@ public interface IAchievementRepository
     Task<IEnumerable<(UserAchievements, Achievement)>> GetAchievementsBadgesByUserId(int userId);
     void AddOnePointProgressToExerciseAchievement(int userId, int exerciseId);
     void ReduceOnePointProgressToExerciseAchievement(int userId, int exerciseId);
+    void CheckForWeightImprovementOnAchievement(int userId, int exerciseId, double recordWeightLifted);
 }
