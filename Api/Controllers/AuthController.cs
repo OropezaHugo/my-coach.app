@@ -81,7 +81,7 @@ public class AuthController(
             {
                 Email = email,
                 Name = payload.Name,
-                AvatarUrl = payload.Picture,
+                AvatarId = 1,
                 RoleId = 2,
                 Birthday = new DateOnly(DateTime.UtcNow.Year - 13, DateTime.UtcNow.Month, DateTime.UtcNow.Day),
             });

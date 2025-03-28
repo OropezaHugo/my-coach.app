@@ -1,4 +1,12 @@
-<mat-dialog-content>
+<mat-dialog-content class="edit-dialog-content">
+  @if (userDataForm.value.avatar){
+    <img class="edit-profile-avatar" [src]="'avatars/' + userDataForm.value.avatar.avatarUrl" alt="actual avatar">
+  }
+  <div class="avatar-options-div">
+    @for (avatar of avatars; track $index){
+      <img (click)="userDataForm.controls.avatar.setValue(avatar)" class="edit-profile-avatar" [src]="'avatars/' + avatar.avatarUrl" alt="avatar">
+    }
+  </div>
   <mat-form-field appearance="outline">
     <mat-label>User Name</mat-label>
     <input matInput [formControl]="userDataForm.controls.userName">

@@ -167,6 +167,19 @@ public static class CoachAppSeed
             }
         }
         
+        
+        // Seed Avatars
+        if (!coachAppContext.Avatars.Any())
+        {
+            var avatarData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/AvatarData.json");
+            var avatars = JsonSerializer.Deserialize<List<Avatar>>(avatarData);
+            if (avatars != null)
+            {
+                coachAppContext.Avatars.AddRange(avatars);
+                await coachAppContext.SaveChangesAsync();
+            }
+        }
+        
         // Seed Users
         if (!coachAppContext.Users.Any())
         {
@@ -188,6 +201,26 @@ public static class CoachAppSeed
                 coachAppContext.Achievements.AddRange(achievements);
                 await coachAppContext.SaveChangesAsync();
             }
+        }
+        
+        //Seed User Achievements
+        if (!coachAppContext.UserAchievements.Any())
+        {
+            foreach (User user in coachAppContext.Users)
+            {
+                foreach (Achievement achievement in coachAppContext.Achievements)
+                {
+                    coachAppContext.UserAchievements.Add(new UserAchievements()
+                    {
+                        UserId = user.Id,
+                        AchievementId = achievement.Id,
+                        AchievementActualLevel = 0,
+                        AchievementStepsProgress = 0
+                    });
+                    await coachAppContext.SaveChangesAsync();
+                }  
+            }
+            
         }
         
     }

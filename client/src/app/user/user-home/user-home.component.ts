@@ -43,7 +43,8 @@ export class UserHomeComponent implements OnInit {
   dialog = inject(MatDialog)
   openEditProfileDataDialog() {
       this.dialog.open(EditUserProfileDialogComponent, {
-        data: this.user
+        data: this.user,
+        minHeight: '500px'
       }).afterClosed().subscribe({
         next: data => {
           if (this.user) {

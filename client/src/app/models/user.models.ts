@@ -5,6 +5,7 @@ export interface UserModel {
   endpoint: string,
   auth: string,
   p256dh: string,
+  avatarId: number,
   avatarUrl: string,
   birthday: string,
   roleId: number,
@@ -16,7 +17,7 @@ export interface UserData {
   endpoint: string,
   auth: string,
   p256dh: string,
-  avatarUrl: string,
+  avatarId: number,
   birthday: string,
   roleId: number,
 }

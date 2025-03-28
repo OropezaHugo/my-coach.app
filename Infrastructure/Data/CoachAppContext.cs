@@ -10,6 +10,7 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<Avatar> Avatars { get; set; }
     public DbSet<NotificationSubscription> NotificationSubscriptions { get; set; }
     public DbSet<ISAKMeasures> IsakMeasures { get; set; }
     public DbSet<TrainingRecord> TrainingRecords { get; set; }
@@ -37,6 +38,9 @@ public class CoachAppContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<User>()
+            .Navigation(user => user.Avatar)
+            .AutoInclude();
         modelBuilder.Entity<UserDiet>()
             .HasOne(ud => ud.User)
             .WithMany(u => u.UserDiets)

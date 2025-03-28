@@ -1,0 +1,22 @@
+.edit-profile-avatar {
+  border-radius: 50%;
+  height: 64px;
+  width: 64px;
+}
+
+.avatar-options-div {
+  display: flex;
+  flex-direction: row;
+  place-content: start;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.edit-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  place-content: start;
+}

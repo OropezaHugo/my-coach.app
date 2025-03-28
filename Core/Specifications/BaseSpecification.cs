@@ -45,8 +45,10 @@ public class BaseSpecification<T>(Expression<Func<T, bool>>? expression) : ISpec
     }
 }
 
-public class BaseSpecification<T, TResult> : BaseSpecification<T>, ISpecification<T, TResult>
+public class BaseSpecification<T, TResult>(Expression<Func<T, bool>>? expression) : BaseSpecification<T>(expression), ISpecification<T, TResult>
 {
+    protected BaseSpecification() : this(null){}
+
     public Expression<Func<T, TResult>>? Select { get; private set; }
 
     protected void AddSelect(Expression<Func<T, TResult>> selectExpression)

@@ -1,6 +1,6 @@
 <div class="login-actions-div">
 @if (tokenData) {
-  <img class="profile-avatar" [src]="userService.userData()?.avatarUrl" [alt]="tokenData.name">
+  <img class="profile-avatar" [src]="'avatars/' + userService.userData()?.avatarUrl" [alt]="tokenData.name">
   <button mat-stroked-button (click)="logout()">logout</button>
   <button mat-stroked-button (click)="notifyMe()">notify me</button>
 } @else {

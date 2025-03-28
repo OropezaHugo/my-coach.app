@@ -9,9 +9,9 @@ public class CreateUserDTO
     [Required]
     public required string Email { get; set; }
     
-    public string AvatarUrl { get; set; } = string.Empty;
     public DateOnly Birthday { get; set; }
     [Required]
     public int RoleId { get; set; }
-    
+    [Required]
+    public int AvatarId { get; set; }
 }

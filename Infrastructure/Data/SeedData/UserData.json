@@ -3,7 +3,7 @@
     "Name": "Hugo Oropeza",
     "Email": "oropezahugo35@gmail.com",
     "Password": "qwerty",
-    "AvatarUrl": "",
+    "AvatarId": 2,
     "Birthday": "2004-08-20",
     "RoleId": 1
   },
@@ -11,7 +11,7 @@
     "Name": "Wallenator",
     "Email": "hugorovilla@gmail.com",
     "Password": "qwerty",
-    "AvatarUrl": "",
+    "AvatarId": 1,
     "Birthday": "2004-08-25",
     "RoleId": 2
   }
