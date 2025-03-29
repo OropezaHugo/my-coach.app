@@ -44,8 +44,6 @@ public class GenericRepository<T>(CoachAppContext context): IGenericRepository<T
 
     public async void UpdateAsync(T entity)
     {
-        var foundEntity = await context.Set<T>().FindAsync(entity.Id);
-        if (foundEntity == null) return;
         context.Set<T>().Attach(entity);
         context.Entry(entity).State = EntityState.Modified;
     }

@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {authInterceptor} from './interceptors/auth.interceptor';
 import {providePrimeNG} from 'primeng/config';
+import {gatewayErrorInterceptor} from './interceptors/gateway-error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +16,8 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(
       withInterceptors([
-        authInterceptor
+        authInterceptor,
+        gatewayErrorInterceptor
       ])
     ),
     provideRouter(
